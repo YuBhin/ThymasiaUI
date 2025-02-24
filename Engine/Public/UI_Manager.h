@@ -3,6 +3,8 @@
 
 
 BEGIN(Engine)
+class CUIObject;
+
 
 class  CUI_Manager final : public CBase
 {
@@ -18,6 +20,8 @@ public:
 	void Late_Update(_float fTimeDelta);
 
 	void Clear(_uint iScenelIndex); // UI ¾À Áö¿ì±â
+	void Clear_Choice(_uint iUIType,_uint iScenelIndex, const _wstring& strSceneTag, CUIObject* pUIObj); // UI ¾À Áö¿ì±â
+	void Clear_Last(_uint iUIType,_uint iScenelIndex, const _wstring& strSceneTag);; // UI ¾À Áö¿ì±â
 	void Clear_ALL(); // UI ¸ðµç ¾À Áö¿ì±â
 	
 public:

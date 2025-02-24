@@ -10,16 +10,16 @@ class ENGINE_DLL CTransform final : public CComponent
 public:
 	struct TRANSFORM_DESC
 	{
-		_float			fSpeedPerSec    = {};	
-		_float			fRotationPerSec = {};	
+		_float			fSpeedPerSec = {};
+		_float			fRotationPerSec = {};
 		_float4         fPosition = {};
 		_float3         fScaling = {};
 	};
 
-	enum STATE {STATE_RIGHT, STATE_UP, STATE_LOOK, STATE_POSITION, STATE_END };
+	enum STATE { STATE_RIGHT, STATE_UP, STATE_LOOK, STATE_POSITION, STATE_END };
 
 private:
-	CTransform(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);	
+	CTransform(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual ~CTransform() = default;
 
 public:
@@ -31,30 +31,56 @@ public:
 		return XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_WorldMatrix));
 	}
 
-	const _float4x4* Get_WorldMatrix_Ptr() const {	
-		return &m_WorldMatrix;		
-	}	
-
-	void Set_WorldMatrix(_float4x4 worldmat) { m_WorldMatrix = worldmat; }		
-
-	/* set 하나만들어주자*/
-	void Set_MulWorldMatrix(const _float4x4* _Matrix)	
-	{
-		// _float4x4 -> XMMATRIX 변환 후 곱셈 수행
-		XMMATRIX result = XMLoadFloat4x4(_Matrix) * XMLoadFloat4x4(&m_WorldMatrix);	
-
-		// 결과를 _float4x4로 변환하여 m_WorldMatrix에 저장
-		XMStoreFloat4x4(&m_WorldMatrix, result);			
+	const _float4x4* Get_WorldMatrix_Ptr() const {
+		return &m_WorldMatrix;
 	}
 
+	void Set_WorldMatrix(_float4x4 worldmat) { m_WorldMatrix = worldmat; }
+
+	/* set 하나만들어주자*/
+	void Set_MulWorldMatrix(const _float4x4* _Matrix)
+	{
+		// _float4x4 -> XMMATRIX 변환 후 곱셈 수행
+		XMMATRIX result = XMLoadFloat4x4(_Matrix) * XMLoadFloat4x4(&m_WorldMatrix);
+
+		// 결과를 _float4x4로 변환하여 m_WorldMatrix에 저장
+		XMStoreFloat4x4(&m_WorldMatrix, result);
+	}
 
 	void Set_State(STATE eState, _fvector vState) {
 		/*_matrix		WorldMatrix = XMLoadFloat4x4(&m_WorldMatrix);
 		WorldMatrix.r[eState] = vState;
 		XMStoreFloat4x4(&m_WorldMatrix, WorldMatrix);*/
-		XMStoreFloat4(reinterpret_cast<_float4*>(&m_WorldMatrix.m[eState]), vState);		
+		XMStoreFloat4(reinterpret_cast<_float4*>(&m_WorldMatrix.m[eState]), vState);
 	}
 
+	void Set_State_UIObj(STATE eState, _float2 _fPos) {
+		_uint2			vViewportSize = { 1600,900 };
+
+		XMStoreFloat4(reinterpret_cast<_float4*>(&m_WorldMatrix.m[eState]), XMVectorSet(_fPos.x - (vViewportSize.x * 0.5f), -_fPos.y + (vViewportSize.y * 0.5f), 0.f, 1.f));
+	}
+	_float3 Get_State_UIObj(STATE eState) {
+
+		_float3 fPos = {};
+		_uint2			vViewportSize = { 1600,900 };
+
+		XMStoreFloat3(&fPos, XMLoadFloat4x4(&m_WorldMatrix).r[eState]);
+
+		return { fPos.x + (vViewportSize.x * 0.5f), -fPos.y + (vViewportSize.y * 0.5f), fPos.z };
+	}
+	_float2 Get_Scale_UIObj() {
+
+		_float2 fSizeSave = {};
+
+		fSizeSave = {
+			XMVectorGetX(Get_State(STATE_RIGHT)),
+			XMVectorGetY(Get_State(STATE_UP)) };
+		//,XMVectorGetZ(Get_State(STATE_LOOK))
+		return fSizeSave;
+	}
+	_float3 Get_Rotation_UIObj() {
+		return m_fRotation;
+	}
 
 
 public:
@@ -82,6 +108,8 @@ public:
 	void Turn_Move(_fvector vAxis, _float fTimeDelta);	
 	void Orbit_Move(_fvector vAxis, _float fTimeDelta, _fvector vCenter);	
 	
+	void Set_UIObj_Rotation(_fvector vAxis, _float fRadians);
+
 
 
 public:
@@ -102,6 +130,7 @@ private:
 	_float					m_fRotationPerSec = { 0.f };
 	_float4					m_fPosition = {};
 	_float3					m_fScaling = {};
+	_float3					m_fRotation = {};
 
 
 

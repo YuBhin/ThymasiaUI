@@ -8,6 +8,7 @@ CTransform::CTransform(ID3D11Device * pDevice, ID3D11DeviceContext * pContext)
 
 }
 
+
 HRESULT CTransform::Initialize_Prototype()
 {
 	XMStoreFloat4x4(&m_WorldMatrix, XMMatrixIdentity());	
@@ -235,6 +236,20 @@ void CTransform::Orbit_Move(_fvector vAxis, _float fTimeDelta, _fvector vCenter)
 	Set_State(STATE_POSITION, vNewCamPos);
 }
 
+void CTransform::Set_UIObj_Rotation(_fvector vAxis, _float fRadians)
+{
+	_float3			vScaled = Compute_Scaled();
+	
+	_vector			vRight = Get_State(CTransform::STATE_RIGHT);
+	_vector			vUp = Get_State(CTransform::STATE_UP);
+
+	_matrix		RotationMatrix = XMMatrixRotationZ(fRadians);
+
+	m_fRotation = { 0.f ,0.f , fRadians };
+	
+	Set_State(STATE_RIGHT, XMVector3TransformNormal(vRight, RotationMatrix));
+	Set_State(STATE_UP, XMVector3TransformNormal(vUp, RotationMatrix));
+}
 
 void CTransform::Rotation(_fvector vAxis, _float fRadians)
 {

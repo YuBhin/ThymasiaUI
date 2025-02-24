@@ -14,6 +14,7 @@ public:
 		_float			fNear, fFar;
 		_wstring		szProtoName;
 		_uint			iShaderPassNum;
+		_float3			fRotation;
 	};
 
 protected:
@@ -31,10 +32,15 @@ public:
 
 public:
 	virtual _bool Mouse_Select(HWND hWnd, _float fX, _float fY);
+	virtual _wstring& Get_UI_Name() { return m_szProtoName; }
+	
 	virtual _float3 Get_UI_Position() { return m_fPos; }
 	virtual _float2 Get_UI_Size() { return m_fSize; }
-	virtual _wstring& Get_UI_Name() { return m_szProtoName; }
 	virtual _uint Get_UI_ShaderPassNum() { return m_iShaderPassNum; }
+	virtual _uint Get_UI_Type() { return m_iUIType; }
+
+	virtual _uint Set_UI_ShaderPassNum(_uint iShadernum) { return m_iShaderPassNum = iShadernum; }
+
 public:
 	virtual void Set_Render_OnOff(_bool bOpen) { m_bRenderOpen = bOpen; }
 protected:
@@ -42,10 +48,11 @@ protected:
 protected:
 	_float4x4			m_ViewMatrix{}, m_ProjMatrix{};
 
-	_float3				m_fPos = {};
-	_float2				m_fSize = {};
+	_float3				m_fPos = {}; // 저장용
+	_float2				m_fSize = {}; // 저장용
 	_wstring			m_szProtoName = {};
 	_uint				m_iShaderPassNum = { 0 };		// 쉐이더 패스
+	_uint				m_iUIType = { 0 };		// UI 생성 타입
 protected:
 	_bool				m_bRenderOpen = { true };
 

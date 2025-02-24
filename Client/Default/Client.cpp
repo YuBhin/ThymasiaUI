@@ -66,7 +66,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //g_hIMGUIWIndow = CreateIMGUIWindow(hInstance);
     //if (!g_hIMGUIWIndow)
     //{
-    //    MessageBox(nullptr, L"Failed to Create IMGUI WIndow", L"Error", MB_OK);
+    //    
+    // 
+    // (nullptr, L"Failed to Create IMGUI WIndow", L"Error", MB_OK);
     //    return false;
     //}
 

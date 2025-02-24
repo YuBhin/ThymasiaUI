@@ -8,6 +8,7 @@
 
 namespace Client 
 {
+
 	const unsigned int		g_iWinSizeX = 1600;
 	const unsigned int		g_iWinSizeY = 900;
 
@@ -16,6 +17,7 @@ namespace Client
 
 	/* 컬링 거리 */
 	const float g_fCullingDistance = 30.f; 
+	
 	
 
 }

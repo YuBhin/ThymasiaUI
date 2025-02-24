@@ -3,7 +3,7 @@
 
 #include "GameInstance.h"
 #include "GameObject.h"
-
+#include "UIObject.h"
 CUI_Manager::CUI_Manager()
 	: m_pGameInstance{ CGameInstance::GetInstance() }
 {
@@ -52,6 +52,24 @@ void CUI_Manager::Clear(_uint iScenelIndex)
 	m_pScenes[iScenelIndex].clear();
 }
 
+void CUI_Manager::Clear_Choice(_uint iUIType, _uint iScenelIndex, const _wstring& strSceneTag, CUIObject* pUIObj)
+{
+	CUI_Scene* pUIScene = Find_UIScene(iScenelIndex, strSceneTag);
+	if (nullptr != pUIScene)
+	{
+		pUIScene->Clear_Choice(iUIType, pUIObj);
+	}
+}
+
+void CUI_Manager::Clear_Last(_uint iUIType, _uint iScenelIndex, const _wstring& strSceneTag)
+{
+	CUI_Scene* pUIScene = Find_UIScene(iScenelIndex, strSceneTag);
+	if (nullptr != pUIScene)
+	{
+		pUIScene->Clear_Last(iUIType);
+	}
+}
+
 void CUI_Manager::Clear_ALL()
 {
 	for (size_t i = 0; i < m_iNumScenes; i++)
@@ -61,7 +79,6 @@ void CUI_Manager::Clear_ALL()
 
 		m_pScenes[i].clear();
 	}
-
 }
 
 CUI_Scene* CUI_Manager::Find_UIScene(_uint iSceneIndex, const _wstring& strSceneTag)
@@ -84,7 +101,22 @@ HRESULT CUI_Manager::Add_UIObject_To_UIScene(_uint iPrototypeLevelIndex, const _
 	/* UIScene에 저장할 UIObj 복제해오기 */
 	CGameObject* pGameObject = dynamic_cast<CGameObject*>(m_pGameInstance->Clone_Prototype(PROTOTYPE::TYPE_GAMEOBJECT, iPrototypeLevelIndex, strPrototypeTag, pArg));
 	if (nullptr == pGameObject)
+	{
+		MessageBox(NULL, L"오브젝트 원형이 없음", TEXT("Fail"), MB_OK);
 		return E_FAIL;
+	}
+	if(iUIType != dynamic_cast<CUIObject*>(pGameObject)->Get_UI_Type())
+	{
+		Safe_Release(pGameObject);
+		MessageBox(NULL, L"UI 타입 설정이 잘못됨", TEXT("Fail"), MB_OK);
+		return E_FAIL;
+	}
+	if(0 == dynamic_cast<CUIObject*>(pGameObject)->Get_UI_Size().x || 0 == dynamic_cast<CUIObject*>(pGameObject)->Get_UI_Size().y)
+	{
+		Safe_Release(pGameObject);
+		MessageBox(NULL, L"UI 사이즈가 0 ", TEXT("Fail"), MB_OK);
+		return E_FAIL;
+	}
 
 	CUI_Scene* pScene = Find_UIScene(iSceneIndex, strSceneTag);
 

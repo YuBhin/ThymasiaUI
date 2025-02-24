@@ -171,8 +171,8 @@ HRESULT CLoader::Loading_For_Level_GamePlay()
 #pragma region Sky
 
 	/* For.Prototype_Component_Texture_Sky */
- 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_Sky"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaSkyBox/SkyCube%d.dds"), 2))))
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_Sky"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/SkyBox/Sky_3.dds"), 1))))
 		return E_FAIL;
 
 	/* For.Prototype_Component_Shader_VtxCube */

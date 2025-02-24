@@ -52,9 +52,6 @@
     <Filter Include="02.GameObject\Effect">
       <UniqueIdentifier>{9e7fcad4-496e-4017-b63d-f8f5214ea00b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\UI">
-      <UniqueIdentifier>{420a30ad-8a10-42b2-bcc7-ddad3d6fef83}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\Sky">
       <UniqueIdentifier>{445514f7-ecbc-4eee-90ce-e9e9f96fb668}</UniqueIdentifier>
     </Filter>
@@ -70,21 +67,6 @@
     <Filter Include="02.GameObject\Boss">
       <UniqueIdentifier>{46740bbd-aaa2-41ea-90b6-48784443a5b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\UI\Chair">
-      <UniqueIdentifier>{4d7099c8-9735-4dde-8c2b-68e3a1a6b905}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\UI\Chair\NewFilter1">
-      <UniqueIdentifier>{4f94ef7d-f015-4f25-9f1f-592e51c3b836}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\UI\Attribute">
-      <UniqueIdentifier>{95cbbdf3-df0d-405f-90ab-7cd7573c5a92}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\UI\Attribute\Slot">
-      <UniqueIdentifier>{cac1603d-8ca4-4d67-8ccb-9dea6276eeb5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\UI\LevelUp">
-      <UniqueIdentifier>{75b60a10-c0ef-451d-9fdc-de9b0c75a65f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="96.ImGUI">
       <UniqueIdentifier>{9d9f89b7-7a19-41a3-8656-a3c729912e86}</UniqueIdentifier>
     </Filter>
@@ -93,6 +75,30 @@
     </Filter>
     <Filter Include="96.ImGUI\Header">
       <UniqueIdentifier>{3b3e5ce2-5895-4add-80aa-3f7f55bfadb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\UI_Scene">
+      <UniqueIdentifier>{420a30ad-8a10-42b2-bcc7-ddad3d6fef83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\UI_Object">
+      <UniqueIdentifier>{94bad924-fc7d-4174-a62d-38d531e84dd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\UI_Object\Attribute_button_Player">
+      <UniqueIdentifier>{95cbbdf3-df0d-405f-90ab-7cd7573c5a92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\UI_Object\Menu_LeftBackground">
+      <UniqueIdentifier>{0126ca11-a395-4bf1-b58d-caf198e80502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\UI_Scene\PlayerAttribute">
+      <UniqueIdentifier>{bb1a3a43-4a5b-4ea2-8915-fe51783d7476}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\UI_Scene\PlayerLevelUp">
+      <UniqueIdentifier>{75b60a10-c0ef-451d-9fdc-de9b0c75a65f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\UI_Scene\BossHP">
+      <UniqueIdentifier>{4603ceec-da1e-46da-ac9f-c41aee4c629f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\UI_Object\BossHP_HPBar">
+      <UniqueIdentifier>{7979f5b2-ff0b-4769-9e5a-98641bfdb4ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -159,14 +165,17 @@
     <ClInclude Include="..\Public\Boss_Varg.h">
       <Filter>02.GameObject\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\UI_LeftBackground.h">
-      <Filter>02.GameObject\UI</Filter>
+    <ClInclude Include="..\Public\UI_LevelUP.h">
+      <Filter>02.GameObject\UI_Scene\PlayerLevelUp</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_AttributeButton.h">
-      <Filter>02.GameObject\UI\Attribute\Slot</Filter>
+      <Filter>02.GameObject\UI_Object\Attribute_button_Player</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\UI_LevelUP.h">
-      <Filter>02.GameObject\UI\LevelUp</Filter>
+    <ClInclude Include="..\Public\UI_PlayerAttribute.h">
+      <Filter>02.GameObject\UI_Scene\PlayerAttribute</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_LeftBackground.h">
+      <Filter>02.GameObject\UI_Object\Menu_LeftBackground</Filter>
     </ClInclude>
     <ClInclude Include="..\ImGui\imconfig.h">
       <Filter>96.ImGUI\Header</Filter>
@@ -191,9 +200,6 @@
     </ClInclude>
     <ClInclude Include="..\ImGui\imstb_truetype.h">
       <Filter>96.ImGUI\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\UI_PlayerAttribute.h">
-      <Filter>02.GameObject\UI\Attribute</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -251,14 +257,26 @@
     <ClCompile Include="..\Private\Boss_Varg.cpp">
       <Filter>02.GameObject\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\UI_LeftBackground.cpp">
-      <Filter>02.GameObject\UI</Filter>
+    <ClCompile Include="..\Private\UI_LevelUP.cpp">
+      <Filter>02.GameObject\UI_Scene\PlayerLevelUp</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_AttributeButton.cpp">
-      <Filter>02.GameObject\UI\Attribute\Slot</Filter>
+      <Filter>02.GameObject\UI_Object\Attribute_button_Player</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\UI_LevelUP.cpp">
-      <Filter>02.GameObject\UI\LevelUp</Filter>
+    <ClCompile Include="..\Private\UI_PlayerAttribute.cpp">
+      <Filter>02.GameObject\UI_Scene\PlayerAttribute</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_LeftBackground.cpp">
+      <Filter>02.GameObject\UI_Object\Menu_LeftBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_impl_win32.cpp">
+      <Filter>96.ImGUI\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_tables.cpp">
+      <Filter>96.ImGUI\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_widgets.cpp">
+      <Filter>96.ImGUI\Code</Filter>
     </ClCompile>
     <ClCompile Include="..\ImGui\imgui.cpp">
       <Filter>96.ImGUI\Code</Filter>
@@ -271,18 +289,6 @@
     </ClCompile>
     <ClCompile Include="..\ImGui\imgui_impl_dx11.cpp">
       <Filter>96.ImGUI\Code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ImGui\imgui_impl_win32.cpp">
-      <Filter>96.ImGUI\Code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ImGui\imgui_tables.cpp">
-      <Filter>96.ImGUI\Code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ImGui\imgui_widgets.cpp">
-      <Filter>96.ImGUI\Code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\UI_PlayerAttribute.cpp">
-      <Filter>02.GameObject\UI\Attribute</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

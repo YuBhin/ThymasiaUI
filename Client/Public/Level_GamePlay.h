@@ -3,10 +3,24 @@
 #include "Client_Defines.h"
 #include "Level.h"
 
+BEGIN(Engine)
+class CUIObject;
+END
 BEGIN(Client)
+
 
 class CLevel_GamePlay final : public CLevel
 {
+public:
+	struct UI_TextInfo // 텍스트 정보 저장용
+	{
+		_uint iTextID;			// 텍스트 고유 키값
+		_wstring pFontName;		// 사용하는 폰트 이름
+		_wstring pTextContent;  // 텍스트 내용
+		_float2 fTextStartPos;  // 그려지는 시작점
+		_float2 fTextSize;		// TextContent 길이에 따라 자동으로 구해지는 가로 세로 길이
+	};
+
 private:
 	CLevel_GamePlay(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual ~CLevel_GamePlay() = default;
@@ -19,57 +33,89 @@ public:
 private:
 	HRESULT Ready_Lights();
 	HRESULT Ready_Layer_BackGround(const _tchar* pLayerTag);
-	HRESULT Ready_Layer_Structure(const _tchar* pLayerTag);	
 	HRESULT Ready_Layer_Player(const _tchar* pLayerTag);	
 	HRESULT Ready_Layer_Camera(const _tchar* pLayerTag);
-	HRESULT Ready_Layer_Monster(const _tchar* pLayerTag);
 	HRESULT Ready_Layer_Effect(const _tchar* pLayerTag);
-
+	// UI 씬
 	HRESULT Ready_Layer_UI_Scene(const _tchar* pLayerTag);
 
-
-	// 테스트용 사다리 레이어 추가
-	HRESULT	Ready_Layer_Ladder(const _tchar* pLayerTag);
-	
 	//임시 UI 클릭 함수 - 유빈
 	HRESULT Select_UI();
-	HRESULT On_Mouse_UI();
-	void ShowGUI(); // 임구이
+	HRESULT On_Mouse_Text();
+
+	// 임구이
+	void ShowGUI(); 
 	void SetUIScene();
+	void SetUIObj_Type();
 	void SetUISetting();
 	void SetUIImage();
+	void SetUIFont();
 
-
+	//임구이 리소스 추가
+	HRESULT Save_UI_IMGUI_Textrue();
+	//임구이 리소스 로드
+	HRESULT Save_UI_Textrue(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
+	//임구이 마우스 클릭 제어
+	//객체 찾는 함수
 	//ui 오브젝트 생성
 	HRESULT Create_UI_Scene_Object();
 
-	HRESULT Save_UI_IMGUI_Textrue();
-	HRESULT Save_UI_Textrue(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
-
+	//저장
 	HRESULT SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSceneName); // 현재 UI 저장
 	HRESULT LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSceneName); // 현재 UI 저장
+
+	//Font 출력
+	HRESULT Create_Text();
+	//저장
+	//HRESULT SaveData_Text_Scene();
+	//HRESULT LoadData_Text_Scene();
+
+
 private:
 	_uint m_iOpenSceneCount = {0};
 	_bool m_bSceneOpen = { false };
-private:
-	_float3				m_fPos = {};			// UI 좌표, Z는 깊이 값
-	_float2				m_fSize = {};			// UI 크기 값
-	const _tchar*		m_szUIName = {};		// UI Prototype 값
 
+
+
+private: // UI 정보 저장용
+	_float3				m_fPos = {};			// UI 좌표, Z는 깊이 값 //  최초 생성 시 저장용 값
+	_float2				m_fSize = {};			// UI 크기 값// 최초 생성 시 저장용 값
+	_float3				m_fRotation = {};			// UI 크기 값// 최초 생성 시 저장용 값
+	
+	const _tchar*		m_szUIName = {};		// UI Prototype 값
 	const _tchar*		m_szUISceneName = {};	// UI 씬 종류 (메뉴, 특성, 레벨 업..등등)
 	_uint				m_iSceneIndex = {};		// 씬 번호
 	
 	_uint				m_iUIType = {0};			// UI 오브젝트 타입
 	_uint				m_iShaderPassNum = {12};		// 쉐이더 패스
-	
+private: //IMGUI
+
 	_char*				m_szTypeName = {};		// IMGUI 기능 설명 용
 	_int				m_iUIScenIndex = {0};	// IMGUI 기능 용
 
-	
+	_bool				m_bGetUIObjCheck = { false }; // Imgui 마우스 픽?
+	_bool				m_bMouseMoveCheck = { false }; // 선택한 ui가 마우스를 따라가게 하는 여부
+
+	CUIObject*			m_pCurrentUIObj = {}; // 임구이 조건에 의해 저장하기 위해서 멤버변수 추가
+
 	_tchar*				m_szSaveName = {}; // 현재 쓰는 곳 없음
 
 	map<_wstring, ID3D11ShaderResourceView*>				m_SRVs; // IMGUI 텍스처
 	_uint													m_iCountSRVs = { 0 }; // 혹시 몰라 저장하느 이미지 개수 카운트
+
+private: //Text Imgui
+	const _tchar*		m_szFontName = L"Font_Gulim_Default";// 사용하는 폰트 이름  
+	const _tchar*		m_szTextContent = L"테스트 출력";    // 출력되는 텍스트 내용
+
+	_float2				TextTest = {100.f,100.f};
+
+	_bool				m_bGetTextCheck = { true }; //
+	_bool				m_bTexMouseOn = { false };
+	_uint				m_iTextID = {0};
+
+	UI_TextInfo m_CurrentText = {};
+	vector<UI_TextInfo> m_TextInfo = {};
+	//multimap<const _tchar*, _float2> m_TextInfo; //텍스트 내용과 텍스트 사이즈를 저장 SaveLoad 용도
 
 public:
 	static CLevel_GamePlay* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

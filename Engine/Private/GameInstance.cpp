@@ -494,6 +494,10 @@ HRESULT CGameInstance::Render_Font(const wstring& strFontTag, const _tchar* pTex
 {
 	return m_pFont_Manager->Render(strFontTag, pText, vPosition, vColor, fRotation, vOrigin, fScale);
 }
+_float2 CGameInstance::Get_TextSize(const _wstring& strFontTag, const _tchar* pText)
+{
+	return m_pFont_Manager->Get_TextSize(strFontTag, pText);
+}
 _bool CGameInstance::isIn_Frustum_WorldSpace(_fvector vWorldPoint, _float fRange)
 {
 	return m_pFrustum->isIn_WorldSpace(vWorldPoint, fRange);
@@ -552,6 +556,16 @@ map<const _wstring, class CUI_Scene*>* CGameInstance::Find_UIScene_ALL()
 HRESULT CGameInstance::UIScene_UIObject_Render_OnOff(CUI_Scene* pScene, _bool bOpen)
 {
 	return m_pUI_Manager->UIScene_UIObject_Render_OnOff(pScene, bOpen);
+}
+
+void CGameInstance::Clear_Choice(_uint iUIType, _uint iScenelIndex, const _wstring& strSceneTag, CUIObject* pUIObj)
+{
+	return m_pUI_Manager->Clear_Choice(iUIType, iScenelIndex, strSceneTag, pUIObj);
+}
+
+void CGameInstance::Clear_Last(_uint iUIType, _uint iScenelIndex, const _wstring& strSceneTag)
+{
+	return m_pUI_Manager->Clear_Last(iUIType, iScenelIndex, strSceneTag);
 }
 
 void CGameInstance::Clear_ALL()

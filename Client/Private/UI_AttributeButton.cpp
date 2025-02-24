@@ -30,6 +30,8 @@ HRESULT CUI_AttributeButton::Initialize(void* pArg)
 	pDesc->fSpeedPerSec = 5.f;
 	pDesc->fRotationPerSec = XMConvertToRadians(90.f);
 
+	m_pUIObjName = L"특성 버튼입니다";
+
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
 				
@@ -74,6 +76,14 @@ HRESULT CUI_AttributeButton::Render()
 	m_pVIBufferCom->Bind_InputAssembler();
 
 	m_pVIBufferCom->Render();
+
+	_float2 TextSize = m_pGameInstance->Get_TextSize(TEXT("Font_Gulim_Default"), m_pUIObjName);
+
+	TextSize.x = m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).x - TextSize.x / 2;
+	TextSize.y = m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).y - TextSize.y / 2;
+	//{ m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).x, m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).y }
+	m_pGameInstance->Render_Font(TEXT("Font_Gulim_Default"), m_pUIObjName, TextSize);
+
 
 	return S_OK;
 }

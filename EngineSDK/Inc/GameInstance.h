@@ -8,6 +8,8 @@
 /* 1. 클라이언트 프로젝트에서 엔진프로젝트에 있는 기능을 호출하고자한다라면 무조건 GameInstance를 통해서 호출할 수 있도록 하겠다.  */
 
 BEGIN(Engine)
+class CUIObject;
+
 
 class ENGINE_DLL CGameInstance final : public CBase
 {
@@ -158,6 +160,7 @@ public:
 	HRESULT Render_Font(const wstring& strFontTag, const _tchar* pText, const _float2& vPosition,
 	_fvector vColor = XMVectorSet(1.f, 1.f, 1.f, 1.f), _float fRotation = 0.f,
 	const _float2& vOrigin = _float2(0.f, 0.f), const _float fScale = 1.f);
+	_float2 Get_TextSize(const _wstring& strFontTag, const _tchar* pText);
 #pragma endregion
 
 
@@ -182,6 +185,8 @@ public:
 	class CUI_Scene* Find_UIScene(_uint iSceneIndex, const _wstring& strSceneTag);
 	map<const _wstring, class CUI_Scene*>* Find_UIScene_ALL();
 	HRESULT UIScene_UIObject_Render_OnOff(CUI_Scene* pScene, _bool bOpen);
+	void Clear_Choice(_uint iUIType, _uint iScenelIndex, const _wstring& strSceneTag, CUIObject* pUIObj); // 선택 obj 지우기
+	void Clear_Last(_uint iUIType, _uint iScenelIndex, const _wstring& strSceneTag);; // 마지막꺼 지우기
 	void Clear_ALL(); // UI 모든 씬 지우기
 #pragma endregion UI_Manager
 
