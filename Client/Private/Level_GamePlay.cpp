@@ -37,6 +37,9 @@ HRESULT CLevel_GamePlay::Initialize()
 	if (FAILED(Ready_Layer_UI_Scene(TEXT("Layer_UIScene"))))
 		return E_FAIL;
 
+	if (FAILED(Ready_Layer_Ladder(TEXT("Layer_Ladder"))))
+		return E_FAIL;
+
 	if (FAILED(Ready_Lights()))
 		return E_FAIL;
 
@@ -46,11 +49,14 @@ HRESULT CLevel_GamePlay::Initialize()
 
 void CLevel_GamePlay::Update(_float fTimeDelta)
 {
-	
+
 	if (m_pGameInstance->isMouseEnter(DIM_RB))
 	{
-		Create_UI_Scene_Object();
-		//Create_Text();
+		if (m_bUIorText)
+			Create_UI_Scene_Object();
+		else
+			Create_Text();
+
 	}
 	//if (m_pGameInstance->isKeyEnter(DIK_E))
 	//{
@@ -74,24 +80,32 @@ void CLevel_GamePlay::Update(_float fTimeDelta)
 	//	}
 	//}
 
+	if (m_pGameInstance->isKeyEnter(DIK_F4))
+	{
+		if (m_bUIorText)
+			m_bUIorText = false;
+		else
+			m_bUIorText = true;
+
+	}
 	if (m_pGameInstance->isKeyEnter(DIK_F5))
 	{
-		if (m_bGetUIObjCheck)
+		if (m_bUIorText)
 		{
-			m_bGetUIObjCheck = false;
+			if (m_bGetUIObjCheck)
+				m_bGetUIObjCheck = false;
+			else
+				m_bGetUIObjCheck = true;
+
 		}
 		else
 		{
-			m_bGetUIObjCheck = true;
+			if (m_bGetTextCheck)
+				m_bGetTextCheck = false;
+			else
+				m_bGetTextCheck = true;
+
 		}
-		/*if (m_bGetTextCheck)
-		{
-			m_bGetTextCheck = false;
-		}
-		else
-		{
-			m_bGetTextCheck = true;
-		}*/
 	}
 	if (m_pGameInstance->isKeyEnter(DIK_F6))
 	{
@@ -103,19 +117,19 @@ void CLevel_GamePlay::Update(_float fTimeDelta)
 		{
 			m_bMouseMoveCheck = true;
 		}
-		/*if (m_bTexMouseOn)
+		if (m_bTexMouseOn)
 		{
 			m_bTexMouseOn = false;
 		}
 		else
 		{
 			m_bTexMouseOn = true;
-		}*/
+		}
 	}
 	if (m_pGameInstance->isKeyEnter(DIK_F8))
 	{
 		m_pGameInstance->Clear_Choice(m_iUIType, m_iSceneIndex, m_szUISceneName, m_pCurrentUIObj);
-	
+
 	}
 }
 
@@ -128,15 +142,14 @@ HRESULT CLevel_GamePlay::Render()
 	ShowGUI();
 	ImGui::Render();
 
-	/*m_pGameInstance->End_MRT();
 	m_pGameInstance->Render_Font(m_szFontName, m_szTextContent, TextTest);
 
 	vector<UI_TextInfo>::iterator it;
 	for (it = m_TextInfo.begin(); it != m_TextInfo.end(); it++)
 	{
- 		m_pGameInstance->Render_Font(it->pFontName.c_str(), it->pTextContent.c_str(), it->fTextStartPos);
-		
-	}*/
+		m_pGameInstance->Render_Font(it->strFontName.c_str(), it->srtTextContent.c_str(), it->fTextStartPos);
+
+	}
 
 	return S_OK;
 }
@@ -218,11 +231,15 @@ HRESULT CLevel_GamePlay::Ready_Layer_Effect(const _tchar* pLayerTag)
 
 HRESULT CLevel_GamePlay::Ready_Layer_UI_Scene(const _tchar* pLayerTag)
 {
-	/*if (FAILED(m_pGameInstance->Add_GameObject_To_Layer(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_LevelUP"), LEVEL_GAMEPLAY, pLayerTag)))
-		return E_FAIL;
+	//if (FAILED(m_pGameInstance->Add_GameObject_To_Layer(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_LevelUP"), LEVEL_GAMEPLAY, pLayerTag)))
+	//	return E_FAIL;
+	return S_OK;
+}
 
-	if (FAILED(m_pGameInstance->Add_GameObject_To_Layer(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Attribute"), LEVEL_GAMEPLAY, pLayerTag)))
-		return E_FAIL;*/
+HRESULT CLevel_GamePlay::Ready_Layer_Ladder(const _tchar* pLayerTag)
+{
+	if (FAILED(m_pGameInstance->Add_GameObject_To_Layer(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_Ladder"), LEVEL_GAMEPLAY, pLayerTag, nullptr)))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -283,19 +300,19 @@ HRESULT CLevel_GamePlay::On_Mouse_Text()
 		_float2 fTextEndPos = {}; // 그려지는 텍스트 영역을 계산하기 위한 변수
 
 		vector<UI_TextInfo>::iterator it;
-		for ( it = m_TextInfo.begin(); it != m_TextInfo.end(); it++)
+		for (it = m_TextInfo.begin(); it != m_TextInfo.end(); it++)
 		{
 			fTextEndPos.x = (*it).fTextStartPos.x + (*it).fTextSize.x;
 			fTextEndPos.y = (*it).fTextStartPos.y + (*it).fTextSize.y;
 
-			if (ptMouse.x >= (*it).fTextStartPos.x  &&
-				ptMouse.x <= fTextEndPos.x			&&
-				ptMouse.y >= (*it).fTextStartPos.y  &&
+			if (ptMouse.x >= (*it).fTextStartPos.x &&
+				ptMouse.x <= fTextEndPos.x &&
+				ptMouse.y >= (*it).fTextStartPos.y &&
 				ptMouse.y <= fTextEndPos.y)
 			{
 				m_CurrentText.iTextID = (*it).iTextID;
-				m_CurrentText.pFontName = (*it).pFontName;
-				m_CurrentText.pTextContent = (*it).pTextContent;
+				m_CurrentText.strFontName = (*it).strFontName;
+				m_CurrentText.srtTextContent = (*it).srtTextContent;
 				m_CurrentText.fTextSize = (*it).fTextSize;
 				m_CurrentText.fTextStartPos = (*it).fTextStartPos;
 			}
@@ -325,16 +342,42 @@ void CLevel_GamePlay::ShowGUI()
 		{
 
 			//메뉴
-			if (ImGui::MenuItem("Save"))
+			if (ImGui::MenuItem("UISave"))
 			{
-				SaveData_UI_Scene(m_iSceneIndex, m_szUISceneName);
+				if (m_bUIorText)
+					SaveData_UI_Scene(m_iSceneIndex, m_szUISceneName);
+				else
+					MessageBox(g_hWnd, L"UI 선택 후 저장하기", _T("Fail"), MB_OK);
+
 
 			}
 			ImGui::Separator();
-			if (ImGui::MenuItem("Open"))
+			if (ImGui::MenuItem("UILoad"))
 			{
-				LoadData_UI_Scene(m_iSceneIndex, m_szUISceneName);
+				if (m_bUIorText)
+					LoadData_UI_Scene(m_iSceneIndex, m_szUISceneName);
+				else
+					MessageBox(g_hWnd, L"UI 선택 후 불러오기", _T("Fail"), MB_OK);
 
+
+			}
+			//메뉴
+			ImGui::Separator();
+			if (ImGui::MenuItem("TextSave"))
+			{
+				if (!m_bUIorText)
+					SaveData_Text_Scene();
+				else
+					MessageBox(g_hWnd, L"Text 선택 후 저장하기", _T("Fail"), MB_OK);
+
+			}
+			ImGui::Separator();
+			if (ImGui::MenuItem("TextLoad"))
+			{
+				if (!m_bUIorText)
+					LoadData_Text_Scene();
+				else
+					MessageBox(g_hWnd, L"Text 선택 후 불러오기", _T("Fail"), MB_OK);
 			}
 			ImGui::Separator();
 			if (ImGui::MenuItem("Scene_Delete"))
@@ -344,7 +387,12 @@ void CLevel_GamePlay::ShowGUI()
 			ImGui::Separator();
 			if (ImGui::MenuItem("LastObj_Delete"))
 			{
-				m_pGameInstance->Clear_Last(m_iUIType,m_iSceneIndex, m_szUISceneName);
+				m_pGameInstance->Clear_Last(m_iUIType, m_iSceneIndex, m_szUISceneName);
+			}
+			ImGui::Separator();
+			if (ImGui::MenuItem("Text_Delete_ALL"))
+			{
+				Delete_TextContainer_ALL();
 			}
 			ImGui::EndMenu();
 		}
@@ -358,45 +406,80 @@ void CLevel_GamePlay::ShowGUI()
 
 void CLevel_GamePlay::SetUIScene()
 {
-	static int iradioSelect0 = 0;
-	static int iradioSelect1 = 0;
+	static _int Textchoice = 0;
 
-	ImGui::Text(u8"객체 선택 상태");
-	if (!m_bGetUIObjCheck)
+	if (m_bUIorText)
+		Textchoice = 0;
+	else
+		Textchoice = -1;
+
+
+	if (ImGui::RadioButton(u8"On == UI // Off == Text _DIK_F4", Textchoice == 0))
 	{
-		iradioSelect0 = 0;
+		Textchoice = 0;
+	}
+
+	ImGui::NewLine();
+
+	static _int iradioSelect0 = 0;
+	static _int iradioSelect1 = 0;
+
+	ImGui::Text(u8"UI 선택 상태");
+	if (m_bUIorText)
+	{
+		if (!m_bGetUIObjCheck)
+			iradioSelect0 = 0;
+		else
+			iradioSelect0 = -1;
+
+
+		if (ImGui::RadioButton("ObjChoose_DIK_F5", iradioSelect0 == 0))
+		{
+			iradioSelect0 = 0;
+		}
+
+		ImGui::SameLine();
+
+		if (m_bMouseMoveCheck)
+			iradioSelect1 = 1;
+		else
+			iradioSelect1 = -1;
+		if (ImGui::RadioButton("MouseOn_DIK_F6", iradioSelect1 == 1))
+		{
+			iradioSelect1 = 1;
+		}
+
 	}
 	else
 	{
-		iradioSelect0 = -1;
-	}
-	if (ImGui::RadioButton("ObjChoose_DIK_F5", iradioSelect0 == 0))
-	{
-		iradioSelect0 = 0;
+		if (!m_bGetTextCheck)
+			iradioSelect0 = 0;
+		else
+			iradioSelect0 = -1;
+
+
+		if (ImGui::RadioButton("TextChoose_DIK_F5", iradioSelect0 == 0))
+		{
+			iradioSelect0 = 0;
+		}
+
+		ImGui::SameLine();
+
+		if (m_bTexMouseOn)
+			iradioSelect1 = 1;
+		else
+			iradioSelect1 = -1;
+		if (ImGui::RadioButton("TextMouseOn_DIK_F6", iradioSelect1 == 1))
+		{
+			iradioSelect1 = 1;
+		}
 	}
 
-	ImGui::SameLine();
 
-	if (m_bMouseMoveCheck)
-	{
-		iradioSelect1 = 1;
-	}
-	else
-	{
-		iradioSelect1 = -1;
-	}
-	if (ImGui::RadioButton("MouseOn_DIK_F6", iradioSelect1 == 1))
-	{
-		iradioSelect1 = 1;
-	}
-	
-
-	
-	/*ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255,255 ));
-	ImGui::PopStyleColor();*/
 	ImGui::Text(u8"UIScene");
 
-	static int iradioSelect2 = 0;
+	static _int iradioSelect2 = 0;
+
 
 	//초기값 설정
 	if (iradioSelect2 == 0)
@@ -435,7 +518,7 @@ void CLevel_GamePlay::SetUIObj_Type()
 
 	static int iradioSelect1 = 0;
 
-	if (iradioSelect1 == 0)
+	if (iradioSelect1 == 0) // 기본값 설정
 	{
 		m_iUIType = 0;
 	}
@@ -612,14 +695,14 @@ void CLevel_GamePlay::SetUISetting()
 		{
 			if (nullptr != m_pCurrentUIObj)
 			{
-				dynamic_cast<CTransform*>(m_pCurrentUIObj->Find_Component(TEXT("Com_Transform")))->Scaling(_float3( fSize.x, fSize.y, 1.f ));
+				dynamic_cast<CTransform*>(m_pCurrentUIObj->Find_Component(TEXT("Com_Transform")))->Scaling(_float3(fSize.x, fSize.y, 1.f));
 
 			}
 		}
 		m_fSize = fSize;
 	}
 	ImGui::NewLine();
-	
+
 	ImGui::Text(u8"UI 회전");
 	ImGui::SameLine(100.f, 0.f);
 	if (ImGui::InputFloat3("UIRotation", &fRotation.x, "%.2f"))
@@ -631,8 +714,7 @@ void CLevel_GamePlay::SetUISetting()
 		{
 			if (nullptr != m_pCurrentUIObj)
 			{
-				_vector vTest = { 0.f,0.f,1.f };
-				dynamic_cast<CTransform*>(m_pCurrentUIObj->Find_Component(TEXT("Com_Transform")))->Set_UIObj_Rotation(vTest, fRotation.z);
+				dynamic_cast<CTransform*>(m_pCurrentUIObj->Find_Component(TEXT("Com_Transform")))->Set_UIObj_Rotation(fRotation.z);
 
 			}
 		}
@@ -686,7 +768,7 @@ void CLevel_GamePlay::SetUIImage()
 			iSelectButton = iTemp;
 			//m_iNumber = iTemp;
 		}
-	
+
 		iCount++;
 		if (iCount < 8)
 		{
@@ -696,10 +778,10 @@ void CLevel_GamePlay::SetUIImage()
 		{
 			iCount = 0;
 		}
-	
+
 		delete[] pStr;
 		pStr = nullptr;
-			
+
 		ImGui::PopID();
 		iTemp++;
 	}
@@ -716,58 +798,44 @@ void CLevel_GamePlay::SetUIFont()
 	vector<UI_TextInfo>::iterator it;
 	On_Mouse_Text();
 
-	if (!ImGui::CollapsingHeader("Font"))
+	if (ImGui::CollapsingHeader("Font"))
 	{
 		return;
 	}
+	ImGui::Separator();
+
 	ImGui::Text(u8"FontInfo");
+	ImGui::Separator();
 
-	//m_CurrentText.iTextID = (*it).iTextID;
-	//m_CurrentText.pFontName = (*it).pFontName;
-	//m_CurrentText.pTextContent = (*it).pTextContent;
-	//m_CurrentText.fTextSize = (*it).fTextSize;
-	//m_CurrentText.fTextStartPos = (*it).fTextStartPos;
+	//ImGui::Text("Score: %d", score);              // 정수 출력
+	//ImGui::Text("Time Elapsed: %.2f seconds", timeElapsed); // 실수 출력 (소수점 2자리)
+	//ImGui::Text("Message: %s", text.c_str()); // 문자열 출력
+
+	ImGui::BulletText("TextID: %d", m_CurrentText.iTextID);
+	ImGui::BulletText(u8"사용 폰트: %s", m_CurrentText.strFontName.c_str());
+	ImGui::BulletText(u8"텍스트 내용: %s", m_CurrentText.srtTextContent.c_str());
+	ImGui::BulletText(u8"가로 세로: %.2f / %.2f", m_CurrentText.fTextSize.x, m_CurrentText.fTextSize.y);
+	ImGui::BulletText("X Y : %.2f / %.2f", m_CurrentText.fTextStartPos.x, m_CurrentText.fTextStartPos.y);
+	ImGui::Separator();
 
 
-	ImGui::Text(u8"Font Text");
-
-	
+	ImGui::Text(u8"Font Text 입력");
 	static _char szInputText[MAX_PATH] = "";
-	if (ImGui::InputText("Enter Text", szInputText, IM_ARRAYSIZE(szInputText)))
+	//	_tchar  szLastPath[MAX_PATH] = {};
+	if (ImGui::InputText(u8"텍스트 내용 작성", szInputText, IM_ARRAYSIZE(szInputText)))
 	{
-		_tchar  szLastPath[MAX_PATH] = {};
-		MultiByteToWideChar(CP_ACP, 0, szInputText, strlen(szInputText), szLastPath, MAX_PATH);
-		const _tchar* Last = szLastPath;
+		_int iResize = MultiByteToWideChar(CP_UTF8, 0, szInputText, -1, NULL, 0);
+		m_szSaveName = new _tchar[iResize];
 
-		m_szTextContent = szLastPath;
+		MultiByteToWideChar(CP_UTF8, 0, szInputText, -1, m_szSaveName, iResize);
 
-		TextTest = m_pGameInstance->Get_TextSize(m_szFontName, m_szTextContent);
+		m_szTextContent = m_szSaveName;
 
-		TextTest.x = 100.f - TextTest.x / 2;
-		TextTest.y = 100.f - TextTest.y / 2;
-
-		/*m_CurrentText.pTextContent = Last;
-		m_CurrentText.fTextSize = TextSize;*/
-
-		
-		//m_CurrentText.fTextStartPos = TextSize;
-
-		//_float2 TextSize = m_pGameInstance->Get_TextSize(m_szFontName, m_szTextContent);//텍스트 가로 세로 길이
-		//Info.fTextSize = TextSize;
-
-		//// 소환하는 좌표와 그려지는 텍스트의 중점을 맞추는 계산
-		//TextSize.x = ptMouse.x - TextSize.x / 2;
-		//TextSize.y = ptMouse.y - TextSize.y / 2;
-		//Info.fTextStartPos = TextSize;
-
-		//Info.pFontName = m_szFontName;
-		//Info.pTextContent = m_szTextContent;
-		//Info.iTextID = m_iTextID;
-
+		// 디버깅용 출력
 	}
-	
-	
-	ImGui::Text("YouEnter: %s", szInputText);
+	else
+		m_bCurrentText = false;
+	ImGui::Text(u8"작성된: %s", szInputText);
 
 
 	if (!m_bGetTextCheck)// 현재 객체가 명확하게 선택 되어 있는 경우에만 작동
@@ -781,7 +849,6 @@ void CLevel_GamePlay::SetUIFont()
 					// 마우스 좌표를 텍스트 그려지는 좌표로 계산을 해서 집어 넣는다
 					(*it).fTextStartPos.x = ptMouse.x - (*it).fTextSize.x / 2;
 					(*it).fTextStartPos.y = ptMouse.y - (*it).fTextSize.y / 2;
-
 				}
 			}
 		}
@@ -810,8 +877,6 @@ void CLevel_GamePlay::SetUIFont()
 		}
 	}
 
-	//wsprintf(m_szFPS, TEXT("fps : %d"), m_iDrawCount);
-	//m_pGameInstance->Render_Font(TEXT("Font_Gulim_Default"), m_szFPS, _float2(0.f, 0.f));
 
 	ImGui::Separator();
 }
@@ -821,10 +886,15 @@ HRESULT CLevel_GamePlay::Create_UI_Scene_Object()
 	POINT	ptMouse{};
 	GetCursorPos(&ptMouse);
 	ScreenToClient(g_hWnd, &ptMouse);
-
-
 	CUIObject::UIOBJECT_DESC Desc{};
-		
+
+	if (nullptr == m_szUIName)
+	{
+		MessageBox(g_hWnd, L"생성할 UI 선택 필요", _T("Fail"), MB_OK);
+		return E_FAIL;
+
+	}
+
 	Desc.fSizeX = m_fSize.x;
 	Desc.fSizeY = m_fSize.y;
 	Desc.fX = (_float)ptMouse.x;
@@ -898,7 +968,7 @@ HRESULT CLevel_GamePlay::Save_UI_Textrue(const _tchar* _pObjTag, const _tchar* p
 
 HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSceneName) // 파라미터 => Load 시 각 씬 클래스 에서 집어 넣도록 = 여기서는 imgui를 통해서
 {
-	const _tchar* szUISceneName = L"../Bin/DataFiles/UISave/Defalut";
+	const _tchar* szUISceneName = L"../Bin/DataFiles/UISave/Defalut.dat";
 	if (0 == wcscmp(szSceneName, L"UIScene_PlayerMenu"))
 		szUISceneName = L"../Bin/DataFiles/UISave/PlayerMenu.dat";
 	if (0 == wcscmp(szSceneName, L"UIScene_PlayerLevelUP"))
@@ -909,7 +979,7 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 	HANDLE		hFile = CreateFile(szUISceneName, GENERIC_WRITE, NULL, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (INVALID_HANDLE_VALUE == hFile)
 	{
-		MessageBox(g_hWnd, L"Save File", _T("Fail"), MB_OK);
+		MessageBox(g_hWnd, L"Save File - UIScene", _T("Fail"), MB_OK);
 		return S_OK;
 	}
 
@@ -926,7 +996,7 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 		WriteFile(hFile, &dynamic_cast<CTransform*>(Button->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION), sizeof(_float3), &dwByte, nullptr);
 		WriteFile(hFile, &dynamic_cast<CTransform*>(Button->Find_Component(TEXT("Com_Transform")))->Get_Scale_UIObj(), sizeof(_float2), &dwByte, nullptr);
 		WriteFile(hFile, &dynamic_cast<CTransform*>(Button->Find_Component(TEXT("Com_Transform")))->Get_Rotation_UIObj(), sizeof(_float3), &dwByte, nullptr);
-		
+
 		iLen = (_uint)Button->Get_UI_Name().size();
 		WriteFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
 		WriteFile(hFile, Button->Get_UI_Name().c_str(), sizeof(_tchar) * iLen, &dwByte, nullptr);
@@ -997,7 +1067,7 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 	m_pGameInstance->Clear_ALL();
 
 
-	const _tchar* szUISceneName = L"../Bin/DataFiles/UISave/Defalut";
+	const _tchar* szUISceneName = L"../Bin/DataFiles/UISave/Defalut.dat";
 	if (0 == wcscmp(szSceneName, L"UIScene_PlayerMenu"))
 		szUISceneName = L"../Bin/DataFiles/UISave/PlayerMenu.dat";
 	if (0 == wcscmp(szSceneName, L"UIScene_PlayerLevelUP"))
@@ -1009,7 +1079,7 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 
 	if (INVALID_HANDLE_VALUE == hFile)
 	{
-		MessageBox(g_hWnd, L"Load File", _T("Fail"), MB_OK);
+		MessageBox(g_hWnd, L"Load File - UIScene", _T("Fail"), MB_OK);
 		return S_OK;
 	}
 
@@ -1076,13 +1146,123 @@ HRESULT CLevel_GamePlay::Create_Text()
 	TextSize.y = ptMouse.y - TextSize.y / 2;
 	Info.fTextStartPos = TextSize;
 
-	Info.pFontName= m_szFontName;
-	Info.pTextContent = m_szTextContent;
+	Info.strFontName = m_szFontName;
+	Info.srtTextContent = m_szTextContent;
 	Info.iTextID = m_iTextID;
 
 	m_TextInfo.push_back(Info);
-	
+
 	m_iTextID++;
+
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::SaveData_Text_Scene()
+{
+	const _tchar* szUISceneName = L"../Bin/DataFiles/UISave/DefalutText.dat";
+	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerMenu"))
+		szUISceneName = L"../Bin/DataFiles/UISave/PlayerMenuText.dat";
+	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerLevelUP"))
+		szUISceneName = L"../Bin/DataFiles/UISave/PlayerLevelUPText.dat";
+	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerAttribute"))
+		szUISceneName = L"../Bin/DataFiles/UISave/PlayerAttributeText.dat";
+
+	HANDLE		hFile = CreateFile(szUISceneName, GENERIC_WRITE, NULL, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (INVALID_HANDLE_VALUE == hFile)
+	{
+		MessageBox(g_hWnd, L"Save File - Text", _T("Fail"), MB_OK);
+		return S_OK;
+	}
+
+	DWORD	dwByte(0);
+	_uint iLen = {};
+	_float3 fPos = {};
+
+	vector<UI_TextInfo>::iterator it;
+	for (it = m_TextInfo.begin(); it != m_TextInfo.end(); it++)
+	{
+		WriteFile(hFile, &(*it).iTextID, sizeof(_uint), &dwByte, nullptr);
+
+		iLen = (_uint)(*it).strFontName.size();
+		WriteFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
+		WriteFile(hFile, (*it).strFontName.c_str(), sizeof(_tchar) * iLen, &dwByte, nullptr);
+
+		iLen = (_uint)(*it).srtTextContent.size();
+		WriteFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
+		WriteFile(hFile, (*it).srtTextContent.c_str(), sizeof(_tchar) * iLen, &dwByte, nullptr);
+
+
+		WriteFile(hFile, &(*it).fTextStartPos, sizeof(_float2), &dwByte, nullptr);
+		WriteFile(hFile, &(*it).fTextSize, sizeof(_float2), &dwByte, nullptr);
+	}
+
+
+	CloseHandle(hFile);
+
+	MessageBox(g_hWnd, L"텍스트 Save 완료", _T("성공"), MB_OK);
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::LoadData_Text_Scene()
+{
+	Delete_TextContainer_ALL();
+
+	const _tchar* szUISceneName = L"../Bin/DataFiles/UISave/DefalutText.dat";
+	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerMenu"))
+		szUISceneName = L"../Bin/DataFiles/UISave/PlayerMenuText.dat";
+	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerLevelUP"))
+		szUISceneName = L"../Bin/DataFiles/UISave/PlayerLevelUPText.dat";
+	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerAttribute"))
+		szUISceneName = L"../Bin/DataFiles/UISave/PlayerAttributeText.dat";
+
+	HANDLE		hFile = CreateFile(szUISceneName, GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+	if (INVALID_HANDLE_VALUE == hFile)
+	{
+		MessageBox(g_hWnd, L"Load File - Text", _T("Fail"), MB_OK);
+		return S_OK;
+	}
+
+	DWORD	dwByte(0);
+	UI_TextInfo TextInfo = {};
+	_uint iLen = {};
+
+	while (true)
+	{
+
+		ReadFile(hFile, &TextInfo.iTextID, sizeof(_uint), &dwByte, nullptr);
+
+		ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
+		TextInfo.strFontName.resize(iLen);
+		ReadFile(hFile, const_cast<wchar_t*>(TextInfo.strFontName.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
+
+		ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
+		TextInfo.srtTextContent.resize(iLen);
+		ReadFile(hFile, const_cast<wchar_t*>(TextInfo.srtTextContent.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
+
+		ReadFile(hFile, &TextInfo.fTextStartPos, sizeof(_float2), &dwByte, nullptr);
+		ReadFile(hFile, &TextInfo.fTextSize, sizeof(_float2), &dwByte, nullptr);
+
+
+		if (0 == dwByte)
+		{
+			break;
+		}
+
+
+		m_TextInfo.push_back(TextInfo);
+
+	}
+
+	CloseHandle(hFile);
+
+	MessageBox(g_hWnd, L"Text Load 완료", _T("성공"), MB_OK);
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::Delete_TextContainer_ALL()
+{
+	m_TextInfo.clear();
 
 	return S_OK;
 }
@@ -1112,4 +1292,7 @@ void CLevel_GamePlay::Free()
 		Safe_Release((*it).second);
 	}
 	m_SRVs.clear();
+
+	delete[] m_szSaveName;
+
 }

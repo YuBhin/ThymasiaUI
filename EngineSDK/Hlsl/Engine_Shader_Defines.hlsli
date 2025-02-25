@@ -53,9 +53,12 @@ DepthStencilState DSS_SKip_Z
 
 DepthStencilState DSS_Thymasia_UI
 {
-    DepthEnable = FALSE;
+    DepthEnable = TRUE;
     DepthWriteMask = ALL;
-    DepthFunc = ALWAYS;
+    DepthFunc = LESS_EQUAL;
+    StencilEnable = FALSE;
+
+
 };
 
 BlendState BS_Default

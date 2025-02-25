@@ -77,6 +77,26 @@ VS_OUT VS_MAIN(VS_IN In)
 }
 
 
+VS_OUT VS_Thymesia_UI(VS_IN In)
+{	
+	VS_OUT			Out = (VS_OUT)0;
+
+	Out.vPosition = mul(float4(In.vPosition, 1.f), g_WorldMatrix);
+    Out.vPosition = mul(Out.vPosition, g_ViewMatrix);
+    Out.vPosition = mul(Out.vPosition, g_ProjMatrix); 
+    Out.vPosition.z = 0.0;
+	Out.vTexcoord = In.vTexcoord;
+    
+	//Out.vWorldPos = Out.vPosition;
+
+	//Out.vPosition = mul(Out.vPosition, g_ViewMatrix);
+	//Out.vPosition = mul(Out.vPosition, g_ProjMatrix);	
+	//Out.vTexcoord = In.vTexcoord;
+
+	return Out;
+}
+
+
 
 VS_OUT VS_MAIN_SPRITE(VS_IN In)
 {
@@ -587,10 +607,10 @@ technique11 DefaultTechnique
     pass Thymesia_UI
     {
         SetRasterizerState(RS_Default);
-        SetDepthStencilState(DSS_Default, 0);
+        SetDepthStencilState(DSS_Thymasia_UI, 0);
         SetBlendState(BS_AlphaBlend, float4(0.f, 0.f, 0.f, 0.f), 0xffffffff);
 
-        VertexShader = compile vs_5_0 VS_MAIN();
+        VertexShader = compile vs_5_0 VS_Thymesia_UI();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_Thymesia_UI();
     }

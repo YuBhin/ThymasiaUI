@@ -22,10 +22,11 @@ public:
 public:
 	HRESULT Ready_UIObject();
 	HRESULT LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSceneName); // 현재 UI 불러오기
+	HRESULT LoadData_Text_Scene(); // 현재 UI 불러오기
 	//void Set_TexNumber(_int iNumber) { m_TexNumber = iNumber; }
-
 private:
 	//_int					m_TexNumber = {};
+	vector<UI_TextInfo> m_TextInfo = {};
 
 public:
 	static CUI_LevelUP* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

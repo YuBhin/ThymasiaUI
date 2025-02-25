@@ -61,7 +61,7 @@ public:
 	}
 	_float3 Get_State_UIObj(STATE eState) {
 
-		_float3 fPos = {};
+		_float3			fPos = {};
 		_uint2			vViewportSize = { 1600,900 };
 
 		XMStoreFloat3(&fPos, XMLoadFloat4x4(&m_WorldMatrix).r[eState]);
@@ -108,7 +108,7 @@ public:
 	void Turn_Move(_fvector vAxis, _float fTimeDelta);	
 	void Orbit_Move(_fvector vAxis, _float fTimeDelta, _fvector vCenter);	
 	
-	void Set_UIObj_Rotation(_fvector vAxis, _float fRadians);
+	void Set_UIObj_Rotation(_float fRadians);
 
 
 

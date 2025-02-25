@@ -71,6 +71,7 @@ HRESULT CUI_PlayerAttribute::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* 
 	_float3  m_fPos = {};
 	_float2  m_fSize = {};
 	_uint  iLen = {};
+	_float3  fRotation = {};
 	_wstring szSaveName = {};
 	_uint iUIType = {};
 	_uint iShaderNum = {};
@@ -79,6 +80,7 @@ HRESULT CUI_PlayerAttribute::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* 
 	{
 		ReadFile(hFile, &m_fPos, sizeof(_float3), &dwByte, nullptr);
 		ReadFile(hFile, &m_fSize, sizeof(_float2), &dwByte, nullptr);
+		ReadFile(hFile, &fRotation, sizeof(_float3), &dwByte, nullptr);
 
 		ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
 		szSaveName.resize(iLen);

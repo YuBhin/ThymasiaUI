@@ -44,6 +44,7 @@ void CUI_LevelUP::Update(_float fTimeDelta)
 void CUI_LevelUP::Late_Update(_float fTimeDelta)
 {
 	__super::Late_Update(fTimeDelta);
+	m_pGameInstance->Add_RenderGroup(CRenderer::RG_UI, this);
 }
 
 HRESULT CUI_LevelUP::Render()
@@ -53,7 +54,13 @@ HRESULT CUI_LevelUP::Render()
 
 HRESULT CUI_LevelUP::Ready_UIObject()
 {
-	LoadData_UI_Scene(UISCENE_LEVELUP, L"UIScene_PlayerLevelUP");
+	//LoadData_UI_Scene(UISCENE_LEVELUP, L"UIScene_PlayerLevelUP");
+
+	CUIObject::UIOBJECT_DESC Desc{};
+
+
+	if (FAILED(m_pGameInstance->Add_UIObject_To_UIScene(LEVEL_GAMEPLAY, L"Prototype_GameObject_UI_MouseCursor", UISCENE_LEVELUP, L"UIScene_PlayerLevelUP", UI_IMAGE, &Desc)))
+	return S_OK;
 
 	/*CUIObject::UIOBJECT_DESC Desc{};
 	Desc.fSizeX = 400.f;
@@ -92,6 +99,7 @@ HRESULT CUI_LevelUP::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSceneN
 	_float3  m_fPos = {};
 	_float2  m_fSize = {};
 	_uint  iLen = {};
+	_float3  fRotation = {};
 	_wstring szSaveName = {};
 	_uint iUIType = {};
 	_uint iShaderNum = {};
@@ -100,6 +108,7 @@ HRESULT CUI_LevelUP::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSceneN
 	{
 		ReadFile(hFile, &m_fPos, sizeof(_float3), &dwByte, nullptr);
 		ReadFile(hFile, &m_fSize, sizeof(_float2), &dwByte, nullptr);
+		ReadFile(hFile, &fRotation, sizeof(_float3), &dwByte, nullptr);
 
 		ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
 		szSaveName.resize(iLen);
@@ -131,6 +140,53 @@ HRESULT CUI_LevelUP::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSceneN
 	CloseHandle(hFile);
 
 	MessageBox(g_hWnd, L"Load 완료", _T("성공"), MB_OK);
+	return S_OK;
+}
+
+HRESULT CUI_LevelUP::LoadData_Text_Scene()
+{
+	HANDLE		hFile = CreateFile(L"../Bin/DataFiles/UISave/PlayerLevelUPText.dat", GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+	if (INVALID_HANDLE_VALUE == hFile)
+	{
+		MessageBox(g_hWnd, L"Load File - Text", _T("Fail"), MB_OK);
+		return S_OK;
+	}
+
+	DWORD	dwByte(0);
+	UI_TextInfo TextInfo = {};
+	_uint iLen = {};
+
+	while (true)
+	{
+
+		ReadFile(hFile, &TextInfo.iTextID, sizeof(_uint), &dwByte, nullptr);
+
+		ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
+		TextInfo.strFontName.resize(iLen);
+		ReadFile(hFile, const_cast<wchar_t*>(TextInfo.strFontName.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
+
+		ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
+		TextInfo.srtTextContent.resize(iLen);
+		ReadFile(hFile, const_cast<wchar_t*>(TextInfo.srtTextContent.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
+
+		ReadFile(hFile, &TextInfo.fTextStartPos, sizeof(_float2), &dwByte, nullptr);
+		ReadFile(hFile, &TextInfo.fTextSize, sizeof(_float2), &dwByte, nullptr);
+
+
+		if (0 == dwByte)
+		{
+			break;
+		}
+
+
+		m_TextInfo.push_back(TextInfo);
+
+	}
+
+	CloseHandle(hFile);
+
+	//MessageBox(g_hWnd, L"Text Load 완료", _T("성공"), MB_OK);
 	return S_OK;
 }
 

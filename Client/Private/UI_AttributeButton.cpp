@@ -82,7 +82,7 @@ HRESULT CUI_AttributeButton::Render()
 	TextSize.x = m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).x - TextSize.x / 2;
 	TextSize.y = m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).y - TextSize.y / 2;
 	//{ m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).x, m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).y }
-	m_pGameInstance->Render_Font(TEXT("Font_Gulim_Default"), m_pUIObjName, TextSize);
+	m_pGameInstance->Render_Font(TEXT("Font_Gulim_Default"), m_pUIObjName, TextSize, XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.0f, { 0.f,0.f },1.f,0.2f);
 
 
 	return S_OK;

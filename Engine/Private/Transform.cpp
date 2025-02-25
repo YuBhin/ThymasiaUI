@@ -236,19 +236,29 @@ void CTransform::Orbit_Move(_fvector vAxis, _float fTimeDelta, _fvector vCenter)
 	Set_State(STATE_POSITION, vNewCamPos);
 }
 
-void CTransform::Set_UIObj_Rotation(_fvector vAxis, _float fRadians)
+void CTransform::Set_UIObj_Rotation( _float fRadians)
 {
+	m_fRotation = { 0.f ,0.f , fRadians };
+
 	_float3			vScaled = Compute_Scaled();
 	
-	_vector			vRight = Get_State(CTransform::STATE_RIGHT);
-	_vector			vUp = Get_State(CTransform::STATE_UP);
+	_vector			vRight = XMVector3Normalize(Get_State(CTransform::STATE_RIGHT));
+	_vector			vUp = XMVector3Normalize(Get_State(CTransform::STATE_UP));
+	_float3         vPosition = Get_State_UIObj(CTransform::STATE_POSITION); // 디버그용
 
-	_matrix		RotationMatrix = XMMatrixRotationZ(fRadians);
-
-	m_fRotation = { 0.f ,0.f , fRadians };
+	_matrix		RotationMatrixZ = XMMatrixRotationZ(fRadians);
 	
-	Set_State(STATE_RIGHT, XMVector3TransformNormal(vRight, RotationMatrix));
-	Set_State(STATE_UP, XMVector3TransformNormal(vUp, RotationMatrix));
+	vRight = XMVector3TransformNormal(vRight, RotationMatrixZ) * vScaled.x;
+	vUp = XMVector3TransformNormal(vUp, RotationMatrixZ) * vScaled.y;
+
+	Set_State(STATE_RIGHT, vRight);
+	Set_State(STATE_UP, vUp);
+
+
+	//Set_State(CTransform::STATE_POSITION, XMVectorSet(pDesc->fX - (vViewportSize.x * 0.5f), -pDesc->fY + (vViewportSize.y * 0.5f), pDesc->fZ, 1.f));
+
+
+	_matrix test = XMLoadFloat4x4(&m_WorldMatrix); // 디버그용
 }
 
 void CTransform::Rotation(_fvector vAxis, _float fRadians)
