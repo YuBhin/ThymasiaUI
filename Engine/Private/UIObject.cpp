@@ -37,11 +37,14 @@ HRESULT CUIObject::Initialize(void * pArg)
 	m_fSize.x = pDesc->fSizeX;
 	m_fSize.y = pDesc->fSizeY;
 	m_szProtoName = pDesc->szProtoName;
-	m_iShaderPassNum = pDesc->iShaderPassNum;
+
+  	m_iShaderPassNum = pDesc->iShaderPassNum;
 	_uint2			vViewportSize = m_pGameInstance->Get_ViewportSize();
 	
 	m_pTransformCom->Scaling(_float3(pDesc->fSizeX, pDesc->fSizeY, 1.f));
-	m_pTransformCom->Set_UIObj_Rotation(pDesc->fRotation.z);
+
+	m_pTransformCom->Rotation(XMVectorSet(0.0f, 0.0f, 0.1f, 0.0f), pDesc->fRotation.z);
+
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMVectorSet(pDesc->fX - (vViewportSize.x * 0.5f), -pDesc->fY + (vViewportSize.y * 0.5f), pDesc->fZ, 1.f));
 
 
@@ -56,6 +59,7 @@ void CUIObject::Priority_Update(_float fTimeDelta)
 
 void CUIObject::Update(_float fTimeDelta)
 {
+
 }
 
 void CUIObject::Late_Update(_float fTimeDelta)

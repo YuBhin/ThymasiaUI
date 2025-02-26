@@ -45,6 +45,8 @@ void CUI_LeftBackground::Priority_Update(_float fTimeDelta)
 
 void CUI_LeftBackground::Update(_float fTimeDelta)
 {
+	//m_pTransformCom->Rotation(m_pTransformCom->Get_State(CTransform::STATE_LOOK), fTimeDelta);
+
 }
 
 void CUI_LeftBackground::Late_Update(_float fTimeDelta)

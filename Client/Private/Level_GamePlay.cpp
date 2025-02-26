@@ -594,7 +594,8 @@ void CLevel_GamePlay::SetUISetting()
 				for (auto& UIObj : pUIScene->Find_UI_Button())
 				{
 					fGetPos = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION);
-					fGetsize = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Get_Scale_UIObj();
+					fGetsize.x = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().x;
+					fGetsize.y = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().y;
 					if (ptMouse.x >= fGetPos.x - fGetsize.x / 2 &&
 						ptMouse.x <= fGetPos.x + fGetsize.x / 2 &&
 						ptMouse.y >= fGetPos.y - fGetsize.y / 2 &&
@@ -610,7 +611,8 @@ void CLevel_GamePlay::SetUISetting()
 				for (auto& UIObj : pUIScene->Find_UI_Button_Player())
 				{
 					fGetPos = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION);
-					fGetsize = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Get_Scale_UIObj();
+					fGetsize.x = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().x;
+					fGetsize.y = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().y;
 					if (ptMouse.x >= fGetPos.x - fGetsize.x / 2 &&
 						ptMouse.x <= fGetPos.x + fGetsize.x / 2 &&
 						ptMouse.y >= fGetPos.y - fGetsize.y / 2 &&
@@ -626,7 +628,8 @@ void CLevel_GamePlay::SetUISetting()
 				for (auto& UIObj : pUIScene->Find_UI_Image())
 				{
 					fGetPos = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION);
-					fGetsize = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Get_Scale_UIObj();
+					fGetsize.x = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().x;
+					fGetsize.y = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().y;
 					if (ptMouse.x >= fGetPos.x - fGetsize.x / 2 &&
 						ptMouse.x <= fGetPos.x + fGetsize.x / 2 &&
 						ptMouse.y >= fGetPos.y - fGetsize.y / 2 &&
@@ -642,7 +645,8 @@ void CLevel_GamePlay::SetUISetting()
 				for (auto& UIObj : pUIScene->Find_UI_Text_PlayerInfo())
 				{
 					fGetPos = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION);
-					fGetsize = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Get_Scale_UIObj();
+					fGetsize.x = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().x;
+					fGetsize.y = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().y;
 					if (ptMouse.x >= fGetPos.x - fGetsize.x / 2 &&
 						ptMouse.x <= fGetPos.x + fGetsize.x / 2 &&
 						ptMouse.y >= fGetPos.y - fGetsize.y / 2 &&
@@ -705,21 +709,23 @@ void CLevel_GamePlay::SetUISetting()
 
 	ImGui::Text(u8"UI 회전");
 	ImGui::SameLine(100.f, 0.f);
+
+
 	if (ImGui::InputFloat3("UIRotation", &fRotation.x, "%.2f"))
 	{
-		fRotation.x = XMConvertToRadians(fRotation.x);
-		fRotation.y = XMConvertToRadians(fRotation.y);
-		fRotation.z = XMConvertToRadians(fRotation.z);
+		m_fRotation.x = XMConvertToRadians(fRotation.x);
+		m_fRotation.y = XMConvertToRadians(fRotation.y);
+		m_fRotation.z = XMConvertToRadians(fRotation.z);
+	}
+	ImGui::NewLine();
+	if (ImGui::Button(u8"회전 적용"))
+	{
 		if (!m_bGetUIObjCheck)// 현재 객체가 명확하게 선택 되어 있는 경우에만 작동
 		{
-			if (nullptr != m_pCurrentUIObj)
-			{
-				dynamic_cast<CTransform*>(m_pCurrentUIObj->Find_Component(TEXT("Com_Transform")))->Set_UIObj_Rotation(fRotation.z);
-
-			}
+			dynamic_cast<CTransform*>(m_pCurrentUIObj->Find_Component(TEXT("Com_Transform")))->Rotation(XMVectorSet(0.0f,0.0f,0.1f,0.0f),m_fRotation.z);
 		}
-		m_fRotation = fRotation;
 	}
+
 	ImGui::NewLine();
 
 	static _int iShaderPassNum = { 12 };
@@ -821,7 +827,7 @@ void CLevel_GamePlay::SetUIFont()
 
 	ImGui::Text(u8"Font Text 입력");
 	static _char szInputText[MAX_PATH] = "";
-	//	_tchar  szLastPath[MAX_PATH] = {};
+	_tchar*  m_szSaveName{}; // => 멤버변수로 저장해
 	if (ImGui::InputText(u8"텍스트 내용 작성", szInputText, IM_ARRAYSIZE(szInputText)))
 	{
 		_int iResize = MultiByteToWideChar(CP_UTF8, 0, szInputText, -1, NULL, 0);
@@ -988,14 +994,21 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 	_uint iLen = {};
 	_uint iShaderNum = {};
 	_float3 fPos = {};
+	_float2 fScale = {};
+	_float3 fRotation = {};
 
 	for (auto& Button : m_pGameInstance->Find_UIScene(iSceneIndex, szSceneName)->Find_UI_Button())
 	{
 		iUIType = UI_BUTTON;
 
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Button->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION), sizeof(_float3), &dwByte, nullptr);
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Button->Find_Component(TEXT("Com_Transform")))->Get_Scale_UIObj(), sizeof(_float2), &dwByte, nullptr);
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Button->Find_Component(TEXT("Com_Transform")))->Get_Rotation_UIObj(), sizeof(_float3), &dwByte, nullptr);
+		fPos = dynamic_cast<CTransform*>(Button->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION);
+		fScale.x = dynamic_cast<CTransform*>(Button->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().x;
+		fScale.y = dynamic_cast<CTransform*>(Button->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().y;
+		fRotation = dynamic_cast<CTransform*>(Button->Find_Component(TEXT("Com_Transform")))->Get_Rotation_UIObj();
+
+		WriteFile(hFile, &fPos, sizeof(_float3), &dwByte, nullptr);
+		WriteFile(hFile, &fScale,sizeof(_float2), &dwByte, nullptr);
+		WriteFile(hFile, &fRotation, sizeof(_float3), &dwByte, nullptr);
 
 		iLen = (_uint)Button->Get_UI_Name().size();
 		WriteFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
@@ -1010,9 +1023,14 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 	{
 		iUIType = UI_BUTTONPLAYER;
 
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Button_Player->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION), sizeof(_float3), &dwByte, nullptr);
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Button_Player->Find_Component(TEXT("Com_Transform")))->Get_Scale_UIObj(), sizeof(_float2), &dwByte, nullptr);
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Button_Player->Find_Component(TEXT("Com_Transform")))->Get_Rotation_UIObj(), sizeof(_float3), &dwByte, nullptr);
+		fPos = dynamic_cast<CTransform*>(Button_Player->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION);
+		fScale.x = dynamic_cast<CTransform*>(Button_Player->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().x;
+		fScale.y = dynamic_cast<CTransform*>(Button_Player->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().y;
+		fRotation = dynamic_cast<CTransform*>(Button_Player->Find_Component(TEXT("Com_Transform")))->Get_Rotation_UIObj();
+
+		WriteFile(hFile, &fPos, sizeof(_float3), &dwByte, nullptr);
+		WriteFile(hFile, &fScale, sizeof(_float2), &dwByte, nullptr);
+		WriteFile(hFile, &fRotation, sizeof(_float3), &dwByte, nullptr);
 
 		iLen = (_uint)Button_Player->Get_UI_Name().size();
 		WriteFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
@@ -1025,10 +1043,16 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 
 	for (auto& Image : m_pGameInstance->Find_UIScene(iSceneIndex, szSceneName)->Find_UI_Image())
 	{
-		iUIType = UI_IMAGE;
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Image->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION), sizeof(_float3), &dwByte, nullptr);
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Image->Find_Component(TEXT("Com_Transform")))->Get_Scale_UIObj(), sizeof(_float2), &dwByte, nullptr);
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Image->Find_Component(TEXT("Com_Transform")))->Get_Rotation_UIObj(), sizeof(_float3), &dwByte, nullptr);
+ 		iUIType = UI_IMAGE;
+		
+		fPos = dynamic_cast<CTransform*>(Image->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION);
+		fScale.x = dynamic_cast<CTransform*>(Image->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().x;
+		fScale.y = dynamic_cast<CTransform*>(Image->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().y;
+		fRotation = dynamic_cast<CTransform*>(Image->Find_Component(TEXT("Com_Transform")))->Get_Rotation_UIObj();
+		
+		WriteFile(hFile, &fPos, sizeof(_float3), &dwByte, nullptr);
+		WriteFile(hFile, &fScale, sizeof(_float2), &dwByte, nullptr);
+ 		WriteFile(hFile, &fRotation, sizeof(_float3), &dwByte, nullptr);
 
 		iLen = (_uint)Image->Get_UI_Name().size();
 		WriteFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
@@ -1043,9 +1067,14 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 	{
 		iUIType = UI_TEXTPLAYER;
 
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Text_PlayerInfo->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION), sizeof(_float3), &dwByte, nullptr);
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Text_PlayerInfo->Find_Component(TEXT("Com_Transform")))->Get_Scale_UIObj(), sizeof(_float2), &dwByte, nullptr);
-		WriteFile(hFile, &dynamic_cast<CTransform*>(Text_PlayerInfo->Find_Component(TEXT("Com_Transform")))->Get_Rotation_UIObj(), sizeof(_float3), &dwByte, nullptr);
+		fPos = dynamic_cast<CTransform*>(Text_PlayerInfo->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION);
+		fScale.x = dynamic_cast<CTransform*>(Text_PlayerInfo->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().x;
+		fScale.y = dynamic_cast<CTransform*>(Text_PlayerInfo->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().y;
+		fRotation = dynamic_cast<CTransform*>(Text_PlayerInfo->Find_Component(TEXT("Com_Transform")))->Get_Rotation_UIObj();
+
+		WriteFile(hFile, &fPos, sizeof(_float3), &dwByte, nullptr);
+		WriteFile(hFile, &fScale, sizeof(_float2), &dwByte, nullptr);
+		WriteFile(hFile, &fRotation, sizeof(_float3), &dwByte, nullptr);
 
 		iLen = (_uint)Text_PlayerInfo->Get_UI_Name().size();
 		WriteFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);

@@ -9,6 +9,7 @@ CTransform::CTransform(ID3D11Device * pDevice, ID3D11DeviceContext * pContext)
 }
 
 
+
 HRESULT CTransform::Initialize_Prototype()
 {
 	XMStoreFloat4x4(&m_WorldMatrix, XMMatrixIdentity());	
@@ -200,8 +201,6 @@ void CTransform::Turn_Degree_Navi(_fvector vAxis, _float Degree, CNavigation* pN
 	}
 }
 
-
-
 void CTransform::Turn_Axis(_fvector vAxis)
 {
 	_vector			vRight = Get_State(CTransform::STATE_RIGHT);	
@@ -230,39 +229,19 @@ void CTransform::Orbit_Move(_fvector vAxis, _float fTimeDelta, _fvector vCenter)
 
 	_matrix			RotationMatrix = XMMatrixRotationAxis(vAxis, m_fRotationPerSec * fTimeDelta);	
 
-
 	_vector         vNewCamPos =   XMVectorSetW(vCenter + XMVector3TransformCoord(vRelativePos, RotationMatrix),1.f);
 
 	Set_State(STATE_POSITION, vNewCamPos);
 }
 
-void CTransform::Set_UIObj_Rotation( _float fRadians)
+void CTransform::Set_State_UIObj(STATE eState, _float2 _fPos)
 {
-	m_fRotation = { 0.f ,0.f , fRadians };
-
-	_float3			vScaled = Compute_Scaled();
-	
-	_vector			vRight = XMVector3Normalize(Get_State(CTransform::STATE_RIGHT));
-	_vector			vUp = XMVector3Normalize(Get_State(CTransform::STATE_UP));
-	_float3         vPosition = Get_State_UIObj(CTransform::STATE_POSITION); // 디버그용
-
-	_matrix		RotationMatrixZ = XMMatrixRotationZ(fRadians);
-	
-	vRight = XMVector3TransformNormal(vRight, RotationMatrixZ) * vScaled.x;
-	vUp = XMVector3TransformNormal(vUp, RotationMatrixZ) * vScaled.y;
-
-	Set_State(STATE_RIGHT, vRight);
-	Set_State(STATE_UP, vUp);
-
-
-	//Set_State(CTransform::STATE_POSITION, XMVectorSet(pDesc->fX - (vViewportSize.x * 0.5f), -pDesc->fY + (vViewportSize.y * 0.5f), pDesc->fZ, 1.f));
-
-
-	_matrix test = XMLoadFloat4x4(&m_WorldMatrix); // 디버그용
+	_uint2			vViewportSize = { 1600,900 };
+	XMStoreFloat4(reinterpret_cast<_float4*>(&m_WorldMatrix.m[eState]), XMVectorSet(_fPos.x - (vViewportSize.x * 0.5f), -_fPos.y + (vViewportSize.y * 0.5f), 0.f, 1.f));
 }
-
 void CTransform::Rotation(_fvector vAxis, _float fRadians)
 {
+	m_fRotation = { 0.f ,0.f , fRadians };
 	_float3			vScaled = Compute_Scaled();
 
 	_vector			vRight = XMVectorSet(1.f, 0.f, 0.f, 0.f) * vScaled.x;
