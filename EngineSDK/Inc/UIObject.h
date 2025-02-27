@@ -14,6 +14,8 @@ public:
 		_float			fNear, fFar;
 		_wstring		szProtoName;
 		_uint			iShaderPassNum;
+		_int			iTexNumber;
+		_uint			iGroupID;
 		_float3			fRotation;
 	};
 
@@ -36,10 +38,15 @@ public:
 	
 	virtual _float3 Get_UI_Position() { return m_fPos; }
 	virtual _float2 Get_UI_Size() { return m_fSize; }
-	virtual _uint Get_UI_ShaderPassNum() { return m_iShaderPassNum; }
 	virtual _uint Get_UI_Type() { return m_iUIType; }
 
+	virtual _uint Get_UI_ShaderPassNum() { return m_iShaderPassNum; }
+	virtual _uint Get_UI_GroupID() { return m_iGroupID; }
+	virtual _uint Get_UI_TexNumber() { return m_iTexNumber; }
+
 	virtual _uint Set_UI_ShaderPassNum(_uint iShadernum) { return m_iShaderPassNum = iShadernum; }
+	virtual _uint Set_UI_GroupID(_uint iGroupID) { return m_iGroupID = iGroupID; }
+	void Set_TexNumber(_int iNumber) { m_iTexNumber = iNumber; }
 
 public:
 	virtual void Set_Render_OnOff(_bool bOpen) { m_bRenderOpen = bOpen; }
@@ -52,9 +59,11 @@ protected:
 	_float2				m_fSize = {}; // 저장용
 	_wstring			m_szProtoName = {};
 	_uint				m_iShaderPassNum = { 0 };		// 쉐이더 패스
+	_uint				m_iGroupID = { 0 };		// 그룹아이디
 	_uint				m_iUIType = { 0 };		// UI 생성 타입
 protected:
 	_bool				m_bRenderOpen = { true };
+	_uint				m_iTexNumber = {0}; // 텍스처 넘버
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;

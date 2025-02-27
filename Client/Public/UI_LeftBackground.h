@@ -12,11 +12,6 @@ END
 BEGIN(Client)
 class CUI_LeftBackground final : public CUI_Image
 {
-public:
-	struct UI_COMPONENT_DESC : CUIObject::UIOBJECT_DESC
-	{
-
-	};
 private:
 	CUI_LeftBackground(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CUI_LeftBackground(const CUI_LeftBackground& Prototype);

@@ -121,6 +121,9 @@ HRESULT CUI_LevelUP::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSceneN
 		{
 			break;
 		}
+		
+		Desc.fNear = 0.f;
+		Desc.fFar = 1.f;
 
 		Desc.fX = m_fPos.x;
 		Desc.fY = m_fPos.y;

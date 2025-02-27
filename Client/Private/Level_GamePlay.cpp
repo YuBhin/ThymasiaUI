@@ -140,9 +140,9 @@ HRESULT CLevel_GamePlay::Render()
 #endif
 
 	ShowGUI();
-	ImGui::Render();
+	//ImGui::Render();
 
-	m_pGameInstance->Render_Font(m_szFontName, m_szTextContent, TextTest);
+	//m_pGameInstance->Render_Font(m_szFontName, m_szTextContent, TextTest);
 
 	vector<UI_TextInfo>::iterator it;
 	for (it = m_TextInfo.begin(); it != m_TextInfo.end(); it++)
@@ -326,10 +326,10 @@ void CLevel_GamePlay::ShowGUI()
 	//	ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiCond_Always); // 창 위치 설정
 	//	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_Always); // 창 크기 설정
 
-		// 방향키가 영향을 주지 않게
-	ImGui::GetIO().NavActive = false;
-	// 마우스가 영향을 주도록
-	ImGui::GetIO().WantCaptureMouse = true;
+	//	// 방향키가 영향을 주지 않게
+	//ImGui::GetIO().NavActive = false;
+	//// 마우스가 영향을 주도록
+	//ImGui::GetIO().WantCaptureMouse = true;
 
 	ImGui::Begin(u8"UI Tool", NULL, ImGuiWindowFlags_MenuBar);//창 이름
 
@@ -385,14 +385,19 @@ void CLevel_GamePlay::ShowGUI()
 				m_pGameInstance->Clear_ALL();
 			}
 			ImGui::Separator();
-			if (ImGui::MenuItem("LastObj_Delete"))
+			if (ImGui::MenuItem("Obj_Delete_Last"))
 			{
 				m_pGameInstance->Clear_Last(m_iUIType, m_iSceneIndex, m_szUISceneName);
 			}
 			ImGui::Separator();
-			if (ImGui::MenuItem("Text_Delete_ALL"))
+			if (ImGui::MenuItem("Text_Delete"))
 			{
 				Delete_TextContainer_ALL();
+			}	
+			ImGui::Separator();
+			if (ImGui::MenuItem("Text_Delete_Last"))
+			{
+				Delete_TextContainer_Last();
 			}
 			ImGui::EndMenu();
 		}
@@ -419,7 +424,6 @@ void CLevel_GamePlay::SetUIScene()
 		Textchoice = 0;
 	}
 
-	ImGui::NewLine();
 
 	static _int iradioSelect0 = 0;
 	static _int iradioSelect1 = 0;
@@ -542,7 +546,6 @@ void CLevel_GamePlay::SetUIObj_Type()
 		m_iUIType = 3;
 	}
 
-	ImGui::NewLine();
 	SetUISetting();
 }
 
@@ -689,7 +692,6 @@ void CLevel_GamePlay::SetUISetting()
 			}
 		}
 	}
-	ImGui::NewLine();
 
 	ImGui::Text(u8"UI 크기");
 	ImGui::SameLine(100.f, 0.f);
@@ -705,7 +707,6 @@ void CLevel_GamePlay::SetUISetting()
 		}
 		m_fSize = fSize;
 	}
-	ImGui::NewLine();
 
 	ImGui::Text(u8"UI 회전");
 	ImGui::SameLine(100.f, 0.f);
@@ -717,7 +718,6 @@ void CLevel_GamePlay::SetUISetting()
 		m_fRotation.y = XMConvertToRadians(fRotation.y);
 		m_fRotation.z = XMConvertToRadians(fRotation.z);
 	}
-	ImGui::NewLine();
 	if (ImGui::Button(u8"회전 적용"))
 	{
 		if (!m_bGetUIObjCheck)// 현재 객체가 명확하게 선택 되어 있는 경우에만 작동
@@ -726,17 +726,37 @@ void CLevel_GamePlay::SetUISetting()
 		}
 	}
 
-	ImGui::NewLine();
 
 	static _int iShaderPassNum = { 12 };
-	ImGui::Text(u8"쉐이더 패스 번호");
+	ImGui::Text(u8"쉐이더 패스");
 	ImGui::SameLine(100.f, 0.f);
-	if (ImGui::InputInt("패스번호", &iShaderPassNum))
+	if (ImGui::InputInt(u8"패스번호", &iShaderPassNum))
 	{
-		m_pCurrentUIObj->Set_UI_ShaderPassNum(iShaderPassNum);
+		m_iShaderPassNum = iShaderPassNum;
+		if (!m_bGetUIObjCheck)// 현재 객체가 명확하게 선택 되어 있는 경우에만 작동
+			m_pCurrentUIObj->Set_UI_ShaderPassNum(iShaderPassNum);
 	}
 
-	ImGui::NewLine();
+	static _int iTexturNum = { 0 };
+	ImGui::Text(u8"텍스처번호");
+	ImGui::SameLine(100.f, 0.f);
+	if (ImGui::InputInt(u8"텍스처번호", &iTexturNum))
+	{
+		m_iTexNumber = iTexturNum;
+		if (!m_bGetUIObjCheck)// 현재 객체가 명확하게 선택 되어 있는 경우에만 작동
+			m_pCurrentUIObj->Set_TexNumber(iTexturNum);
+	}
+
+	static _int iGroupID = { 0 };
+	ImGui::Text(u8"UI 그룹아이디");
+	ImGui::SameLine(100.f, 0.f);
+	if (ImGui::InputInt(u8"아이디", &iGroupID))
+	{
+		m_iGroupID = iGroupID;
+		if (!m_bGetUIObjCheck)// 현재 객체가 명확하게 선택 되어 있는 경우에만 작동
+			m_pCurrentUIObj->Set_UI_GroupID(iGroupID);
+	}
+
 	SetUIImage();
 }
 
@@ -776,7 +796,7 @@ void CLevel_GamePlay::SetUIImage()
 		}
 
 		iCount++;
-		if (iCount < 8)
+		if (iCount < 5)
 		{
 			ImGui::SameLine();
 		}
@@ -808,6 +828,8 @@ void CLevel_GamePlay::SetUIFont()
 	{
 		return;
 	}
+	ImGui::Separator();
+	SetUIFontName();
 	ImGui::Separator();
 
 	ImGui::Text(u8"FontInfo");
@@ -887,6 +909,65 @@ void CLevel_GamePlay::SetUIFont()
 	ImGui::Separator();
 }
 
+void CLevel_GamePlay::SetUIFontName()
+{
+	static int iradioSelect1 = 0;
+	
+		if (ImGui::RadioButton("Font_Gulim_Default", iradioSelect1 == 0)) {
+			iradioSelect1 = 0;
+			m_szFontName = TEXT("Font_Gulim_Default");
+		}
+		ImGui::SameLine();
+		if (ImGui::RadioButton("NotoSansKR12", iradioSelect1 == 1)) {
+			iradioSelect1 = 1;
+			m_szFontName = TEXT("Font_NotoSansKR12");
+		}
+		ImGui::SameLine();
+		if (ImGui::RadioButton("NotoSansKR12_Bold", iradioSelect1 == 2)) {
+			iradioSelect1 = 2;
+			m_szFontName = TEXT("Font_NotoSansKR12_Bold");
+		}
+		if (ImGui::RadioButton("NotoSansKR14", iradioSelect1 == 3)) {
+			iradioSelect1 = 3;
+			m_szFontName = TEXT("Font_NotoSansKR14");
+		}
+		ImGui::SameLine();
+		if (ImGui::RadioButton("NotoSansKR16", iradioSelect1 == 4)) {
+			iradioSelect1 = 4;
+			m_szFontName = TEXT("Font_NotoSansKR16");
+		}
+		ImGui::SameLine();
+		if (ImGui::RadioButton("NotoSansKR18", iradioSelect1 == 5)) {
+			iradioSelect1 = 5;
+			m_szFontName = TEXT("Font_NotoSansKR18");
+		}
+		if (ImGui::RadioButton("NotoSansKR24", iradioSelect1 == 6)) {
+			iradioSelect1 = 6;
+			m_szFontName = TEXT("Font_NotoSansKR24");
+		}
+		ImGui::SameLine();
+		if (ImGui::RadioButton("NotoSansKR48", iradioSelect1 == 7)) {
+			iradioSelect1 = 7;
+			m_szFontName = TEXT("Font_NotoSansKR48");
+		}
+		/*
+
+	ImGui::SameLine();
+	if (ImGui::RadioButton("Font_NotoSansKR24", iradioSelect1 == 2)) {
+		iradioSelect1 = 2;
+		m_iUIType = 2;
+	}
+	ImGui::SameLine();
+	if (ImGui::RadioButton("UI_TEXTPLAYER", iradioSelect1 == 3)) {
+		iradioSelect1 = 3;
+		m_iUIType = 3;
+	}*/
+
+
+
+
+}
+
 HRESULT CLevel_GamePlay::Create_UI_Scene_Object()
 {
 	POINT	ptMouse{};
@@ -908,6 +989,8 @@ HRESULT CLevel_GamePlay::Create_UI_Scene_Object()
 	Desc.fZ = m_fPos.z;
 	Desc.szProtoName = m_szUIName;
 	Desc.iShaderPassNum = m_iShaderPassNum;
+	Desc.iTexNumber = m_iTexNumber;
+	Desc.iGroupID = m_iGroupID;
 	Desc.fRotation = m_fRotation;
 	m_pGameInstance->Add_UIObject_To_UIScene(LEVEL_GAMEPLAY, m_szUIName, m_iSceneIndex, m_szUISceneName, m_iUIType, &Desc);
 
@@ -918,11 +1001,26 @@ HRESULT CLevel_GamePlay::Create_UI_Scene_Object()
 
 HRESULT CLevel_GamePlay::Save_UI_IMGUI_Textrue()
 {
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_Component"), TEXT("../Bin/Resources/Textures/ThymesiaUI/UI_0.dds"), 1);
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_Slot_Attribute"), TEXT("../Bin/Resources/Textures/ThymesiaUI/Slot_Attribute_0.dds"), 1);
 
+	//====================================================================================================================================== 키보드 텍스처
+	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_KeyBox_Long"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_KeyBox_Long.dds"), 1);
 
+	//====================================================================================================================================== 넛지 텍스처
+	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_DiamondIcon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_DiamondIcon_01.dds"), 1);
+	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_Indicator_Selected"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_Indicator_Selected_0.dds"), 1);
+	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_NewHint"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_NewHint.dds"), 1);
+	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_LockedIcon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LockedIcon.dds"), 1);
 
+	//==================================================================================================================================== 플레이어 메뉴창(의자착석)
+	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_LeftBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LeftBackground.dds"), 1);
+	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_RightBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_RightBackground.dds"), 1);
+	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_HighlightBar_02"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_HighlightBar_02.dds"), 1);
+	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_LevelImage"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LevelImage_Circus.dds"), 1);
+
+	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_ButtonHighlight"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_ButtonHighlight_02.dds"), 1);
+
+	//====================================================================================================================================== 공용 꾸밈 텍스처
+	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_DecorationLine"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_DecorationLine_05.dds"), 1);
 
 	return S_OK;
 }
@@ -993,6 +1091,8 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 	_uint iUIType = {};
 	_uint iLen = {};
 	_uint iShaderNum = {};
+	_uint iTextureNum = {};
+	_uint iGroupID = {};
 	_float3 fPos = {};
 	_float2 fScale = {};
 	_float3 fRotation = {};
@@ -1015,8 +1115,15 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 		WriteFile(hFile, Button->Get_UI_Name().c_str(), sizeof(_tchar) * iLen, &dwByte, nullptr);
 
 		WriteFile(hFile, &iUIType, sizeof(_uint), &dwByte, nullptr);
+
 		iShaderNum = Button->Get_UI_ShaderPassNum();
 		WriteFile(hFile, &iShaderNum, sizeof(_uint), &dwByte, nullptr);
+		
+		iTextureNum = Button->Get_UI_TexNumber();
+		WriteFile(hFile, &iTextureNum, sizeof(_uint), &dwByte, nullptr);
+		
+		iGroupID = Button->Get_UI_GroupID();
+		WriteFile(hFile, &iGroupID, sizeof(_uint), &dwByte, nullptr);
 	}
 
 	for (auto& Button_Player : m_pGameInstance->Find_UIScene(iSceneIndex, szSceneName)->Find_UI_Button_Player())
@@ -1037,8 +1144,16 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 		WriteFile(hFile, Button_Player->Get_UI_Name().c_str(), sizeof(_tchar) * iLen, &dwByte, nullptr);
 
 		WriteFile(hFile, &iUIType, sizeof(_uint), &dwByte, nullptr);
+		
+
 		iShaderNum = Button_Player->Get_UI_ShaderPassNum();
 		WriteFile(hFile, &iShaderNum, sizeof(_uint), &dwByte, nullptr);
+
+		iTextureNum = Button_Player->Get_UI_TexNumber();
+		WriteFile(hFile, &iTextureNum, sizeof(_uint), &dwByte, nullptr);
+
+		iGroupID = Button_Player->Get_UI_GroupID();
+		WriteFile(hFile, &iGroupID, sizeof(_uint), &dwByte, nullptr);
 	}
 
 	for (auto& Image : m_pGameInstance->Find_UIScene(iSceneIndex, szSceneName)->Find_UI_Image())
@@ -1059,8 +1174,15 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 		WriteFile(hFile, Image->Get_UI_Name().c_str(), sizeof(_tchar) * iLen, &dwByte, nullptr);
 
 		WriteFile(hFile, &iUIType, sizeof(_uint), &dwByte, nullptr);
+
 		iShaderNum = Image->Get_UI_ShaderPassNum();
 		WriteFile(hFile, &iShaderNum, sizeof(_uint), &dwByte, nullptr);
+
+		iTextureNum = Image->Get_UI_TexNumber();
+		WriteFile(hFile, &iTextureNum, sizeof(_uint), &dwByte, nullptr);
+
+		iGroupID = Image->Get_UI_GroupID();
+		WriteFile(hFile, &iGroupID, sizeof(_uint), &dwByte, nullptr);
 	}
 
 	for (auto& Text_PlayerInfo : m_pGameInstance->Find_UIScene(iSceneIndex, szSceneName)->Find_UI_Text_PlayerInfo())
@@ -1081,8 +1203,15 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 		WriteFile(hFile, Text_PlayerInfo->Get_UI_Name().c_str(), sizeof(_tchar) * iLen, &dwByte, nullptr);
 
 		WriteFile(hFile, &iUIType, sizeof(_uint), &dwByte, nullptr);
+
 		iShaderNum = Text_PlayerInfo->Get_UI_ShaderPassNum();
 		WriteFile(hFile, &iShaderNum, sizeof(_uint), &dwByte, nullptr);
+
+		iTextureNum = Text_PlayerInfo->Get_UI_TexNumber();
+		WriteFile(hFile, &iTextureNum, sizeof(_uint), &dwByte, nullptr);
+
+		iGroupID = Text_PlayerInfo->Get_UI_GroupID();
+		WriteFile(hFile, &iGroupID, sizeof(_uint), &dwByte, nullptr);
 	}
 
 	CloseHandle(hFile);
@@ -1121,6 +1250,8 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 	_wstring szSaveName = {};
 	_uint iUIType = {};
 	_uint iShaderNum = {};
+	_uint iTextureNum = {};
+	_uint iGroupID = {};
 
 	while (true)
 	{
@@ -1133,12 +1264,20 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 		ReadFile(hFile, const_cast<wchar_t*>(szSaveName.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
 
 		ReadFile(hFile, &iUIType, sizeof(_uint), &dwByte, nullptr);
+
 		ReadFile(hFile, &iShaderNum, sizeof(_uint), &dwByte, nullptr);
+		ReadFile(hFile, &iTextureNum, sizeof(_uint), &dwByte, nullptr);
+		ReadFile(hFile, &iGroupID, sizeof(_uint), &dwByte, nullptr);
+
+
 
 		if (0 == dwByte)
 		{
 			break;
 		}
+
+		Desc.fNear = 0.f;
+		Desc.fFar = 1.f;
 
 		Desc.fX = fPos.x;
 		Desc.fY = fPos.y;
@@ -1296,6 +1435,11 @@ HRESULT CLevel_GamePlay::Delete_TextContainer_ALL()
 	return S_OK;
 }
 
+HRESULT CLevel_GamePlay::Delete_TextContainer_Last()
+{
+	m_TextInfo.pop_back();
+	return S_OK;
+}
 
 CLevel_GamePlay* CLevel_GamePlay::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {

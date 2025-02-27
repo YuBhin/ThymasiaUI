@@ -30,7 +30,10 @@ HRESULT CUIObject::Initialize(void * pArg)
 
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
-	
+
+	pDesc->fNear = 0.f;
+	pDesc->fFar = 1.f;
+
 	m_fPos.x = pDesc->fX;
 	m_fPos.y = pDesc->fY;
 	m_fPos.z = pDesc->fZ;
@@ -39,6 +42,9 @@ HRESULT CUIObject::Initialize(void * pArg)
 	m_szProtoName = pDesc->szProtoName;
 
   	m_iShaderPassNum = pDesc->iShaderPassNum;
+	m_iTexNumber = pDesc->iTexNumber;
+	m_iGroupID = pDesc->iGroupID;
+
 	_uint2			vViewportSize = m_pGameInstance->Get_ViewportSize();
 	
 	m_pTransformCom->Scaling(_float3(pDesc->fSizeX, pDesc->fSizeY, 1.f));

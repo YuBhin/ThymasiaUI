@@ -94,6 +94,9 @@ HRESULT CUI_PlayerAttribute::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* 
 			break;
 		}
 
+		Desc.fNear = 0.f;
+		Desc.fFar = 1.f;
+
 		Desc.fX = m_fPos.x;
 		Desc.fY = m_fPos.y;
 		Desc.fZ = m_fPos.z;

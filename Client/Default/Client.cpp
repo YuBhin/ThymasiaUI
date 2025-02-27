@@ -118,24 +118,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		{
 			pGameInstance->Compute_TimeDelta(TEXT("Timer_60"));
 
-
-            //ImGui_ImplDX11_NewFrame();
-            //ImGui_ImplWin32_NewFrame();
-            //ImGui::NewFrame();
-
-            //ImGui::Begin("IMGUI Window");
-            //ImGui::Text("This is a ImguiWindow");
-            //if (ImGui::Button("close"))
-            //{
-            //    PostMessage(g_hIMGUIWIndow, WM_CLOSE, 0, 0);
-            //}
-            //ImGui::End();
-
 			pMainApp->Update(pGameInstance->Get_TimeDelta(TEXT("Timer_60")));
+
 			pMainApp->Render();			
-
-
-
 
 			fTimerAcc = 0.f;
 		}		
@@ -315,6 +300,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             EndPaint(hWnd, &ps);
         }
         break;
+
+
+    case WM_DPICHANGED: // imgui 윈도우 포지션 재정의
+        if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_DpiEnableScaleViewports)
+        {
+            //const int dpi = HIWORD(wParam);
+            //printf("WM_DPICHANGED to %d (%.0f%%)\n", dpi, (float)dpi / 96.0f * 100.0f);
+            const RECT* suggested_rect = (RECT*)lParam;
+            ::SetWindowPos(hWnd, NULL, suggested_rect->left, suggested_rect->top
+                , suggested_rect->right - suggested_rect->left, suggested_rect->bottom - suggested_rect->top, SWP_NOZORDER | SWP_NOACTIVATE);
+        }
+        break;
+
     case WM_DESTROY:
         PostQuitMessage(0);
         break;

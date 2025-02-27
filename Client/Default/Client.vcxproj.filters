@@ -85,9 +85,6 @@
     <Filter Include="03.UIObject\UI_Object\Attribute_button_Player">
       <UniqueIdentifier>{95cbbdf3-df0d-405f-90ab-7cd7573c5a92}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object\Menu_LeftBackground">
-      <UniqueIdentifier>{0126ca11-a395-4bf1-b58d-caf198e80502}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.UIObject\UI_Object\BossHP_HPBar">
       <UniqueIdentifier>{7979f5b2-ff0b-4769-9e5a-98641bfdb4ab}</UniqueIdentifier>
     </Filter>
@@ -105,6 +102,42 @@
     </Filter>
     <Filter Include="03.UIObject\UI_Scene\BossHP">
       <UniqueIdentifier>{4603ceec-da1e-46da-ac9f-c41aee4c629f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj">
+      <UniqueIdentifier>{ee675ac3-6231-4562-afe4-c8525e9a9c13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_LeftBackground">
+      <UniqueIdentifier>{0126ca11-a395-4bf1-b58d-caf198e80502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_RightBackground">
+      <UniqueIdentifier>{fd653d02-fba8-42aa-aefb-b78fd4bcba05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_DiamondIcon">
+      <UniqueIdentifier>{de75a85c-9b65-4eac-abd9-25bcb389e3a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_HightlightBar">
+      <UniqueIdentifier>{9cbfbd3a-2024-4406-bd9b-3b6e51fb9f86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_Indicator_Selected">
+      <UniqueIdentifier>{90274c13-ae36-41ff-af33-77aaaf433755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_KeyBox_Long">
+      <UniqueIdentifier>{c1980e5f-fb80-4720-9dae-59f7df08260b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_LevelImage">
+      <UniqueIdentifier>{f88454c9-a16e-4a78-ad20-a6cc35bf42bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_LockedIcon">
+      <UniqueIdentifier>{68437ca4-aec9-44a4-b9c7-8a4296f80ced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_NewHint">
+      <UniqueIdentifier>{f6dde290-2316-4dc9-9375-8f38988ad8b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_ButtonHighlight">
+      <UniqueIdentifier>{8cc78ed1-3a7b-42ad-a0e2-194aacea89c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_DecorationLine">
+      <UniqueIdentifier>{e2f7ba05-393c-44ff-bf38-753567eaea97}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +214,7 @@
       <Filter>03.UIObject\UI_Scene\PlayerAttribute</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_LeftBackground.h">
-      <Filter>03.UIObject\UI_Object\Menu_LeftBackground</Filter>
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LeftBackground</Filter>
     </ClInclude>
     <ClInclude Include="..\ImGui\imconfig.h">
       <Filter>96.ImGUI\Header</Filter>
@@ -209,6 +242,36 @@
     </ClInclude>
     <ClInclude Include="..\Public\UI_MouseCursor.h">
       <Filter>03.UIObject\UI_Object\MouseCursor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_RightBackground.h">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_RightBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_DiamondIcon.h">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_DiamondIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_HightlightBar.h">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_HightlightBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Indicator_Selected.h">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_Indicator_Selected</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_KeyBox_Long.h">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_KeyBox_Long</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_LevelImage.h">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LevelImage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_LockedIcon.h">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LockedIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_NewHint.h">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_NewHint</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_ButtonHighlight.h">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_ButtonHighlight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_DecorationLine.h">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_DecorationLine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -276,7 +339,7 @@
       <Filter>03.UIObject\UI_Scene\PlayerAttribute</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_LeftBackground.cpp">
-      <Filter>03.UIObject\UI_Object\Menu_LeftBackground</Filter>
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LeftBackground</Filter>
     </ClCompile>
     <ClCompile Include="..\ImGui\imgui_impl_win32.cpp">
       <Filter>96.ImGUI\Code</Filter>
@@ -301,6 +364,36 @@
     </ClCompile>
     <ClCompile Include="..\Private\UI_MouseCursor.cpp">
       <Filter>03.UIObject\UI_Object\MouseCursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_RightBackground.cpp">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_RightBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_DiamondIcon.cpp">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_DiamondIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Indicator_Selected.cpp">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_Indicator_Selected</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_KeyBox_Long.cpp">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_KeyBox_Long</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_LevelImage.cpp">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LevelImage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_LockedIcon.cpp">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LockedIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_NewHint.cpp">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_NewHint</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_ButtonHighlight.cpp">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_ButtonHighlight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_HightlightBar.cpp">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_HightlightBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_DecorationLine.cpp">
+      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_DecorationLine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

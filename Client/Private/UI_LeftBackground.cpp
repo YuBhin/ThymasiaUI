@@ -22,14 +22,7 @@ HRESULT CUI_LeftBackground::Initialize_Prototype()
 
 HRESULT CUI_LeftBackground::Initialize(void* pArg)
 {
-	UI_COMPONENT_DESC* pDesc = static_cast<UI_COMPONENT_DESC*>(pArg);
-
-	pDesc->fNear = 0.f;
-	pDesc->fFar = 1.f;
-
-	pDesc->fSpeedPerSec = 5.f;
-	pDesc->fRotationPerSec = XMConvertToRadians(90.f);
-
+	
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
 
@@ -45,8 +38,6 @@ void CUI_LeftBackground::Priority_Update(_float fTimeDelta)
 
 void CUI_LeftBackground::Update(_float fTimeDelta)
 {
-	//m_pTransformCom->Rotation(m_pTransformCom->Get_State(CTransform::STATE_LOOK), fTimeDelta);
-
 }
 
 void CUI_LeftBackground::Late_Update(_float fTimeDelta)
@@ -66,7 +57,7 @@ HRESULT CUI_LeftBackground::Render()
 	if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_ProjMatrix)))
 		return E_FAIL;
 
-	if (FAILED(m_pTextureCom->Bind_ShaderResource(m_pShaderCom, "g_Texture", 0)))
+	if (FAILED(m_pTextureCom->Bind_ShaderResource(m_pShaderCom, "g_Texture", m_iTexNumber)))
 		return E_FAIL;
 
 
@@ -82,7 +73,7 @@ HRESULT CUI_LeftBackground::Render()
 HRESULT CUI_LeftBackground::Ready_Components()
 {
 	/* Com_Texture */
-	if (FAILED(__super::Add_Component(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_ChairUI"),
+	if (FAILED(__super::Add_Component(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_LeftBackground"),
 		TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
 		return E_FAIL;
 

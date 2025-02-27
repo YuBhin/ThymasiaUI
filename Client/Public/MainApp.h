@@ -35,6 +35,11 @@ private:
 	_tchar				m_szFPS[MAX_PATH] = {};
 #endif
 
+	// Our state
+	bool show_demo_window = true;
+	bool show_another_window = false;
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
 public:
 	HRESULT Start_Level(LEVELID eStartLevelID);
 

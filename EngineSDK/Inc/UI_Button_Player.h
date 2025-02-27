@@ -20,10 +20,6 @@ public:
 public:
 	virtual _bool Mouse_Select(HWND hWnd, _float fX, _float fY);
 	HRESULT On_Mouse_UI(HWND hWnd, _float fX, _float fY, _uint iTexNumber);
-	void Set_TexNumber(_int iNumber) { m_iTexNumber = iNumber; }
-
-protected:
-	_uint					m_iTexNumber = {};
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;

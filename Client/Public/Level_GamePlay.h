@@ -50,6 +50,7 @@ private:
 	void SetUISetting();
 	void SetUIImage();
 	void SetUIFont();
+	void SetUIFontName();
 
 	//임구이 리소스 추가
 	HRESULT Save_UI_IMGUI_Textrue();
@@ -59,11 +60,9 @@ private:
 	//객체 찾는 함수
 	//ui 오브젝트 생성
 	HRESULT Create_UI_Scene_Object();
-
 	//저장
 	HRESULT SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSceneName); // 현재 UI 저장
 	HRESULT LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSceneName); // 현재 UI 저장
-
 	//Font 출력
 	HRESULT Create_Text();
 	//텍스트 저장
@@ -71,12 +70,13 @@ private:
 	HRESULT LoadData_Text_Scene();
 
 	HRESULT Delete_TextContainer_ALL();
+	HRESULT Delete_TextContainer_Last();
 
 private:
-	_uint m_iOpenSceneCount = {0};
-	_bool m_bSceneOpen = { false };
+	_uint m_iOpenSceneCount = {0}; // 테스트 용
+	_bool m_bSceneOpen = { false };// 테스트 용
 
-private:
+private: // IMGUI 조작용 값
 	_bool m_bUIorText = { true }; // true == UI, false == Text
 
 private: // UI 정보 저장용
@@ -90,6 +90,8 @@ private: // UI 정보 저장용
 	
 	_uint				m_iUIType = {0};			// UI 오브젝트 타입
 	_uint				m_iShaderPassNum = {12};		// 쉐이더 패스
+	_uint				m_iGroupID = {0};		// 그룹아이디
+	_uint				m_iTexNumber = {0};		// 텍스처 넘버
 private: //IMGUI
 
 	_char*				m_szTypeName = {};		// IMGUI 기능 설명 용
@@ -107,7 +109,7 @@ private: //IMGUI
 
 private: //Text Imgui
 	const _tchar*		m_szFontName = L"Font_Gulim_Default";// 사용하는 폰트 이름  
-	const _tchar*		m_szTextContent = L"테스트 출력";    // 출력되는 텍스트 내용
+	const _tchar*		m_szTextContent = L"안녕하세요";    // 출력되는 텍스트 내용
 
 	_float2				TextTest = {100.f,100.f};
 

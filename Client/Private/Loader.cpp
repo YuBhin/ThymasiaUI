@@ -23,11 +23,23 @@
 #pragma endregion
 
 #pragma region  UIs
-#include "UI_LeftBackground.h"
 #include "UI_AttributeButton.h"
 #include "UI_LevelUP.h"
 #include "UI_PlayerAttribute.h"
 #include "UI_MouseCursor.h"
+
+
+#include "UI_NewHint.h"
+#include "UI_LockedIcon.h"
+#include "UI_LevelImage.h"
+#include "UI_KeyBox_Long.h"
+#include "UI_Indicator_Selected.h"
+#include "UI_HightlightBar.h"
+#include "UI_DiamondIcon.h"
+#include "UI_RightBackground.h"
+#include "UI_LeftBackground.h"
+#include "UI_ButtonHighlight.h"
+#include "UI_DecorationLine.h"
 #pragma endregion
 
 
@@ -305,7 +317,124 @@ HRESULT CLoader::Loading_For_Level_GamePlay()
 
 
 #pragma region UI 텍스쳐
-	lstrcpyW(m_szLoadingText, TEXT("UI 생성한다."));
+
+	lstrcpyW(m_szLoadingText, TEXT("UI 생성 시작."));
+
+	//====================================================================================================================================== 키보드 텍스처
+	/* For.Prototype_Component_Texture_UI_KeyBox_Long*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_KeyBox_Long"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_KeyBox_Long.dds"), 1))))
+		return E_FAIL;
+
+	/* For.Prototype_GameObject_UI_KeyBox_Long */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_KeyBox_Long"),
+		CUI_KeyBox_Long::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	//====================================================================================================================================== 공용 텍스처
+
+	/* For.Prototype_Component_Texture_UI_ButtonHighlight*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_ButtonHighlight"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_ButtonHighlight_02.dds"), 1))))
+		return E_FAIL;
+
+	/* For.Prototype_GameObject_UI_KeyBox_Long */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_ButtonHighlight"),
+		CUI_ButtonHighlight::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	//====================================================================================================================================== 공용 꾸밈 텍스처
+	
+
+	/* For.Prototype_Component_Texture_UI_DecorationLine*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_DecorationLine"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_DecorationLine_05.dds"), 1))))
+		return E_FAIL;
+
+	/* For.Prototype_GameObject_UI_KeyBox_Long */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_DecorationLine"),
+		CUI_DecorationLine::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	//====================================================================================================================================== 넛지 텍스처
+
+	/* For.Prototype_Component_Texture_UI_DiamondIcon_01*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_DiamondIcon_01"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_DiamondIcon_01.dds"), 1))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_DiamondIcon */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_DiamondIcon"),
+		CUI_DiamondIcon::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For.Prototype_Component_Texture_UI_Indicator_Selected*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_Indicator_Selected"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_Indicator_Selected_%d.dds"), 2))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_Indicator_Selected */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Indicator_Selected"),
+		CUI_Indicator_Selected::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For.Prototype_Component_Texture_UI_LockedIcon*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_LockedIcon"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LockedIcon.dds"), 1))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_LockedIcon */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_LockedIcon"),
+		CUI_LockedIcon::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For.Prototype_Component_Texture_UI_NewHint*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_NewHint"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_NewHint.dds"), 1))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_NewHint */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_NewHint"),
+		CUI_NewHint::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	//==================================================================================================================================== 플레이어 메뉴창(의자착석)
+
+
+		/* For.Prototype_Component_Texture_UI_HighlightBar_02*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_HighlightBar_02"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_HighlightBar_02.dds"), 1))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_HighlightBar_02 */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_HighlightBar_02"),
+		CUI_HightlightBar::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+		/* For.Prototype_Component_Texture_UI_LeftBackground*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_LeftBackground"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LeftBackground.dds"), 1))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_LeftBackground */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_LeftBackground"),
+		CUI_LeftBackground::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+		/* For.Prototype_Component_Texture_UI_RightBackground*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_RightBackground"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_RightBackground.dds"), 1))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_RightBackground */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_RightBackground"),
+		CUI_RightBackground::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+		/* For.Prototype_Component_Texture_UI_LevelImage*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_LevelImage"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LevelImage_Circus.dds"), 1))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_LevelImage */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_LevelImage"),
+		CUI_LevelImage::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+
+
+	//==================================================================================================================================== 플레이어 
+
 	/* For.Prototype_Component_Texture_ChairUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_ChairUI"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/UI_%d.dds"), 8))))
@@ -335,10 +464,10 @@ HRESULT CLoader::Loading_For_Level_GamePlay()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Attribute"),
 		CUI_PlayerAttribute::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
-	/* For.Prototype_GameObject_UI_Component */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Component"),
-		CUI_LeftBackground::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	///* For.Prototype_GameObject_UI_Component */
+	//if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Component"),
+	//	CUI_LeftBackground::Create(m_pDevice, m_pContext))))
+	//	return E_FAIL;
 	/* For.Prototype_GameObject_UI_Component */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Slot_Attribute"),
 		CUI_AttributeButton::Create(m_pDevice, m_pContext))))

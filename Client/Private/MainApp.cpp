@@ -52,13 +52,16 @@ void CMainApp::Update(_float fTimeDelta)
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-
+	
 }
 
 HRESULT CMainApp::Render()
 {	
+
 	if (FAILED(m_pGameInstance->Render_Begin(_float4(0.f, 0.f, 1.f, 1.f))))
 		return E_FAIL;
+
+
 
 	m_pGameInstance->Draw();
 
@@ -66,21 +69,31 @@ HRESULT CMainApp::Render()
 #ifdef _DEBUG
 	++m_iDrawCount;
 	
-	if (1.f <= m_fTimerAcc)
-	{
-		wsprintf(m_szFPS, TEXT("fps : %d"), m_iDrawCount);
-		m_fTimerAcc = 0.f;
-		m_iDrawCount = 0;
-	}
+	//if (1.f <= m_fTimerAcc)
+	//{
+	//	wsprintf(m_szFPS, TEXT("fps : %d"), m_iDrawCount);
+	//	m_fTimerAcc = 0.f;
+	//	m_iDrawCount = 0;
+	//}
 
-	m_pGameInstance->Render_Font(TEXT("Font_Gulim_Default"), m_szFPS, _float2(0.f, 0.f));
+	//m_pGameInstance->Render_Font(TEXT("Font_Gulim_Default"), m_szFPS, _float2(0.f, 0.f));
 	//SetWindowText(g_hWnd, m_szFPS);
 	
 #endif
 
+// 3. Show another simple window.
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	ImGui::EndFrame();
+
+	ImGuiIO& io = ImGui::GetIO();
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+	}
+
+
 	m_pGameInstance->Render_End();
 
 	return S_OK;
@@ -106,16 +119,25 @@ HRESULT CMainApp::SetUp_ImGUI(ID3D11Device* _ppDevice, ID3D11DeviceContext* _ppC
 	(void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-	io.DisplaySize = ImVec2(500, 500);
+	//io.DisplaySize = ImVec2(500, 500);
 	
 	ImGui::StyleColorsDark();
+
+	ImGuiStyle& style = ImGui::GetStyle();
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		style.WindowRounding = 0.0f;
+		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+	}
 
 	ImGui_ImplWin32_Init(g_hWnd);
 	ImGui_ImplDX11_Init(_ppDevice, _ppContext);
 
 	LoadFont_ImGUI();
+	
 
 	return S_OK;
 }
@@ -159,8 +181,42 @@ HRESULT CMainApp::LoadFont_Thymasia()
 	
 	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Gulim_Default"), TEXT("../Bin/Resources/Fonts/148ex.spritefont"))))
 		return E_FAIL;
-	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Gulim_12"), TEXT("../Bin/Resources/Fonts/MyFont4.spritefont"))))
+
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR12"), TEXT("../Bin/Resources/Fonts/Thymesia_NotoSansKR_12.spritefont"))))
 		return E_FAIL;
+
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR12_Bold"), TEXT("../Bin/Resources/Fonts/Thymesia_NotoSansKR_12Bold.spritefont"))))
+		return E_FAIL;
+	
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR14"), TEXT("../Bin/Resources/Fonts/Thymesia_NotoSansKR_14.spritefont"))))
+		return E_FAIL;
+	
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR16"), TEXT("../Bin/Resources/Fonts/Thymesia_NotoSansKR_16.spritefont"))))
+		return E_FAIL;
+
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR18"), TEXT("../Bin/Resources/Fonts/Thymesia_NotoSansKR_18.spritefont"))))
+		return E_FAIL;
+
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR24"), TEXT("../Bin/Resources/Fonts/Thymesia_NotoSansKR_24.spritefont"))))
+		return E_FAIL;
+	
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR48"), TEXT("../Bin/Resources/Fonts/Thymesia_NotoSansKR_48.spritefont"))))
+		return E_FAIL;
+
+	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR36"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR36.spritefont"))))
+	//	return E_FAIL;
+
+	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR48"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR48.spritefont"))))
+	//	return E_FAIL;
+
+	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR60"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR60.spritefont"))))
+	//	return E_FAIL;
+
+	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR72"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR72.spritefont"))))
+	////	return E_FAIL;
+
+
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Forum12"), TEXT("../Bin/Resources/Fonts/ThymasiaForum12.spritefont"))))
 	//	return E_FAIL;
@@ -224,16 +280,15 @@ CMainApp * CMainApp::Create()
 
 void CMainApp::Free()
 {
-	/* 부모의 멤버를 정리하라고 이야기한다. */
-	__super::Free();
-
 	
-	Safe_Release(m_pDevice);
-	Safe_Release(m_pContext);
-
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
+	/* 부모의 멤버를 정리하라고 이야기한다. */
+	__super::Free();
+
+	Safe_Release(m_pDevice);
+	Safe_Release(m_pContext);
 
 	m_pGameInstance->Release_Engine();
 	
