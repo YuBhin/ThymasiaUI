@@ -69,6 +69,8 @@ public:
 	list<class CGameObject*> Find_Layer_Object_All(_uint iLevelIndex, const _wstring& strLayerTag);
 	map<const _wstring, class CLayer*>* Get_Layers();
 	_uint	Get_NumLevel();
+	HRESULT UIScene_Render_OnOff(_uint iLevelIndex, const _wstring& strLayerTag, _bool bCheck);
+	_bool UIScene_Render_State(_uint iLevelIndex, const _wstring& strLayerTag);
 #pragma endregion
 
 #pragma region RENDERER

@@ -79,18 +79,6 @@
     <Filter Include="03.UIObject">
       <UniqueIdentifier>{1dd8fa4b-698d-47f4-95a6-6c254b52eb26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object">
-      <UniqueIdentifier>{94bad924-fc7d-4174-a62d-38d531e84dd0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.UIObject\UI_Object\Attribute_button_Player">
-      <UniqueIdentifier>{95cbbdf3-df0d-405f-90ab-7cd7573c5a92}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.UIObject\UI_Object\BossHP_HPBar">
-      <UniqueIdentifier>{7979f5b2-ff0b-4769-9e5a-98641bfdb4ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.UIObject\UI_Object\MouseCursor">
-      <UniqueIdentifier>{34e148c5-0f1a-4e1b-841f-e65503520b74}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.UIObject\UI_Scene">
       <UniqueIdentifier>{420a30ad-8a10-42b2-bcc7-ddad3d6fef83}</UniqueIdentifier>
     </Filter>
@@ -103,41 +91,167 @@
     <Filter Include="03.UIObject\UI_Scene\BossHP">
       <UniqueIdentifier>{4603ceec-da1e-46da-ac9f-c41aee4c629f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj">
+    <Filter Include="03.UIObject\UI_ObjectPart">
+      <UniqueIdentifier>{94bad924-fc7d-4174-a62d-38d531e84dd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\BossHP_HPBar">
+      <UniqueIdentifier>{7979f5b2-ff0b-4769-9e5a-98641bfdb4ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\MouseCursor">
+      <UniqueIdentifier>{34e148c5-0f1a-4e1b-841f-e65503520b74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP">
+      <UniqueIdentifier>{ffdbf893-a009-4205-a622-e232d3214db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\3.PlayerAttributeObj">
+      <UniqueIdentifier>{8cd393dc-dcd0-49f0-bba6-11f73664026e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_Attribute_Slot_Active">
+      <UniqueIdentifier>{68788411-7541-48fe-a2e7-9322bd2a7894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_BaseTalentIndicator">
+      <UniqueIdentifier>{ce37cf7e-6048-4820-9e4c-17017fce93dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_ContentBackground">
+      <UniqueIdentifier>{716a05a2-39e6-47cb-afc7-0a834100a572}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_DescBackground">
+      <UniqueIdentifier>{4d71f117-5e24-49b2-a760-86c5d10c4e41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_Frame">
+      <UniqueIdentifier>{9e7d3a31-e0b4-407f-9ec9-64633b09b62d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_UnderLine">
+      <UniqueIdentifier>{395b8a1d-8579-46e6-9646-8d8e8af63653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\1.PlayerMenuObj">
       <UniqueIdentifier>{ee675ac3-6231-4562-afe4-c8525e9a9c13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_LeftBackground">
+    <Filter Include="03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_LeftBackground">
       <UniqueIdentifier>{0126ca11-a395-4bf1-b58d-caf198e80502}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_RightBackground">
+    <Filter Include="03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_RightBackground">
       <UniqueIdentifier>{fd653d02-fba8-42aa-aefb-b78fd4bcba05}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_DiamondIcon">
+    <Filter Include="03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_DiamondIcon">
       <UniqueIdentifier>{de75a85c-9b65-4eac-abd9-25bcb389e3a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_HightlightBar">
-      <UniqueIdentifier>{9cbfbd3a-2024-4406-bd9b-3b6e51fb9f86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_Indicator_Selected">
-      <UniqueIdentifier>{90274c13-ae36-41ff-af33-77aaaf433755}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_KeyBox_Long">
+    <Filter Include="03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_KeyBox_Long">
       <UniqueIdentifier>{c1980e5f-fb80-4720-9dae-59f7df08260b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_LevelImage">
+    <Filter Include="03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_LevelImage">
       <UniqueIdentifier>{f88454c9-a16e-4a78-ad20-a6cc35bf42bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_LockedIcon">
+    <Filter Include="03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_LockedIcon">
       <UniqueIdentifier>{68437ca4-aec9-44a4-b9c7-8a4296f80ced}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_NewHint">
+    <Filter Include="03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_NewHint">
       <UniqueIdentifier>{f6dde290-2316-4dc9-9375-8f38988ad8b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_ButtonHighlight">
+    <Filter Include="03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_DecorationLine">
+      <UniqueIdentifier>{e2f7ba05-393c-44ff-bf38-753567eaea97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_Arrow_Long">
+      <UniqueIdentifier>{6a8065e6-d4ad-4895-a4da-67bb80b39773}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_BlackBar">
+      <UniqueIdentifier>{e5e38028-2bdc-488b-baf1-2b4fbc1806e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_DecorationFrame">
+      <UniqueIdentifier>{d493c554-36ee-415d-81a6-7ea34ea44cb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_SkillLeftBackground">
+      <UniqueIdentifier>{ba34ff2f-53b4-4016-a48a-5c96ee199181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_TitleBackgroundBar">
+      <UniqueIdentifier>{dcbcaae5-4eae-44d2-a8db-134e2692e177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_Arrow_RightButto1">
+      <UniqueIdentifier>{bffb99fc-fea8-4023-97b5-61da8ad4f12c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_Arrow_RightButto2">
+      <UniqueIdentifier>{72c33dad-cc76-4cf3-9c73-5170a53a7bb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_Arrow_RightButto3">
+      <UniqueIdentifier>{5d3586b9-e5fe-470e-9a78-7c1bd16d53d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Scene\PlayerMenu">
+      <UniqueIdentifier>{b5a9b2fd-00ec-4195-a09f-59b42d12c8fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\4.Intro">
+      <UniqueIdentifier>{bf46864b-d3e9-42bf-b2fa-26515b89762d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen">
+      <UniqueIdentifier>{332fbbdf-9bd4-44ac-9185-57c18eb1ee40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_Feather_Icon">
+      <UniqueIdentifier>{7967d358-d5b6-4b2e-aa5c-2c031c687a81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar1_Border">
+      <UniqueIdentifier>{4da1d4e5-106f-4e02-b3c7-4df6a42e36de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar2_BG">
+      <UniqueIdentifier>{2ea8cc6f-cd49-4cfa-b5bc-c41ffb8fa910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar3_MainBar">
+      <UniqueIdentifier>{e19944fe-bcf8-45bf-8a6d-198ba1bc37d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MemoryShardsIcon">
+      <UniqueIdentifier>{04cc817d-0b1b-4c7e-8178-f60c7d44ee39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MPBar1_Border">
+      <UniqueIdentifier>{cd51ffd3-a249-4fbd-8874-06e10a8506e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MPBar2_BG">
+      <UniqueIdentifier>{dcb7a178-b8b9-4c7b-9d11-11d310e05690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MPBar3_MainBar">
+      <UniqueIdentifier>{44b7389f-2264-45ad-b0e2-6485f4ff5d7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\5.Inventory">
+      <UniqueIdentifier>{c45e5e7d-5b69-414a-8845-f61188a40251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_Potion_DefaultType">
+      <UniqueIdentifier>{775ff19e-39cb-4863-8b1f-0616275b8d00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_PlunderSlotFrame">
+      <UniqueIdentifier>{4fecbb04-238d-4544-ac97-b6852e49455f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\4.Intro\UI_GameLogoImage">
+      <UniqueIdentifier>{90c085bb-82a3-4756-8c66-4bc74d5b2878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Scene\IntroScene">
+      <UniqueIdentifier>{31c18809-a625-42f5-99fd-5af3da143de3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj">
+      <UniqueIdentifier>{81b22b20-b940-439d-8939-c86e3cfd6b57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_Arrow">
+      <UniqueIdentifier>{2e0a65e1-e326-4d67-b7f1-05b14a483b36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_HightlightBar">
+      <UniqueIdentifier>{9cbfbd3a-2024-4406-bd9b-3b6e51fb9f86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_Indicator_Selected">
+      <UniqueIdentifier>{90274c13-ae36-41ff-af33-77aaaf433755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_SceneBackground">
+      <UniqueIdentifier>{8ebfd48d-b1a2-4b74-840b-aae0ec08cccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_SceneAboveBackground">
+      <UniqueIdentifier>{e0542145-5115-45ea-add3-1b016f390e74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_SceneUnderBackground">
+      <UniqueIdentifier>{d99d8392-4ded-4dc9-b585-71fa9a1ad33a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_ButtonHighlight">
       <UniqueIdentifier>{8cc78ed1-3a7b-42ad-a0e2-194aacea89c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Object\PlayerMenuObj\UI_DecorationLine">
-      <UniqueIdentifier>{e2f7ba05-393c-44ff-bf38-753567eaea97}</UniqueIdentifier>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\0.UI_TextBox">
+      <UniqueIdentifier>{4e8ea25b-c624-49aa-bf78-7bc0efb2b244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Scene\TestScene">
+      <UniqueIdentifier>{12517b14-dabc-46dc-897a-743ac60d5ea7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -204,17 +318,14 @@
     <ClInclude Include="..\Public\Boss_Varg.h">
       <Filter>02.GameObject\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\UI_LevelUP.h">
+    <ClInclude Include="..\Public\UI_PlayerLevelUP.h">
       <Filter>03.UIObject\UI_Scene\PlayerLevelUp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\UI_AttributeButton.h">
-      <Filter>03.UIObject\UI_Object\Attribute_button_Player</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_PlayerAttribute.h">
       <Filter>03.UIObject\UI_Scene\PlayerAttribute</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_LeftBackground.h">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LeftBackground</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_LeftBackground</Filter>
     </ClInclude>
     <ClInclude Include="..\ImGui\imconfig.h">
       <Filter>96.ImGUI\Header</Filter>
@@ -241,37 +352,127 @@
       <Filter>96.ImGUI\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_MouseCursor.h">
-      <Filter>03.UIObject\UI_Object\MouseCursor</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\MouseCursor</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_RightBackground.h">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_RightBackground</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_RightBackground</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_DiamondIcon.h">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_DiamondIcon</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_DiamondIcon</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_HightlightBar.h">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_HightlightBar</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_HightlightBar</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_Indicator_Selected.h">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_Indicator_Selected</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_Indicator_Selected</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_KeyBox_Long.h">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_KeyBox_Long</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_KeyBox_Long</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_LevelImage.h">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LevelImage</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_LevelImage</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_LockedIcon.h">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LockedIcon</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_LockedIcon</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_NewHint.h">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_NewHint</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_NewHint</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_ButtonHighlight.h">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_ButtonHighlight</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_ButtonHighlight</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_DecorationLine.h">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_DecorationLine</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_DecorationLine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Arrow.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Attribute_Slot_Active.h">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_Attribute_Slot_Active</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_BaseTalentIndicator.h">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_BaseTalentIndicator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_ContentBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_ContentBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_DescBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_DescBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Frame.h">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_SceneAboveBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_SceneAboveBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_SceneBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_SceneBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_SceneUnderBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_SceneUnderBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_UnderLine.h">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_UnderLine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Arrow_Long.h">
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_Arrow_Long</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_BlackBar.h">
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_BlackBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_DecorationFrame.h">
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_DecorationFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_ButtonBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_SkillLeftBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_TitleBackgroundBar.h">
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_TitleBackgroundBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Scene_PlayerMenu.h">
+      <Filter>03.UIObject\UI_Scene\PlayerMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Feather_Icon.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_Feather_Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_HPBar1_Border.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar1_Border</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_HPBar2_BG.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar2_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_HPBar3_MainBar.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar3_MainBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_MemoryShardsIcon.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MemoryShardsIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_MPBar1_Border.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MPBar1_Border</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_MPBar2_BG.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MPBar2_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_MPBar3_MainBar.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MPBar3_MainBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_PlunderSlotFrame.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_PlunderSlotFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Potion_DefaultType.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_Potion_DefaultType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_GameLogoImage.h">
+      <Filter>03.UIObject\UI_ObjectPart\4.Intro\UI_GameLogoImage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\IntroScene.h">
+      <Filter>03.UIObject\UI_Scene\IntroScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_TextBox.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\0.UI_TextBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\TestScene_TextTest.h">
+      <Filter>03.UIObject\UI_Scene\TestScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -329,17 +530,14 @@
     <ClCompile Include="..\Private\Boss_Varg.cpp">
       <Filter>02.GameObject\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\UI_LevelUP.cpp">
+    <ClCompile Include="..\Private\UI_PlayerLevelUP.cpp">
       <Filter>03.UIObject\UI_Scene\PlayerLevelUp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\UI_AttributeButton.cpp">
-      <Filter>03.UIObject\UI_Object\Attribute_button_Player</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_PlayerAttribute.cpp">
       <Filter>03.UIObject\UI_Scene\PlayerAttribute</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_LeftBackground.cpp">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LeftBackground</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_LeftBackground</Filter>
     </ClCompile>
     <ClCompile Include="..\ImGui\imgui_impl_win32.cpp">
       <Filter>96.ImGUI\Code</Filter>
@@ -363,37 +561,127 @@
       <Filter>96.ImGUI\Code</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_MouseCursor.cpp">
-      <Filter>03.UIObject\UI_Object\MouseCursor</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\MouseCursor</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_RightBackground.cpp">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_RightBackground</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_RightBackground</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_DiamondIcon.cpp">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_DiamondIcon</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_DiamondIcon</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_Indicator_Selected.cpp">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_Indicator_Selected</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_Indicator_Selected</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_KeyBox_Long.cpp">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_KeyBox_Long</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_KeyBox_Long</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_LevelImage.cpp">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LevelImage</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_LevelImage</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_LockedIcon.cpp">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_LockedIcon</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_LockedIcon</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_NewHint.cpp">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_NewHint</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_NewHint</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_ButtonHighlight.cpp">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_ButtonHighlight</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_ButtonHighlight</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_HightlightBar.cpp">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_HightlightBar</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_HightlightBar</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_DecorationLine.cpp">
-      <Filter>03.UIObject\UI_Object\PlayerMenuObj\UI_DecorationLine</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_DecorationLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Arrow.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Attribute_Slot_Active.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_Attribute_Slot_Active</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_BaseTalentIndicator.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_BaseTalentIndicator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_ContentBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_ContentBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_DescBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_DescBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Frame.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_SceneAboveBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_SceneAboveBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_SceneBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_SceneBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_SceneUnderBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_SceneUnderBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_UnderLine.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_UnderLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Arrow_Long.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_Arrow_Long</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_BlackBar.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_BlackBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_DecorationFrame.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_DecorationFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_ButtonBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_SkillLeftBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_TitleBackgroundBar.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_TitleBackgroundBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Scene_PlayerMenu.cpp">
+      <Filter>03.UIObject\UI_Scene\PlayerMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Feather_Icon.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_Feather_Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_HPBar1_Border.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar1_Border</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_HPBar2_BG.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar2_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_HPBar3_MainBar.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar3_MainBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_MemoryShardsIcon.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MemoryShardsIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_MPBar1_Border.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MPBar1_Border</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_MPBar2_BG.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MPBar2_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_MPBar3_MainBar.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_MPBar3_MainBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_PlunderSlotFrame.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_PlunderSlotFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Potion_DefaultType.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_Potion_DefaultType</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_GameLogoImage.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\4.Intro\UI_GameLogoImage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\IntroScene.cpp">
+      <Filter>03.UIObject\UI_Scene\IntroScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_TextBox.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\0.UI_TextBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\TestScene_TextTest.cpp">
+      <Filter>03.UIObject\UI_Scene\TestScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -446,6 +734,9 @@
       <Filter>97.ShaderFiles</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxPosTexAge.hlsl">
+      <Filter>97.ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxPosTex_UI.hlsl">
       <Filter>97.ShaderFiles</Filter>
     </FxCompile>
   </ItemGroup>

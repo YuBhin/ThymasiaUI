@@ -25,6 +25,8 @@ HRESULT CCustomFont::Render(const _tchar* pText, const _float2& vPosition, _fvec
     m_pBatch->Begin(SpriteSortMode_FrontToBack);
 
     /* 뷰포트 상의 직교투영의 형태로 그려낸다. */
+    //m_pFont->DrawString(m_pBatch, pText, { vPosition.x + 1.f,vPosition.y + 1.f }, Colors::Black, fRotation, vOrigin, fScale, effects, layerDepth);
+    //m_pFont->DrawString(m_pBatch, pText, { vPosition.x - 1.f,vPosition.y - 1.f }, Colors::Black, fRotation, vOrigin, fScale, effects, layerDepth);
     m_pFont->DrawString(m_pBatch, pText, vPosition, vColor, fRotation, vOrigin, fScale, effects, layerDepth);
 
     m_pBatch->End();

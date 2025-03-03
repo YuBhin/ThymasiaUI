@@ -14,7 +14,6 @@ sampler LinearSampler_Clamp = sampler_state
     AddressV = clamp;
 };
 
-
 RasterizerState RS_Default
 {
     CullMode = BACK;

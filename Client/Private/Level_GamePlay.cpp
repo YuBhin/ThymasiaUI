@@ -5,11 +5,11 @@
 #include "Layer.h"	
 
 #include "UI_LeftBackground.h"
-#include "UI_AttributeButton.h"
 #include "UI_Scene.h"
 #include "UI_Button.h"
 #include "UI_Button_Player.h"
 #include "UI_Image.h"
+#include "UI_Text.h"
 #include "UI_Text_PlayerInfo.h"
 
 CLevel_GamePlay::CLevel_GamePlay(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -33,10 +33,20 @@ HRESULT CLevel_GamePlay::Initialize()
 
 	if (FAILED(Ready_Layer_Effect(TEXT("Layer_Effect"))))
 		return E_FAIL;
+	if (!m_bIMGUI)
+	{
 
-	if (FAILED(Ready_Layer_UI_Scene(TEXT("Layer_UIScene"))))
-		return E_FAIL;
+		if (FAILED(Ready_Layer_UI_Menu_Scene(TEXT("Layer_Menu"))))
+			return E_FAIL;
 
+		if (FAILED(Ready_Layer_UI_LevelUp_Scene(TEXT("Layer_LevelUP"))))
+			return E_FAIL;
+
+		if (FAILED(Ready_Layer_UI_Attribute_Scene(TEXT("Layer_Attribute"))))
+			return E_FAIL;
+
+
+	}
 	if (FAILED(Ready_Layer_Ladder(TEXT("Layer_Ladder"))))
 		return E_FAIL;
 
@@ -49,88 +59,114 @@ HRESULT CLevel_GamePlay::Initialize()
 
 void CLevel_GamePlay::Update(_float fTimeDelta)
 {
-
-	if (m_pGameInstance->isMouseEnter(DIM_RB))
+	if (m_bIMGUI)
 	{
-		if (m_bUIorText)
-			Create_UI_Scene_Object();
-		else
-			Create_Text();
 
-	}
-	//if (m_pGameInstance->isKeyEnter(DIK_E))
-	//{
-	//	m_iOpenSceneCount++;
-	//	if (1 == m_iOpenSceneCount) // 레벨업
-	//	{
-	//		m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_LEVELUP, L"UIScene_PlayerLevelUP")), true);
-	//		//pUIScene->UIScene_UIObject_Render_OnOff(true);
-	//	}
-	//	if (2 == m_iOpenSceneCount) // 특성
-	//	{
-	//		m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_LEVELUP, L"UIScene_PlayerLevelUP")), false);
-	//		m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_ATTRIBUTE, L"UIScene_PlayerAttribute")), true);
-	//	}
-	//	if (3 == m_iOpenSceneCount) // 초기화
-	//	{
-	//		m_iOpenSceneCount = 0;
-
-	//		m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_LEVELUP, L"UIScene_PlayerLevelUP")), false);
-	//		m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_ATTRIBUTE, L"UIScene_PlayerAttribute")), false);
-	//	}
-	//}
-
-	if (m_pGameInstance->isKeyEnter(DIK_F4))
-	{
-		if (m_bUIorText)
-			m_bUIorText = false;
-		else
-			m_bUIorText = true;
-
-	}
-	if (m_pGameInstance->isKeyEnter(DIK_F5))
-	{
-		if (m_bUIorText)
+		if (m_pGameInstance->isMouseEnter(DIM_RB))
 		{
-			if (m_bGetUIObjCheck)
-				m_bGetUIObjCheck = false;
+			if (m_bUIorText)
+				Create_UI_Scene_Object();
 			else
-				m_bGetUIObjCheck = true;
+				Create_Text();
 
 		}
-		else
+		if (m_pGameInstance->isKeyEnter(DIK_F4))
 		{
-			if (m_bGetTextCheck)
-				m_bGetTextCheck = false;
+			if (m_bUIorText)
+				m_bUIorText = false;
 			else
-				m_bGetTextCheck = true;
+				m_bUIorText = true;
 
 		}
-	}
-	if (m_pGameInstance->isKeyEnter(DIK_F6))
-	{
-		if (m_bMouseMoveCheck)
+		if (m_pGameInstance->isKeyEnter(DIK_F5))
 		{
-			m_bMouseMoveCheck = false;
+			if (m_bUIorText)
+			{
+				if (m_bGetUIObjCheck)
+					m_bGetUIObjCheck = false;
+				else
+					m_bGetUIObjCheck = true;
+
+			}
+			else
+			{
+				if (m_bGetTextCheck)
+					m_bGetTextCheck = false;
+				else
+					m_bGetTextCheck = true;
+
+			}
 		}
-		else
+		if (m_pGameInstance->isKeyEnter(DIK_F6))
 		{
-			m_bMouseMoveCheck = true;
+			if (m_bMouseMoveCheck)
+			{
+				m_bMouseMoveCheck = false;
+			}
+			else
+			{
+				m_bMouseMoveCheck = true;
+			}
+			if (m_bTexMouseOn)
+			{
+				m_bTexMouseOn = false;
+			}
+			else
+			{
+				m_bTexMouseOn = true;
+			}
 		}
-		if (m_bTexMouseOn)
+		if (m_pGameInstance->isKeyEnter(DIK_F8))
 		{
-			m_bTexMouseOn = false;
+			if (m_bUIorText)
+			{
+				m_pGameInstance->Clear_Choice(m_iUIType, m_iSceneIndex, m_szUISceneName, m_pCurrentUIObj);
+			}
+			else if(!m_bUIorText)
+			{
+				Delete_TextContainer_Choice();
+			}
 		}
-		else
-		{
-			m_bTexMouseOn = true;
-		}
-	}
-	if (m_pGameInstance->isKeyEnter(DIK_F8))
-	{
-		m_pGameInstance->Clear_Choice(m_iUIType, m_iSceneIndex, m_szUISceneName, m_pCurrentUIObj);
 
 	}
+	else
+	{
+
+		if (m_pGameInstance->isKeyEnter(DIK_E))
+		{
+			m_iOpenSceneCount++;
+			if (1 == m_iOpenSceneCount) // 메뉴
+			{
+				m_pGameInstance->UIScene_Render_OnOff(LEVEL_GAMEPLAY, TEXT("Layer_Menu"), true);
+				//m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_MENU, L"UIScene_PlayerMenu")), true);
+			}
+			if (2 == m_iOpenSceneCount) // 레벨업
+			{
+				m_pGameInstance->UIScene_Render_OnOff(LEVEL_GAMEPLAY, TEXT("Layer_Menu"), false);
+				m_pGameInstance->UIScene_Render_OnOff(LEVEL_GAMEPLAY, TEXT("Layer_LevelUP"), true);
+				m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_MENU, L"UIScene_PlayerMenu")), false);
+				//m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_LEVELUP, L"UIScene_PlayerLevelUP")), true);
+			}
+			if (3 == m_iOpenSceneCount) // 특성
+			{
+				m_pGameInstance->UIScene_Render_OnOff(LEVEL_GAMEPLAY, TEXT("Layer_LevelUP"), false);
+				m_pGameInstance->UIScene_Render_OnOff(LEVEL_GAMEPLAY, TEXT("Layer_Attribute"), true);
+				m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_LEVELUP, L"UIScene_PlayerLevelUP")), false);
+				//m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_ATTRIBUTE, L"UIScene_PlayerAttribute")), true);
+			}
+			if (4 == m_iOpenSceneCount) // 초기화
+			{
+				m_iOpenSceneCount = 0;
+				m_pGameInstance->UIScene_Render_OnOff(LEVEL_GAMEPLAY, TEXT("Layer_Menu"), false);
+				m_pGameInstance->UIScene_Render_OnOff(LEVEL_GAMEPLAY, TEXT("Layer_LevelUP"), false);
+				m_pGameInstance->UIScene_Render_OnOff(LEVEL_GAMEPLAY, TEXT("Layer_Attribute"), false);
+				m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_MENU, L"UIScene_PlayerMenu")), false);
+				m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_LEVELUP, L"UIScene_PlayerLevelUP")), false);
+				m_pGameInstance->UIScene_UIObject_Render_OnOff((m_pGameInstance->Find_UIScene(UISCENE_ATTRIBUTE, L"UIScene_PlayerAttribute")), false);
+			}
+		}
+	}
+
 }
 
 HRESULT CLevel_GamePlay::Render()
@@ -138,12 +174,16 @@ HRESULT CLevel_GamePlay::Render()
 #ifdef _DEBUG
 	SetWindowText(g_hWnd, TEXT("게임플레이 레벨입니다."));
 #endif
+	if (m_bIMGUI)
+	{
+		ShowGUI();
+		//ImGui::Render();
 
-	ShowGUI();
-	//ImGui::Render();
+		//m_pGameInstance->Render_Font(m_szFontName, m_szTextContent, TextTest);
 
-	//m_pGameInstance->Render_Font(m_szFontName, m_szTextContent, TextTest);
+	
 
+	}
 	vector<UI_TextInfo>::iterator it;
 	for (it = m_TextInfo.begin(); it != m_TextInfo.end(); it++)
 	{
@@ -229,10 +269,24 @@ HRESULT CLevel_GamePlay::Ready_Layer_Effect(const _tchar* pLayerTag)
 	return S_OK;
 }
 
-HRESULT CLevel_GamePlay::Ready_Layer_UI_Scene(const _tchar* pLayerTag)
+HRESULT CLevel_GamePlay::Ready_Layer_UI_Menu_Scene(const _tchar* pLayerTag)
 {
-	//if (FAILED(m_pGameInstance->Add_GameObject_To_Layer(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_LevelUP"), LEVEL_GAMEPLAY, pLayerTag)))
-	//	return E_FAIL;
+	if (FAILED(m_pGameInstance->Add_GameObject_To_Layer(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Menu"), LEVEL_GAMEPLAY, pLayerTag)))
+		return E_FAIL;
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::Ready_Layer_UI_LevelUp_Scene(const _tchar* pLayerTag)
+{
+	if (FAILED(m_pGameInstance->Add_GameObject_To_Layer(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_TestScene_TextTest"), LEVEL_GAMEPLAY, pLayerTag)))
+		return E_FAIL;
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::Ready_Layer_UI_Attribute_Scene(const _tchar* pLayerTag)
+{
+	if (FAILED(m_pGameInstance->Add_GameObject_To_Layer(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Attribute"), LEVEL_GAMEPLAY, pLayerTag)))
+		return E_FAIL;
 	return S_OK;
 }
 
@@ -335,6 +389,9 @@ void CLevel_GamePlay::ShowGUI()
 
 	SetUIFont();
 	SetUIScene();
+	SetUIObj_Type();
+	SetUISetting();
+
 	//메뉴바
 	if (ImGui::BeginMenuBar())
 	{
@@ -428,7 +485,8 @@ void CLevel_GamePlay::SetUIScene()
 	static _int iradioSelect0 = 0;
 	static _int iradioSelect1 = 0;
 
-	ImGui::Text(u8"UI 선택 상태");
+	if (ImGui::CollapsingHeader(u8"선택 상태"))
+		return; // gui 숨겼다 보여주는 bool 값
 	if (m_bUIorText)
 	{
 		if (!m_bGetUIObjCheck)
@@ -478,20 +536,19 @@ void CLevel_GamePlay::SetUIScene()
 			iradioSelect1 = 1;
 		}
 	}
+	
 
-
-	ImGui::Text(u8"UIScene");
-
+	if (ImGui::CollapsingHeader("UIScene"))
+		return; // gui 숨겼다 보여주는 bool 값
 	static _int iradioSelect2 = 0;
 
-
-	//초기값 설정
-	if (iradioSelect2 == 0)
-	{
-		m_iUIScenIndex = 0;
-		m_szUISceneName = { L"UIScene_PlayerMenu" };
-		m_iSceneIndex = UISCENE_MENU;
-	}
+	////초기값 설정
+	//if (iradioSelect2 == 0)
+	//{
+	//	m_iUIScenIndex = 0;
+	//	m_szUISceneName = { L"UIScene_PlayerMenu" };
+	//	m_iSceneIndex = UISCENE_MENU;
+	//}
 	if (ImGui::RadioButton("PlayerMenu", iradioSelect2 == 0)) {
 		iradioSelect2 = 0;
 		m_iUIScenIndex = 0;
@@ -512,8 +569,34 @@ void CLevel_GamePlay::SetUIScene()
 		m_szUISceneName = { L"UIScene_PlayerAttribute" };
 		m_iSceneIndex = UISCENE_ATTRIBUTE;
 	}
+	if (ImGui::RadioButton("Intro", iradioSelect2 == 3)) {
+		iradioSelect2 = 3;
+		m_iUIScenIndex = 3;
+		m_szUISceneName = { L"UIScene_Intro" };
+		m_iSceneIndex = UISCENE_INTRO;
+	}
+	ImGui::SameLine();
+	if (ImGui::RadioButton("ESCMENU", iradioSelect2 == 4)) {
+		iradioSelect2 = 4;
+		m_iUIScenIndex = 4;
+		m_szUISceneName = { L"UIScene_ESCMENU" };
+		m_iSceneIndex = UISCENE_ESCMENU;
+	}
+	ImGui::SameLine();
+	if (ImGui::RadioButton("PlayerMainScreen", iradioSelect2 == 5)) {
+		iradioSelect2 = 5;
+		m_iUIScenIndex = 5;
+		m_szUISceneName = { L"UIScene_PlayerMainScreen" };
+		m_iSceneIndex = UISCENE_PLAYERMAINSCREEN;
+	}
 
-	SetUIObj_Type();
+	if (ImGui::RadioButton("MonsterHP", iradioSelect2 == 6)) {
+		iradioSelect2 = 6;
+		m_iUIScenIndex = 6;
+		m_szUISceneName = { L"UIScene_MonsterHP" };
+		m_iSceneIndex = UISCENE_MONSTERHP;
+	}
+
 }
 
 void CLevel_GamePlay::SetUIObj_Type()
@@ -541,12 +624,11 @@ void CLevel_GamePlay::SetUIObj_Type()
 		m_iUIType = 2;
 	}
 	ImGui::SameLine();
-	if (ImGui::RadioButton("UI_TEXTPLAYER", iradioSelect1 == 3)) {
+	if (ImGui::RadioButton("UI_TEXT", iradioSelect1 == 3)) {
 		iradioSelect1 = 3;
 		m_iUIType = 3;
 	}
 
-	SetUISetting();
 }
 
 void CLevel_GamePlay::SetUISetting()
@@ -645,6 +727,23 @@ void CLevel_GamePlay::SetUISetting()
 				}
 				break;
 			case 3:
+				for (auto& UIObj : pUIScene->Find_UI_TextBox())
+				{
+					fGetPos = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION);
+					fGetsize.x = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().x;
+					fGetsize.y = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().y;
+					if (ptMouse.x >= fGetPos.x - fGetsize.x / 2 &&
+						ptMouse.x <= fGetPos.x + fGetsize.x / 2 &&
+						ptMouse.y >= fGetPos.y - fGetsize.y / 2 &&
+						ptMouse.y <= fGetPos.y + fGetsize.y / 2)
+					{
+						fPos = fGetPos;
+						fSize = fGetsize;
+						m_pCurrentUIObj = UIObj;
+					}
+				}
+				break;
+			case 4:
 				for (auto& UIObj : pUIScene->Find_UI_Text_PlayerInfo())
 				{
 					fGetPos = dynamic_cast<CTransform*>(UIObj->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION);
@@ -727,14 +826,15 @@ void CLevel_GamePlay::SetUISetting()
 	}
 
 
-	static _int iShaderPassNum = { 12 };
+	static _int iShaderPassNum = { 1 };
 	ImGui::Text(u8"쉐이더 패스");
 	ImGui::SameLine(100.f, 0.f);
 	if (ImGui::InputInt(u8"패스번호", &iShaderPassNum))
 	{
 		m_iShaderPassNum = iShaderPassNum;
 		if (!m_bGetUIObjCheck)// 현재 객체가 명확하게 선택 되어 있는 경우에만 작동
-			m_pCurrentUIObj->Set_UI_ShaderPassNum(iShaderPassNum);
+			if(nullptr != m_pCurrentUIObj)
+				m_pCurrentUIObj->Set_UI_ShaderPassNum(iShaderPassNum);
 	}
 
 	static _int iTexturNum = { 0 };
@@ -744,17 +844,26 @@ void CLevel_GamePlay::SetUISetting()
 	{
 		m_iTexNumber = iTexturNum;
 		if (!m_bGetUIObjCheck)// 현재 객체가 명확하게 선택 되어 있는 경우에만 작동
-			m_pCurrentUIObj->Set_TexNumber(iTexturNum);
+			if (nullptr != m_pCurrentUIObj)
+				m_pCurrentUIObj->Set_TexNumber(iTexturNum);
 	}
 
+
 	static _int iGroupID = { 0 };
+	if (!m_bGetUIObjCheck) // 현재 객체가 명확하게 선택 되어 있는 경우에만 작동
+	{
+		if (nullptr != m_pCurrentUIObj)
+			iGroupID = m_pCurrentUIObj->Get_UI_GroupID();
+	}
+
 	ImGui::Text(u8"UI 그룹아이디");
 	ImGui::SameLine(100.f, 0.f);
 	if (ImGui::InputInt(u8"아이디", &iGroupID))
 	{
 		m_iGroupID = iGroupID;
 		if (!m_bGetUIObjCheck)// 현재 객체가 명확하게 선택 되어 있는 경우에만 작동
-			m_pCurrentUIObj->Set_UI_GroupID(iGroupID);
+			if (nullptr != m_pCurrentUIObj)
+				m_pCurrentUIObj->Set_UI_GroupID(iGroupID);
 	}
 
 	SetUIImage();
@@ -773,8 +882,10 @@ void CLevel_GamePlay::SetUIImage()
 	_int iTemp(0);
 	static _int iSelectButton = -1;
 
+	ImGui::Text(u8"공용");
+
 	map<_wstring, ID3D11ShaderResourceView*>::iterator it;
-	for (it = m_SRVs.begin(); it != m_SRVs.end(); ++it)
+	for (it = m_ShareSRVs.begin(); it != m_ShareSRVs.end(); ++it)
 	{
 		ImGui::PushID(iTemp);
 		ImVec4 ColorRGBA = (iSelectButton == iTemp) ? ImVec4(255.f, 0.1f, 0.0f, 0.5f) : ImVec4(0.0f, 0.f, 0.0f, 0.0f);
@@ -812,6 +923,169 @@ void CLevel_GamePlay::SetUIImage()
 		iTemp++;
 	}
 
+	ImGui::NewLine();
+	ImGui::Text(u8"플레이어메뉴");
+	for (it = m_MenuSRVs.begin(); it != m_MenuSRVs.end(); ++it)
+	{
+		ImGui::PushID(iTemp);
+		ImVec4 ColorRGBA = (iSelectButton == iTemp) ? ImVec4(255.f, 0.1f, 0.0f, 0.5f) : ImVec4(0.0f, 0.f, 0.0f, 0.0f);
+
+
+		_int iStrSize = WideCharToMultiByte(CP_ACP, 0, (*it).first.c_str(), -1, NULL, 0, NULL, NULL);
+		_char* pStr = new _char[iStrSize];
+		WideCharToMultiByte(CP_ACP, 0, (*it).first.c_str(), -1, pStr, iStrSize, NULL, NULL);
+		// 배경 그리기
+		ImGui::GetWindowDrawList()->AddRectFilled(
+			ImGui::GetCursorScreenPos(),
+			ImVec2(ImGui::GetCursorScreenPos().x + 64, ImGui::GetCursorScreenPos().y + 64),
+			ImGui::ColorConvertFloat4ToU32(ColorRGBA));
+		if (ImGui::ImageButton(pStr, (ImTextureID)(*it).second, ImVec2(64.f, 64.f)))
+		{
+			m_szUIName = (*it).first.c_str();
+			iSelectButton = iTemp;
+			//m_iNumber = iTemp;
+		}
+
+		iCount++;
+		if (iCount < 5)
+		{
+			ImGui::SameLine();
+		}
+		else
+		{
+			iCount = 0;
+		}
+
+		delete[] pStr;
+		pStr = nullptr;
+
+		ImGui::PopID();
+		iTemp++;
+	}
+	ImGui::NewLine();
+
+	ImGui::Text(u8"플레이어레벨업");
+	for (it = m_LevelUpSRVs.begin(); it != m_LevelUpSRVs.end(); ++it)
+	{
+		ImGui::PushID(iTemp);
+		ImVec4 ColorRGBA = (iSelectButton == iTemp) ? ImVec4(255.f, 0.1f, 0.0f, 0.5f) : ImVec4(0.0f, 0.f, 0.0f, 0.0f);
+
+
+		_int iStrSize = WideCharToMultiByte(CP_ACP, 0, (*it).first.c_str(), -1, NULL, 0, NULL, NULL);
+		_char* pStr = new _char[iStrSize];
+		WideCharToMultiByte(CP_ACP, 0, (*it).first.c_str(), -1, pStr, iStrSize, NULL, NULL);
+		// 배경 그리기
+		ImGui::GetWindowDrawList()->AddRectFilled(
+			ImGui::GetCursorScreenPos(),
+			ImVec2(ImGui::GetCursorScreenPos().x + 64, ImGui::GetCursorScreenPos().y + 64),
+			ImGui::ColorConvertFloat4ToU32(ColorRGBA));
+		if (ImGui::ImageButton(pStr, (ImTextureID)(*it).second, ImVec2(64.f, 64.f)))
+		{
+			m_szUIName = (*it).first.c_str();
+			iSelectButton = iTemp;
+			//m_iNumber = iTemp;
+		}
+
+		iCount++;
+		if (iCount < 5)
+		{
+			ImGui::SameLine();
+		}
+		else
+		{
+			iCount = 0;
+		}
+
+		delete[] pStr;
+		pStr = nullptr;
+
+		ImGui::PopID();
+		iTemp++;
+	}
+	ImGui::NewLine();
+
+	ImGui::Text(u8"플레이어특성");
+	for (it = m_AttributeSRVs.begin(); it != m_AttributeSRVs.end(); ++it)
+	{
+		ImGui::PushID(iTemp);
+		ImVec4 ColorRGBA = (iSelectButton == iTemp) ? ImVec4(255.f, 0.1f, 0.0f, 0.5f) : ImVec4(0.0f, 0.f, 0.0f, 0.0f);
+
+
+		_int iStrSize = WideCharToMultiByte(CP_ACP, 0, (*it).first.c_str(), -1, NULL, 0, NULL, NULL);
+		_char* pStr = new _char[iStrSize];
+		WideCharToMultiByte(CP_ACP, 0, (*it).first.c_str(), -1, pStr, iStrSize, NULL, NULL);
+		// 배경 그리기
+		ImGui::GetWindowDrawList()->AddRectFilled(
+			ImGui::GetCursorScreenPos(),
+			ImVec2(ImGui::GetCursorScreenPos().x + 64, ImGui::GetCursorScreenPos().y + 64),
+			ImGui::ColorConvertFloat4ToU32(ColorRGBA));
+		if (ImGui::ImageButton(pStr, (ImTextureID)(*it).second, ImVec2(64.f, 64.f)))
+		{
+			m_szUIName = (*it).first.c_str();
+			iSelectButton = iTemp;
+			//m_iNumber = iTemp;
+		}
+
+		iCount++;
+		if (iCount < 5)
+		{
+			ImGui::SameLine();
+		}
+		else
+		{
+			iCount = 0;
+		}
+
+		delete[] pStr;
+		pStr = nullptr;
+
+		ImGui::PopID();
+		iTemp++;
+	}
+
+	ImGui::NewLine();
+	
+	ImGui::Text(u8"플레이어 기본화면");
+	for (it = m_PlayerSRVs.begin(); it != m_PlayerSRVs.end(); ++it)
+	{
+		ImGui::PushID(iTemp);
+		ImVec4 ColorRGBA = (iSelectButton == iTemp) ? ImVec4(255.f, 0.1f, 0.0f, 0.5f) : ImVec4(0.0f, 0.f, 0.0f, 0.0f);
+
+
+		_int iStrSize = WideCharToMultiByte(CP_ACP, 0, (*it).first.c_str(), -1, NULL, 0, NULL, NULL);
+		_char* pStr = new _char[iStrSize];
+		WideCharToMultiByte(CP_ACP, 0, (*it).first.c_str(), -1, pStr, iStrSize, NULL, NULL);
+		// 배경 그리기
+		ImGui::GetWindowDrawList()->AddRectFilled(
+			ImGui::GetCursorScreenPos(),
+			ImVec2(ImGui::GetCursorScreenPos().x + 64, ImGui::GetCursorScreenPos().y + 64),
+			ImGui::ColorConvertFloat4ToU32(ColorRGBA));
+		if (ImGui::ImageButton(pStr, (ImTextureID)(*it).second, ImVec2(64.f, 64.f)))
+		{
+			m_szUIName = (*it).first.c_str();
+			iSelectButton = iTemp;
+			//m_iNumber = iTemp;
+		}
+
+		iCount++;
+		if (iCount < 5)
+		{
+			ImGui::SameLine();
+		}
+		else
+		{
+			iCount = 0;
+		}
+
+		delete[] pStr;
+		pStr = nullptr;
+
+		ImGui::PopID();
+		iTemp++;
+	}
+
+	ImGui::NewLine();
+
 }
 
 void CLevel_GamePlay::SetUIFont()
@@ -840,8 +1114,8 @@ void CLevel_GamePlay::SetUIFont()
 	//ImGui::Text("Message: %s", text.c_str()); // 문자열 출력
 
 	ImGui::BulletText("TextID: %d", m_CurrentText.iTextID);
-	ImGui::BulletText(u8"사용 폰트: %s", m_CurrentText.strFontName.c_str());
-	ImGui::BulletText(u8"텍스트 내용: %s", m_CurrentText.srtTextContent.c_str());
+	ImGui::BulletText(u8"사용 폰트: %s", m_CurrentText.strFontName.data());
+	ImGui::BulletText(u8"텍스트 내용: %s", m_CurrentText.srtTextContent.data());
 	ImGui::BulletText(u8"가로 세로: %.2f / %.2f", m_CurrentText.fTextSize.x, m_CurrentText.fTextSize.y);
 	ImGui::BulletText("X Y : %.2f / %.2f", m_CurrentText.fTextStartPos.x, m_CurrentText.fTextStartPos.y);
 	ImGui::Separator();
@@ -849,21 +1123,37 @@ void CLevel_GamePlay::SetUIFont()
 
 	ImGui::Text(u8"Font Text 입력");
 	static _char szInputText[MAX_PATH] = "";
-	_tchar*  m_szSaveName{}; // => 멤버변수로 저장해
-	if (ImGui::InputText(u8"텍스트 내용 작성", szInputText, IM_ARRAYSIZE(szInputText)))
+	 
+	if (ImGui::InputTextMultiline(u8"텍스트 내용 작성", szInputText, IM_ARRAYSIZE(szInputText),ImVec2(300.f,100.f)))
 	{
+		if (nullptr != m_szSaveName)
+		{
+			delete[] m_szSaveName;
+		}
+
 		_int iResize = MultiByteToWideChar(CP_UTF8, 0, szInputText, -1, NULL, 0);
 		m_szSaveName = new _tchar[iResize];
 
 		MultiByteToWideChar(CP_UTF8, 0, szInputText, -1, m_szSaveName, iResize);
 
 		m_szTextContent = m_szSaveName;
+		//delete[] m_szSaveName;
 
 		// 디버깅용 출력
 	}
 	else
 		m_bCurrentText = false;
 	ImGui::Text(u8"작성된: %s", szInputText);
+
+	static _int iTextID = {};
+
+	ImGui::Text(u8"텍스트ID");
+	ImGui::SameLine(100.f, 0.f);
+	if (ImGui::InputInt("TextID", &iTextID))
+	{
+		m_iTextID = iTextID;
+	}
+
 
 
 	if (!m_bGetTextCheck)// 현재 객체가 명확하게 선택 되어 있는 경우에만 작동
@@ -950,20 +1240,6 @@ void CLevel_GamePlay::SetUIFontName()
 			iradioSelect1 = 7;
 			m_szFontName = TEXT("Font_NotoSansKR48");
 		}
-		/*
-
-	ImGui::SameLine();
-	if (ImGui::RadioButton("Font_NotoSansKR24", iradioSelect1 == 2)) {
-		iradioSelect1 = 2;
-		m_iUIType = 2;
-	}
-	ImGui::SameLine();
-	if (ImGui::RadioButton("UI_TEXTPLAYER", iradioSelect1 == 3)) {
-		iradioSelect1 = 3;
-		m_iUIType = 3;
-	}*/
-
-
 
 
 }
@@ -1001,31 +1277,63 @@ HRESULT CLevel_GamePlay::Create_UI_Scene_Object()
 
 HRESULT CLevel_GamePlay::Save_UI_IMGUI_Textrue()
 {
-
 	//====================================================================================================================================== 키보드 텍스처
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_KeyBox_Long"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_KeyBox_Long.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_KeyBox_Long"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_KeyBox_Long.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_TextBox"), TEXT("../Bin/Resources/Textures/ThymesiaUI/General/UI_TextBox.dds"), 1);
 
 	//====================================================================================================================================== 넛지 텍스처
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_DiamondIcon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_DiamondIcon_01.dds"), 1);
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_Indicator_Selected"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_Indicator_Selected_0.dds"), 1);
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_NewHint"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_NewHint.dds"), 1);
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_LockedIcon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LockedIcon.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_DiamondIcon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_DiamondIcon_01.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_Indicator_Selected"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_Indicator_Selected_0.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_NewHint"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_NewHint.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_LockedIcon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LockedIcon.dds"), 1);
 
 	//==================================================================================================================================== 플레이어 메뉴창(의자착석)
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_LeftBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LeftBackground.dds"), 1);
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_RightBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_RightBackground.dds"), 1);
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_HighlightBar_02"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_HighlightBar_02.dds"), 1);
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_LevelImage"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LevelImage_Circus.dds"), 1);
+	Save_UI_Textrue_Menu(TEXT("Prototype_GameObject_UI_LeftBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LeftBackground.dds"), 1);
+	Save_UI_Textrue_Menu(TEXT("Prototype_GameObject_UI_RightBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_RightBackground.dds"), 1);
+	Save_UI_Textrue_Menu(TEXT("Prototype_GameObject_UI_HighlightBar"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_HighlightBar_00.dds"), 1);
+	Save_UI_Textrue_Menu(TEXT("Prototype_GameObject_UI_LevelImage"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LevelImage_Circus.dds"), 1);
+	Save_UI_Textrue_Menu(TEXT("Prototype_GameObject_UI_ButtonHighlight"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_ButtonHighlight_00.dds"), 1);
+	//==================================================================================================================================== 플레이어 특성 창
 
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_ButtonHighlight"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_ButtonHighlight_02.dds"), 1);
+	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_Arrow"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_Arrow.dds"), 1);
+	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_Attribute_Slot_Active"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_Attribute_Slot_Active_0.dds"), 1);
+	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_BaseTalentIndicator"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_BaseTalentIndicator.dds"), 1);
+	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_ContentBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_ContentBackground.dds"), 1);
+	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_DescBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_DescBackground.dds"), 1);
+	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_Frame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_Frame_0.dds"), 1);
+	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_SceneAboveBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_SceneAboveBackground.dds"), 1);
+	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_SceneBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_SceneBackground_0.dds"), 1);
+	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_SceneUnderBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_SceneUnderBackground.dds"), 1);
+	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_UnderLine"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_UnderLine.dds"), 1);
+	//==================================================================================================================================== 플레이어 레벨 업 창
+
+	Save_UI_Textrue_LevelUp(TEXT("Prototype_GameObject_UI_Arrow_Long"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerLevelUP/UI_Arrow_Long.dds"), 1);
+	Save_UI_Textrue_LevelUp(TEXT("Prototype_GameObject_UI_BlackBar"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerLevelUP/UI_BlackBar.dds"), 1);
+	Save_UI_Textrue_LevelUp(TEXT("Prototype_GameObject_UI_DecorationFrame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerLevelUP/UI_DecorationFrame_01.dds"), 1);
+	Save_UI_Textrue_LevelUp(TEXT("Prototype_GameObject_UI_ButtonBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerLevelUP/UI_ButtonBackground.dds"), 1);
+	Save_UI_Textrue_LevelUp(TEXT("Prototype_GameObject_UI_TitleBackgroundBar"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerLevelUP/UI_TitleBackgroundBar_00.dds"), 1);
+
+	//====================================================================================================================================== 플레이어 기본화면 
+	
+	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_Feather_Icon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_Feather_Icon.dds"), 1);
+	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_HPBar1_Border"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_HPBar1_Border.dds"), 1);
+	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_HPBar2_BG"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_HPBar2_BG.dds"), 1);
+	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_HPBar3_MainBar"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_HPBar3_MainBar.dds"), 1);
+	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_MemoryShardsIcon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_MemoryShardsIcon.dds"), 1);
+	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_MPBar1_Border"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_MPBar1_Border.dds"), 1);
+	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_MPBar2_BG"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_MPBar2_BG.dds"), 1);
+	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_MPBar3_MainBar"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_MPBar3_MainBar.dds"), 1);
+	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_PlunderSlotFrame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_PlunderSlotFrame_0.dds"), 1);
+	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_Potion_DefaultType"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_Potion_DefaultType.dds"), 1);
 
 	//====================================================================================================================================== 공용 꾸밈 텍스처
-	Save_UI_Textrue(TEXT("Prototype_GameObject_UI_DecorationLine"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_DecorationLine_05.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_DecorationLine"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_DecorationLine_0.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_GameLogoImage"), TEXT("../Bin/Resources/Textures/ThymesiaUI/GameIntro/UI_GameLogoImage.dds"), 1);
 
 	return S_OK;
 }
 
-HRESULT CLevel_GamePlay::Save_UI_Textrue(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures)
+HRESULT CLevel_GamePlay::Save_UI_Textrue_Share(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures)
 {
 	m_iCountSRVs += iNumTextures;
 
@@ -1064,7 +1372,187 @@ HRESULT CLevel_GamePlay::Save_UI_Textrue(const _tchar* _pObjTag, const _tchar* p
 		if (FAILED(hr))
 			return E_FAIL;
 
-		m_SRVs.emplace(_pObjTag, pSRV);
+		m_ShareSRVs.emplace(_pObjTag, pSRV);
+	}
+
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::Save_UI_Textrue_Menu(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures)
+{
+	m_iCountSRVs += iNumTextures;
+
+	_tchar		szName[MAX_PATH] = {};
+	_tchar		szEXT[MAX_PATH] = {};
+
+	_wsplitpath_s(pTextureFilePath, nullptr, 0, nullptr, 0, szName, MAX_PATH, szEXT, MAX_PATH);
+
+	for (size_t i = 0; i < iNumTextures; i++)
+	{
+		ID3D11Texture2D* pTexture2D = { nullptr };
+		ID3D11ShaderResourceView* pSRV = { nullptr };
+
+		_tchar			szTextureFilePath[MAX_PATH] = TEXT("");
+
+		wsprintf(szTextureFilePath, pTextureFilePath, i);
+		wsprintf(szName, szName, i);
+
+		HRESULT			hr = {};
+
+
+		if (false == lstrcmp(szEXT, TEXT(".dds")))
+		{
+			/* .dds */
+			hr = CreateDDSTextureFromFile(m_pDevice, szTextureFilePath, nullptr, &pSRV);
+		}
+		else if (false == lstrcmp(szEXT, TEXT(".tga")))
+		{
+			hr = E_FAIL;
+		}
+		else
+		{	/* .jpg etc */
+			hr = CreateWICTextureFromFile(m_pDevice, szTextureFilePath, nullptr, &pSRV);
+		}
+
+		if (FAILED(hr))
+			return E_FAIL;
+
+		m_MenuSRVs.emplace(_pObjTag, pSRV);
+	}
+
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::Save_UI_Textrue_LevelUp(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures)
+{
+	m_iCountSRVs += iNumTextures;
+
+	_tchar		szName[MAX_PATH] = {};
+	_tchar		szEXT[MAX_PATH] = {};
+
+	_wsplitpath_s(pTextureFilePath, nullptr, 0, nullptr, 0, szName, MAX_PATH, szEXT, MAX_PATH);
+
+	for (size_t i = 0; i < iNumTextures; i++)
+	{
+		ID3D11Texture2D* pTexture2D = { nullptr };
+		ID3D11ShaderResourceView* pSRV = { nullptr };
+
+		_tchar			szTextureFilePath[MAX_PATH] = TEXT("");
+
+		wsprintf(szTextureFilePath, pTextureFilePath, i);
+		wsprintf(szName, szName, i);
+
+		HRESULT			hr = {};
+
+
+		if (false == lstrcmp(szEXT, TEXT(".dds")))
+		{
+			/* .dds */
+			hr = CreateDDSTextureFromFile(m_pDevice, szTextureFilePath, nullptr, &pSRV);
+		}
+		else if (false == lstrcmp(szEXT, TEXT(".tga")))
+		{
+			hr = E_FAIL;
+		}
+		else
+		{	/* .jpg etc */
+			hr = CreateWICTextureFromFile(m_pDevice, szTextureFilePath, nullptr, &pSRV);
+		}
+
+		if (FAILED(hr))
+			return E_FAIL;
+
+		m_LevelUpSRVs.emplace(_pObjTag, pSRV);
+	}
+
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::Save_UI_Textrue_Attribute(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures)
+{
+	m_iCountSRVs += iNumTextures;
+
+	_tchar		szName[MAX_PATH] = {};
+	_tchar		szEXT[MAX_PATH] = {};
+
+	_wsplitpath_s(pTextureFilePath, nullptr, 0, nullptr, 0, szName, MAX_PATH, szEXT, MAX_PATH);
+
+	for (size_t i = 0; i < iNumTextures; i++)
+	{
+		ID3D11Texture2D* pTexture2D = { nullptr };
+		ID3D11ShaderResourceView* pSRV = { nullptr };
+
+		_tchar			szTextureFilePath[MAX_PATH] = TEXT("");
+
+		wsprintf(szTextureFilePath, pTextureFilePath, i);
+		wsprintf(szName, szName, i);
+
+		HRESULT			hr = {};
+
+
+		if (false == lstrcmp(szEXT, TEXT(".dds")))
+		{
+			/* .dds */
+			hr = CreateDDSTextureFromFile(m_pDevice, szTextureFilePath, nullptr, &pSRV);
+		}
+		else if (false == lstrcmp(szEXT, TEXT(".tga")))
+		{
+			hr = E_FAIL;
+		}
+		else
+		{	/* .jpg etc */
+			hr = CreateWICTextureFromFile(m_pDevice, szTextureFilePath, nullptr, &pSRV);
+		}
+
+		if (FAILED(hr))
+			return E_FAIL;
+
+		m_AttributeSRVs.emplace(_pObjTag, pSRV);
+	}
+
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::Save_UI_Textrue_PlayerMainScreen(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures)
+{
+	m_iCountSRVs += iNumTextures;
+
+	_tchar		szName[MAX_PATH] = {};
+	_tchar		szEXT[MAX_PATH] = {};
+
+	_wsplitpath_s(pTextureFilePath, nullptr, 0, nullptr, 0, szName, MAX_PATH, szEXT, MAX_PATH);
+
+	for (size_t i = 0; i < iNumTextures; i++)
+	{
+		ID3D11Texture2D* pTexture2D = { nullptr };
+		ID3D11ShaderResourceView* pSRV = { nullptr };
+
+		_tchar			szTextureFilePath[MAX_PATH] = TEXT("");
+
+		wsprintf(szTextureFilePath, pTextureFilePath, i);
+		wsprintf(szName, szName, i);
+
+		HRESULT			hr = {};
+
+
+		if (false == lstrcmp(szEXT, TEXT(".dds")))
+		{
+			/* .dds */
+			hr = CreateDDSTextureFromFile(m_pDevice, szTextureFilePath, nullptr, &pSRV);
+		}
+		else if (false == lstrcmp(szEXT, TEXT(".tga")))
+		{
+			hr = E_FAIL;
+		}
+		else
+		{	/* .jpg etc */
+			hr = CreateWICTextureFromFile(m_pDevice, szTextureFilePath, nullptr, &pSRV);
+		}
+
+		if (FAILED(hr))
+			return E_FAIL;
+
+		m_PlayerSRVs.emplace(_pObjTag, pSRV);
 	}
 
 	return S_OK;
@@ -1072,15 +1560,31 @@ HRESULT CLevel_GamePlay::Save_UI_Textrue(const _tchar* _pObjTag, const _tchar* p
 
 HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSceneName) // 파라미터 => Load 시 각 씬 클래스 에서 집어 넣도록 = 여기서는 imgui를 통해서
 {
-	const _tchar* szUISceneName = L"../Bin/DataFiles/UISave/Defalut.dat";
-	if (0 == wcscmp(szSceneName, L"UIScene_PlayerMenu"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerMenu.dat";
-	if (0 == wcscmp(szSceneName, L"UIScene_PlayerLevelUP"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerLevelUP.dat";
-	if (0 == wcscmp(szSceneName, L"UIScene_PlayerAttribute"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerAttribute.dat";
+	_char   szDir[MAX_PATH] = "../Bin/DataFiles/UISave/";
+	_char   szFileName[MAX_PATH] = "";
 
-	HANDLE		hFile = CreateFile(szUISceneName, GENERIC_WRITE, NULL, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	WideCharToMultiByte(CP_ACP, 0, szSceneName, (_int)(wcslen(szSceneName)), szFileName, MAX_PATH, nullptr, nullptr);
+
+	_char   szEXT[MAX_PATH] = ".dat";
+
+	_char   szFullPath[MAX_PATH] = "";
+	strcat_s(szFullPath, szDir);
+	strcat_s(szFullPath, szFileName);
+	strcat_s(szFullPath, szEXT);
+
+	_tchar  szLastPath[MAX_PATH] = {};
+	MultiByteToWideChar(CP_ACP, 0, szFullPath, (_int)strlen(szFullPath), szLastPath, MAX_PATH);
+
+
+	//const _tchar* szUISceneName = L"../Bin/DataFiles/UISave/Defalut.dat";
+	//if (0 == wcscmp(szSceneName, L"UIScene_PlayerMenu"))
+	//	szUISceneName = L"../Bin/DataFiles/UISave/PlayerMenu.dat";
+	//if (0 == wcscmp(szSceneName, L"UIScene_PlayerLevelUP"))
+	//	szUISceneName = L"../Bin/DataFiles/UISave/PlayerLevelUP.dat";
+	//if (0 == wcscmp(szSceneName, L"UIScene_PlayerAttribute"))
+	//	szUISceneName = L"../Bin/DataFiles/UISave/PlayerAttribute.dat";
+
+	HANDLE		hFile = CreateFile(szLastPath, GENERIC_WRITE, NULL, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (INVALID_HANDLE_VALUE == hFile)
 	{
 		MessageBox(g_hWnd, L"Save File - UIScene", _T("Fail"), MB_OK);
@@ -1184,6 +1688,35 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 		iGroupID = Image->Get_UI_GroupID();
 		WriteFile(hFile, &iGroupID, sizeof(_uint), &dwByte, nullptr);
 	}
+	
+	for (auto& Image : m_pGameInstance->Find_UIScene(iSceneIndex, szSceneName)->Find_UI_TextBox())
+	{
+ 		iUIType = UI_TEXT;
+		
+		fPos = dynamic_cast<CTransform*>(Image->Find_Component(TEXT("Com_Transform")))->Get_State_UIObj(CTransform::STATE_POSITION);
+		fScale.x = dynamic_cast<CTransform*>(Image->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().x;
+		fScale.y = dynamic_cast<CTransform*>(Image->Find_Component(TEXT("Com_Transform")))->Compute_Scaled().y;
+		fRotation = dynamic_cast<CTransform*>(Image->Find_Component(TEXT("Com_Transform")))->Get_Rotation_UIObj();
+		
+		WriteFile(hFile, &fPos, sizeof(_float3), &dwByte, nullptr);
+		WriteFile(hFile, &fScale, sizeof(_float2), &dwByte, nullptr);
+ 		WriteFile(hFile, &fRotation, sizeof(_float3), &dwByte, nullptr);
+
+		iLen = (_uint)Image->Get_UI_Name().size();
+		WriteFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
+		WriteFile(hFile, Image->Get_UI_Name().c_str(), sizeof(_tchar) * iLen, &dwByte, nullptr);
+
+		WriteFile(hFile, &iUIType, sizeof(_uint), &dwByte, nullptr);
+
+		iShaderNum = Image->Get_UI_ShaderPassNum();
+		WriteFile(hFile, &iShaderNum, sizeof(_uint), &dwByte, nullptr);
+
+		iTextureNum = Image->Get_UI_TexNumber();
+		WriteFile(hFile, &iTextureNum, sizeof(_uint), &dwByte, nullptr);
+
+		iGroupID = Image->Get_UI_GroupID();
+		WriteFile(hFile, &iGroupID, sizeof(_uint), &dwByte, nullptr);
+	}
 
 	for (auto& Text_PlayerInfo : m_pGameInstance->Find_UIScene(iSceneIndex, szSceneName)->Find_UI_Text_PlayerInfo())
 	{
@@ -1224,16 +1757,23 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 {
 	m_pGameInstance->Clear_ALL();
 
+	char   szDir[MAX_PATH] = "../Bin/DataFiles/UISave/";
+	_char   szFileName[MAX_PATH] = "";
 
-	const _tchar* szUISceneName = L"../Bin/DataFiles/UISave/Defalut.dat";
-	if (0 == wcscmp(szSceneName, L"UIScene_PlayerMenu"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerMenu.dat";
-	if (0 == wcscmp(szSceneName, L"UIScene_PlayerLevelUP"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerLevelUP.dat";
-	if (0 == wcscmp(szSceneName, L"UIScene_PlayerAttribute"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerAttribute.dat";
+	WideCharToMultiByte(CP_ACP, 0, szSceneName, (_int)(wcslen(szSceneName)), szFileName, MAX_PATH, nullptr, nullptr);
 
-	HANDLE		hFile = CreateFile(szUISceneName, GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	_char   szEXT[MAX_PATH] = ".dat";
+
+	_char   szFullPath[MAX_PATH] = "";
+	strcat_s(szFullPath, szDir);
+	strcat_s(szFullPath, szFileName);
+	strcat_s(szFullPath, szEXT);
+
+	_tchar  szLastPath[MAX_PATH] = {};
+	MultiByteToWideChar(CP_ACP, 0, szFullPath, (_int)strlen(szFullPath), szLastPath, MAX_PATH);
+
+
+	HANDLE		hFile = CreateFile(szLastPath, GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	if (INVALID_HANDLE_VALUE == hFile)
 	{
@@ -1266,6 +1806,7 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 		ReadFile(hFile, &iUIType, sizeof(_uint), &dwByte, nullptr);
 
 		ReadFile(hFile, &iShaderNum, sizeof(_uint), &dwByte, nullptr);
+		//iShaderNum = 1;
 		ReadFile(hFile, &iTextureNum, sizeof(_uint), &dwByte, nullptr);
 		ReadFile(hFile, &iGroupID, sizeof(_uint), &dwByte, nullptr);
 
@@ -1284,8 +1825,14 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex, const _tchar* szSc
 		Desc.fZ = fPos.z;
 		Desc.fSizeX = fSize.x;
 		Desc.fSizeY = fSize.y;
+		//if (0 == lstrcmp(szSaveName.c_str(), L"Prototype_GameObject_UI_HighlightBar_02"))
+		//{
+		//	szSaveName = L"Prototype_GameObject_UI_HighlightBar";
+		//}
 		Desc.szProtoName = szSaveName;
 		Desc.iShaderPassNum = iShaderNum;
+		Desc.iTexNumber = iTextureNum;
+		Desc.iGroupID = iGroupID;
 		Desc.fRotation = fRotation;
 		if (FAILED(m_pGameInstance->Add_UIObject_To_UIScene(LEVEL_GAMEPLAY, szSaveName, iSceneIndex, szSceneName, iUIType, &Desc)))
 			return E_FAIL;
@@ -1320,22 +1867,29 @@ HRESULT CLevel_GamePlay::Create_Text()
 
 	m_TextInfo.push_back(Info);
 
-	m_iTextID++;
-
 	return S_OK;
 }
 
 HRESULT CLevel_GamePlay::SaveData_Text_Scene()
 {
-	const _tchar* szUISceneName = L"../Bin/DataFiles/UISave/DefalutText.dat";
-	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerMenu"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerMenuText.dat";
-	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerLevelUP"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerLevelUPText.dat";
-	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerAttribute"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerAttributeText.dat";
+	char   szDir[MAX_PATH] = "../Bin/DataFiles/UISave/";
+	_char   szFileName[MAX_PATH] = "";
 
-	HANDLE		hFile = CreateFile(szUISceneName, GENERIC_WRITE, NULL, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	WideCharToMultiByte(CP_ACP, 0, m_szUISceneName, (_int)(wcslen(m_szUISceneName)), szFileName, MAX_PATH, nullptr, nullptr);
+
+	_char   szPlusText[MAX_PATH] = "_Text";
+	_char   szEXT[MAX_PATH] = ".dat";
+
+	_char   szFullPath[MAX_PATH] = "";
+	strcat_s(szFullPath, szDir);
+	strcat_s(szFullPath, szFileName);
+	strcat_s(szFullPath, szPlusText);
+	strcat_s(szFullPath, szEXT);
+
+	_tchar  szLastPath[MAX_PATH] = {};
+	MultiByteToWideChar(CP_ACP, 0, szFullPath, (_int)strlen(szFullPath), szLastPath, MAX_PATH);
+
+	HANDLE		hFile = CreateFile(szLastPath, GENERIC_WRITE, NULL, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (INVALID_HANDLE_VALUE == hFile)
 	{
 		MessageBox(g_hWnd, L"Save File - Text", _T("Fail"), MB_OK);
@@ -1374,16 +1928,24 @@ HRESULT CLevel_GamePlay::SaveData_Text_Scene()
 HRESULT CLevel_GamePlay::LoadData_Text_Scene()
 {
 	Delete_TextContainer_ALL();
+	char   szDir[MAX_PATH] = "../Bin/DataFiles/UISave/";
+	_char   szFileName[MAX_PATH] = "";
 
-	const _tchar* szUISceneName = L"../Bin/DataFiles/UISave/DefalutText.dat";
-	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerMenu"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerMenuText.dat";
-	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerLevelUP"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerLevelUPText.dat";
-	if (0 == wcscmp(m_szUISceneName, L"UIScene_PlayerAttribute"))
-		szUISceneName = L"../Bin/DataFiles/UISave/PlayerAttributeText.dat";
+	WideCharToMultiByte(CP_ACP, 0, m_szUISceneName, (_int)(wcslen(m_szUISceneName)), szFileName, MAX_PATH, nullptr, nullptr);
 
-	HANDLE		hFile = CreateFile(szUISceneName, GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	_char   szPlusText[MAX_PATH] = "_Text";
+	_char   szEXT[MAX_PATH] = ".dat";
+
+	_char   szFullPath[MAX_PATH] = "";
+	strcat_s(szFullPath, szDir);
+	strcat_s(szFullPath, szFileName);
+	strcat_s(szFullPath, szPlusText);
+	strcat_s(szFullPath, szEXT);
+
+	_tchar  szLastPath[MAX_PATH] = {};
+	MultiByteToWideChar(CP_ACP, 0, szFullPath, (_int)strlen(szFullPath), szLastPath, MAX_PATH);
+
+	HANDLE		hFile = CreateFile(szLastPath, GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	if (INVALID_HANDLE_VALUE == hFile)
 	{
@@ -1441,6 +2003,25 @@ HRESULT CLevel_GamePlay::Delete_TextContainer_Last()
 	return S_OK;
 }
 
+HRESULT CLevel_GamePlay::Delete_TextContainer_Choice()
+{
+	vector<UI_TextInfo>::iterator it;
+	for (it = m_TextInfo.begin(); it != m_TextInfo.end();)
+	{
+
+		if((*it).iTextID == m_CurrentText.iTextID)
+		{
+			it = m_TextInfo.erase(it);
+		}
+		else
+		{
+			it++;
+		}
+	
+	}
+	return S_OK;
+}
+
 CLevel_GamePlay* CLevel_GamePlay::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {
 	CLevel_GamePlay* pInstance = new CLevel_GamePlay(pDevice, pContext);
@@ -1454,18 +2035,35 @@ CLevel_GamePlay* CLevel_GamePlay::Create(ID3D11Device* pDevice, ID3D11DeviceCont
 	return pInstance;
 }
 
-
 void CLevel_GamePlay::Free()
 {
 	__super::Free();
+	delete[] m_szSaveName;
 
 	map<_wstring, ID3D11ShaderResourceView*>::iterator it;
-	for (it = m_SRVs.begin(); it != m_SRVs.end(); ++it)
+	for (it = m_ShareSRVs.begin(); it != m_ShareSRVs.end(); ++it)
+	{
+		Safe_Release((*it).second);
+	}	
+	for (it = m_MenuSRVs.begin(); it != m_MenuSRVs.end(); ++it)
+	{
+		Safe_Release((*it).second);
+	}	
+	for (it = m_LevelUpSRVs.begin(); it != m_LevelUpSRVs.end(); ++it)
+	{
+		Safe_Release((*it).second);
+	}	
+	for (it = m_AttributeSRVs.begin(); it != m_AttributeSRVs.end(); ++it)
+	{
+		Safe_Release((*it).second);
+	}for (it = m_PlayerSRVs.begin(); it != m_PlayerSRVs.end(); ++it)
 	{
 		Safe_Release((*it).second);
 	}
-	m_SRVs.clear();
-
-	delete[] m_szSaveName;
+	m_ShareSRVs.clear();
+	m_MenuSRVs.clear();
+	m_LevelUpSRVs.clear();
+	m_AttributeSRVs.clear();
+	m_PlayerSRVs.clear();
 
 }

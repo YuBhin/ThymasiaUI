@@ -12,7 +12,7 @@ BEGIN(Engine)
 class CRenderer final : public CBase
 {
 public:
-	enum RENDERGROUP { RG_PRIORITY, RG_SHADOW, RG_NONBLEND, RG_NONLIGHT, RG_BLEND, RG_UI, RG_BLUR, RG_END };	
+	enum RENDERGROUP { RG_PRIORITY, RG_SHADOW, RG_NONBLEND, RG_NONLIGHT, RG_BLEND, RG_UI, RG_FONT, RG_BLUR, RG_END };
 	
 private:
 	CRenderer(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
@@ -52,6 +52,7 @@ private:
 	HRESULT Render_Final();
 	HRESULT Render_Blend();
 	HRESULT Render_UI();
+	HRESULT Render_Font();
 	
 
 private:

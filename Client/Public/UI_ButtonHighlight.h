@@ -29,6 +29,9 @@ private:
 	CTexture*				m_pTextureCom = { nullptr };
 	CVIBuffer_Rect*			m_pVIBufferCom = { nullptr };
 
+private:
+	_bool m_bImageOn = { false };
+	_bool m_bMouseSelected = { false };
 
 
 public:

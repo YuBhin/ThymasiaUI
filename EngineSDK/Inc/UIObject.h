@@ -50,6 +50,8 @@ public:
 
 public:
 	virtual void Set_Render_OnOff(_bool bOpen) { m_bRenderOpen = bOpen; }
+	virtual _bool Get_Render_State() {return  m_bRenderOpen; }
+	virtual void Check_Render_Text();
 protected:
 	HRESULT Add_UI_Object(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, CGameObject** ppOut, void* pArg);
 protected:
@@ -62,8 +64,16 @@ protected:
 	_uint				m_iGroupID = { 0 };		// 그룹아이디
 	_uint				m_iUIType = { 0 };		// UI 생성 타입
 protected:
-	_bool				m_bRenderOpen = { true };
+	_bool				m_bRenderOpen = { true }; // 기본은 false 이고 특정 이벤트를 통해 on되는 형식
 	_uint				m_iTexNumber = {0}; // 텍스처 넘버
+
+	_tchar*				m_pUITextFont = { TEXT("Font_Gulim_Default") }; // UI 위에 텍스트가 있는 경우
+	_tchar*				m_pUITextContent = {}; // UI 위에 텍스트가 있는 경우
+	_vector             m_vTextClolor = {1.0f,1.0f,1.0f,1.0f};
+
+
+
+
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;

@@ -81,6 +81,22 @@ _bool CUIObject::Mouse_Select(HWND hWnd, _float fX, _float fY)
 {
 	return S_OK;
 }
+//
+//void CUIObject::Check_Render_Text()
+//{
+//
+//	if (nullptr != m_pUITextContent)
+//	{
+//		_float2 TextSize = m_pGameInstance->Get_TextSize(m_pUITextFont, m_pUITextContent);
+//
+//		TextSize.x = m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).x - TextSize.x / 2;
+//		TextSize.y = m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).y - TextSize.y / 2;
+//		//{ m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).x, m_pTransformCom->Get_State_UIObj(CTransform::STATE_POSITION).y }
+//		m_pGameInstance->Render_Font(TEXT("Font_Gulim_Default"), m_pUITextContent, TextSize, m_vTextClolor, 0.0f, { 0.f,0.f }, 1.f, 0.2f);
+//
+//	}
+//
+//}
 
 HRESULT CUIObject::Add_UI_Object(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, CGameObject** ppOut, void* pArg)
 {

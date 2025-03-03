@@ -203,64 +203,6 @@ HRESULT CMainApp::LoadFont_Thymasia()
 	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR48"), TEXT("../Bin/Resources/Fonts/Thymesia_NotoSansKR_48.spritefont"))))
 		return E_FAIL;
 
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR36"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR36.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR48"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR48.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR60"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR60.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR72"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR72.spritefont"))))
-	////	return E_FAIL;
-
-
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Forum12"), TEXT("../Bin/Resources/Fonts/ThymasiaForum12.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Forum18"), TEXT("../Bin/Resources/Fonts/ThymasiaForum18.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Forum24"), TEXT("../Bin/Resources/Fonts/ThymasiaForum24.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Forum36"), TEXT("../Bin/Resources/Fonts/ThymasiaForum36.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Forum48"), TEXT("../Bin/Resources/Fonts/ThymasiaForum48.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Forum60"), TEXT("../Bin/Resources/Fonts/ThymasiaForum60.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Forum72"), TEXT("../Bin/Resources/Fonts/ThymasiaForum72.spritefont"))))
-	//	return E_FAIL;
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR12"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR12.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR18"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR18.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR24"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR24.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR36"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR36.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR48"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR48.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR60"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR60.spritefont"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_NotoSansKR72"), TEXT("../Bin/Resources/Fonts/ThymasiaNotoSansKR72.spritefont"))))
-	////	return E_FAIL;
 
 	return S_OK;
 }

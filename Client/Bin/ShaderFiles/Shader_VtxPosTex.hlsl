@@ -20,6 +20,8 @@ float g_Alpha;
 float2 g_vTexcoord;
 float2 g_vOffSetTexcoord;
 
+bool g_bImageOn;
+bool g_bImageLoopOn;
 
 //sampler LinearSampler = sampler_state
 //{ 
@@ -447,8 +449,49 @@ PS_OUT PS_Thymesia_UI(PS_IN In)
 
 	/* Sample : g_Texture로 부터 지정된 좌표의 색을 지정한 방식으로 얻어온다.*/
 	// g_Texture.Sample(어떻게 얻어올건지(Sampler_State), 어디 색을 가져올건지)
-    Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
+    
+     Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
+    
 
+    return Out;
+}
+
+PS_OUT PS_Thymesia_UI_ImageOnOff(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+
+	/* Sample : g_Texture로 부터 지정된 좌표의 색을 지정한 방식으로 얻어온다.*/
+	// g_Texture.Sample(어떻게 얻어올건지(Sampler_State), 어디 색을 가져올건지)
+    
+    if (true == g_bImageOn )
+    {
+     Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
+    }
+    else
+    {
+        Out.vColor.a = 0.0f;
+
+    }
+    
+
+    return Out;
+}
+PS_OUT PS_Thymesia_UI_ImageOnOffLoop(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+
+	/* Sample : g_Texture로 부터 지정된 좌표의 색을 지정한 방식으로 얻어온다.*/
+	// g_Texture.Sample(어떻게 얻어올건지(Sampler_State), 어디 색을 가져올건지)
+    
+    if (true == g_bImageLoopOn )
+    {
+     Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
+    }
+    else
+    {
+        Out.vColor.a = 0.0f;
+
+    }
     
 
     return Out;
@@ -613,6 +656,29 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_Thymesia_UI();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_Thymesia_UI();
+    }
+ // 13번
+    pass Thymesia_UI_ImageOnOff
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Thymasia_UI, 0);
+        SetBlendState(BS_AlphaBlend, float4(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_Thymesia_UI();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_Thymesia_UI_ImageOnOff();
+    }
+
+ // 14번
+    pass Thymesia_UI_ImageOnOffLoop
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Thymasia_UI, 0);
+        SetBlendState(BS_AlphaBlend, float4(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_Thymesia_UI();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_Thymesia_UI_ImageOnOffLoop();
     }
 
 }

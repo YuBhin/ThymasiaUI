@@ -22,6 +22,7 @@ HRESULT CUI_ButtonHighlight::Initialize_Prototype()
 
 HRESULT CUI_ButtonHighlight::Initialize(void* pArg)
 {
+
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
 
@@ -37,6 +38,21 @@ void CUI_ButtonHighlight::Priority_Update(_float fTimeDelta)
 
 void CUI_ButtonHighlight::Update(_float fTimeDelta)
 {
+	if (m_bRenderOpen) // UI 가 보여지고 있을 때에만 기능 작동
+	{
+		if (__super::On_Mouse_UI(g_hWnd))
+			m_bImageOn = true;
+		else
+			m_bImageOn = false;
+
+		if (m_bImageOn)
+		{
+			if (__super::Mouse_Select(g_hWnd))
+			{
+				m_bMouseSelected = true; // 최초에 마우스 클릭이 있는지 체크
+			}
+		}
+	}
 }
 
 void CUI_ButtonHighlight::Late_Update(_float fTimeDelta)
@@ -55,16 +71,19 @@ HRESULT CUI_ButtonHighlight::Render()
 		return E_FAIL;
 	if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_ProjMatrix)))
 		return E_FAIL;
+	if (FAILED(m_pShaderCom->Bind_RawValue("g_bImageOn", &m_bImageOn,sizeof(_bool))))
+		return E_FAIL;
 
 	if (FAILED(m_pTextureCom->Bind_ShaderResource(m_pShaderCom, "g_Texture", m_iTexNumber)))
 		return E_FAIL;
 
 
-	m_pShaderCom->Begin(m_iShaderPassNum);
+	m_pShaderCom->Begin(2);
 
 	m_pVIBufferCom->Bind_InputAssembler();
 
 	m_pVIBufferCom->Render();
+	Check_Render_Text();
 
 	return S_OK;
 }
@@ -77,7 +96,7 @@ HRESULT CUI_ButtonHighlight::Ready_Components()
 		return E_FAIL;
 
 	/* Com_Shader */
-	if (FAILED(__super::Add_Component(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Shader_VtxPosTex"),
+	if (FAILED(__super::Add_Component(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Shader_VtxPosTex_UI"),
 		TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
 		return E_FAIL;
 

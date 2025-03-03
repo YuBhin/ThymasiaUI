@@ -1,5 +1,6 @@
 #include "..\Public\Layer.h"
 #include "GameObject.h"
+#include "UIObject.h"
 #include "Component.h"
 
 CLayer::CLayer()
@@ -37,6 +38,17 @@ CComponent* CLayer::Find_GameObject(const wstring& strComponentName)
 
 	return nullptr;
 
+}
+
+HRESULT CLayer::UIScene_Render_OnOff(_bool bCheck)
+{
+	dynamic_cast<CUIObject*>(*m_GameObjects.begin())->Set_Render_OnOff(bCheck);
+	return S_OK;
+}
+
+_bool CLayer::UIScene_Render_State()
+{
+	return dynamic_cast<CUIObject*>(*m_GameObjects.begin())->Get_Render_State();
 }
 
 CLayer * CLayer::Create()

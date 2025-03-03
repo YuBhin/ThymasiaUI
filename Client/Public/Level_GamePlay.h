@@ -19,6 +19,7 @@ public:
 		_wstring	srtTextContent;		// 텍스트 내용
 		_float2		fTextStartPos;		// 그려지는 시작점(중점X)
 		_float2		fTextSize;			// TextContent 길이에 따라 자동으로 구해지는 가로 세로 길이
+		_float4     fTextColor;         // 텍스트 색상 저장하자!
 	};
 
 private:
@@ -37,7 +38,9 @@ private:
 	HRESULT Ready_Layer_Camera(const _tchar* pLayerTag);
 	HRESULT Ready_Layer_Effect(const _tchar* pLayerTag);
 	// UI 씬
-	HRESULT Ready_Layer_UI_Scene(const _tchar* pLayerTag);
+	HRESULT Ready_Layer_UI_Menu_Scene(const _tchar* pLayerTag);
+	HRESULT Ready_Layer_UI_LevelUp_Scene(const _tchar* pLayerTag);
+	HRESULT Ready_Layer_UI_Attribute_Scene(const _tchar* pLayerTag);
 	HRESULT Ready_Layer_Ladder(const _tchar* pLayerTag);
 	//임시 UI 클릭 함수 - 유빈
 	HRESULT Select_UI();
@@ -55,7 +58,12 @@ private:
 	//임구이 리소스 추가
 	HRESULT Save_UI_IMGUI_Textrue();
 	//임구이 리소스 로드
-	HRESULT Save_UI_Textrue(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
+	HRESULT Save_UI_Textrue_Share(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
+	HRESULT Save_UI_Textrue_Menu(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
+	HRESULT Save_UI_Textrue_LevelUp(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
+	HRESULT Save_UI_Textrue_Attribute(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
+	HRESULT Save_UI_Textrue_PlayerMainScreen(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
+
 	//임구이 마우스 클릭 제어
 	//객체 찾는 함수
 	//ui 오브젝트 생성
@@ -71,6 +79,11 @@ private:
 
 	HRESULT Delete_TextContainer_ALL();
 	HRESULT Delete_TextContainer_Last();
+	HRESULT Delete_TextContainer_Choice();
+private:
+	// Imgui 껐다 켰다
+	_bool m_bIMGUI = { true };// 테스트 용
+
 
 private:
 	_uint m_iOpenSceneCount = {0}; // 테스트 용
@@ -85,11 +98,11 @@ private: // UI 정보 저장용
 	_float3				m_fRotation = {};			// UI 크기 값// 최초 생성 시 저장용 값
 	
 	const _tchar*		m_szUIName = {};		// UI Prototype 값
-	const _tchar*		m_szUISceneName = {};	// UI 씬 종류 (메뉴, 특성, 레벨 업..등등)
+	const _tchar*		m_szUISceneName = {L"PlayerMenu"};	// UI 씬 종류 (메뉴, 특성, 레벨 업..등등)
 	_uint				m_iSceneIndex = {};		// 씬 번호
 	
 	_uint				m_iUIType = {0};			// UI 오브젝트 타입
-	_uint				m_iShaderPassNum = {12};		// 쉐이더 패스
+	_uint				m_iShaderPassNum = {1};		// 쉐이더 패스
 	_uint				m_iGroupID = {0};		// 그룹아이디
 	_uint				m_iTexNumber = {0};		// 텍스처 넘버
 private: //IMGUI
@@ -104,7 +117,12 @@ private: //IMGUI
 
 	_tchar*				m_szSaveName = {}; // Imgui 텍스트 저장하는 부분에서 릭 뜨는 부분 설정하기 위해 멤버 변수로 만듬
 
-	map<_wstring, ID3D11ShaderResourceView*>				m_SRVs; // IMGUI 텍스처
+	map<_wstring, ID3D11ShaderResourceView*>				m_ShareSRVs; // IMGUI 텍스처
+	map<_wstring, ID3D11ShaderResourceView*>				m_MenuSRVs; // IMGUI 텍스처
+	map<_wstring, ID3D11ShaderResourceView*>				m_LevelUpSRVs; // IMGUI 텍스처
+	map<_wstring, ID3D11ShaderResourceView*>				m_AttributeSRVs; // IMGUI 텍스처
+	map<_wstring, ID3D11ShaderResourceView*>				m_PlayerSRVs; // IMGUI 텍스처
+
 	_uint													m_iCountSRVs = { 0 }; // 혹시 몰라 저장하느 이미지 개수 카운트
 
 private: //Text Imgui

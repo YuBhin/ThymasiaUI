@@ -36,6 +36,7 @@ CBase * CPrototype_Manager::Clone_Prototype(PROTOTYPE eType, _uint iLevelIndex, 
 	CBase*		pResult = { nullptr };
 
 	if (eType == PROTOTYPE::TYPE_GAMEOBJECT)
+
 		pResult = dynamic_cast<CGameObject*>(pPrototype)->Clone(pArg);
 	else
 		pResult = dynamic_cast<CComponent*>(pPrototype)->Clone(pArg);

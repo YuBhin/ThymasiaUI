@@ -18,11 +18,16 @@ public:
 	virtual HRESULT Render()override;
 
 public:
-	virtual _bool Mouse_Select(HWND hWnd, _float fX, _float fY);
+	virtual _bool Mouse_Select(HWND hWnd);
+	//HRESULT On_Mouse_UI(HWND hWnd, _int iBeforeTexNumber, _uint iAfterTexNumber);
+	_bool On_Mouse_UI(HWND hWnd);
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;
 	virtual void Free() override;
 
+protected:
+	//_bool m_bMouseClick = { false };
+	_int iTestCount = {0};
 };
 
 END

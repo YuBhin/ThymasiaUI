@@ -102,14 +102,15 @@ void CCamera_Free::Priority_Update(_float fTimeDelta)
 	float AngleDegrees = XMConvertToDegrees(acosf(CosTheta)); // 각도를 도(degree)로 변환						
 	float OppositeAngleDegrees = XMConvertToDegrees(acosf(OppostieCosTheta)); // 각도를 도(degree)로 변환				
 
-	if (m_pGameInstance->isKeyEnter(DIK_TAB))
+	/*if (m_pGameInstance->isKeyEnter(DIK_TAB))
 	{
 		if (m_bStop)
 			m_bStop = false;
 		else
 			m_bStop = true;
-	}
-	
+	}*/
+	m_bStop = true;
+
 	if (!m_bStop)
 	{
 

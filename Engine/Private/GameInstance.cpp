@@ -256,6 +256,16 @@ _uint CGameInstance::Get_NumLevel()
 	return m_pObject_Manager->Get_NumLevel();	
 }
 
+HRESULT CGameInstance::UIScene_Render_OnOff(_uint iLevelIndex, const _wstring& strLayerTag, _bool bCheck)
+{
+	return m_pObject_Manager->UIScene_Render_OnOff(iLevelIndex, strLayerTag, bCheck);
+}
+
+_bool CGameInstance::UIScene_Render_State(_uint iLevelIndex, const _wstring& strLayerTag)
+{
+	return m_pObject_Manager->UIScene_Render_State(iLevelIndex, strLayerTag);
+}
+
 #pragma endregion
 
 

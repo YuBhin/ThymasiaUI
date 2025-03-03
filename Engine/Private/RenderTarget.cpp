@@ -24,7 +24,7 @@ HRESULT CRenderTarget::Initialize(_uint iWidth, _uint iHeight, DXGI_FORMAT ePixe
     
     TextureDesc.SampleDesc.Quality = 0; 
     TextureDesc.SampleDesc.Count = 1; 
-
+    
     TextureDesc.Usage = D3D11_USAGE_DEFAULT; 
     TextureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;  
     TextureDesc.CPUAccessFlags = 0; 
