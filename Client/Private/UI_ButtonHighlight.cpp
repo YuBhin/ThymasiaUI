@@ -83,7 +83,6 @@ HRESULT CUI_ButtonHighlight::Render()
 	m_pVIBufferCom->Bind_InputAssembler();
 
 	m_pVIBufferCom->Render();
-	Check_Render_Text();
 
 	return S_OK;
 }

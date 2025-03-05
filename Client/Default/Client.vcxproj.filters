@@ -82,12 +82,6 @@
     <Filter Include="03.UIObject\UI_Scene">
       <UniqueIdentifier>{420a30ad-8a10-42b2-bcc7-ddad3d6fef83}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Scene\PlayerAttribute">
-      <UniqueIdentifier>{bb1a3a43-4a5b-4ea2-8915-fe51783d7476}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.UIObject\UI_Scene\PlayerLevelUp">
-      <UniqueIdentifier>{75b60a10-c0ef-451d-9fdc-de9b0c75a65f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.UIObject\UI_Scene\BossHP">
       <UniqueIdentifier>{4603ceec-da1e-46da-ac9f-c41aee4c629f}</UniqueIdentifier>
     </Filter>
@@ -175,9 +169,6 @@
     <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_Arrow_RightButto3">
       <UniqueIdentifier>{5d3586b9-e5fe-470e-9a78-7c1bd16d53d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Scene\PlayerMenu">
-      <UniqueIdentifier>{b5a9b2fd-00ec-4195-a09f-59b42d12c8fe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.UIObject\UI_ObjectPart\4.Intro">
       <UniqueIdentifier>{bf46864b-d3e9-42bf-b2fa-26515b89762d}</UniqueIdentifier>
     </Filter>
@@ -220,9 +211,6 @@
     <Filter Include="03.UIObject\UI_ObjectPart\4.Intro\UI_GameLogoImage">
       <UniqueIdentifier>{90c085bb-82a3-4756-8c66-4bc74d5b2878}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Scene\IntroScene">
-      <UniqueIdentifier>{31c18809-a625-42f5-99fd-5af3da143de3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj">
       <UniqueIdentifier>{81b22b20-b940-439d-8939-c86e3cfd6b57}</UniqueIdentifier>
     </Filter>
@@ -250,7 +238,19 @@
     <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\0.UI_TextBox">
       <UniqueIdentifier>{4e8ea25b-c624-49aa-bf78-7bc0efb2b244}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_Scene\TestScene">
+    <Filter Include="03.UIObject\UI_Scene\1.GameIntro">
+      <UniqueIdentifier>{31c18809-a625-42f5-99fd-5af3da143de3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Scene\2.PlayerMenu">
+      <UniqueIdentifier>{bb1a3a43-4a5b-4ea2-8915-fe51783d7476}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Scene\3.PlayerLevelUP">
+      <UniqueIdentifier>{75b60a10-c0ef-451d-9fdc-de9b0c75a65f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Scene\4.PlayerTalent">
+      <UniqueIdentifier>{b5a9b2fd-00ec-4195-a09f-59b42d12c8fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Scene\5.PlayerScreen">
       <UniqueIdentifier>{12517b14-dabc-46dc-897a-743ac60d5ea7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -318,11 +318,11 @@
     <ClInclude Include="..\Public\Boss_Varg.h">
       <Filter>02.GameObject\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\UI_PlayerLevelUP.h">
-      <Filter>03.UIObject\UI_Scene\PlayerLevelUp</Filter>
+    <ClInclude Include="..\Public\UIGroup_PlayerLevelUP.h">
+      <Filter>03.UIObject\UI_Scene\3.PlayerLevelUP</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\UI_PlayerAttribute.h">
-      <Filter>03.UIObject\UI_Scene\PlayerAttribute</Filter>
+    <ClInclude Include="..\Public\UIGroup_PlayerMenu.h">
+      <Filter>03.UIObject\UI_Scene\2.PlayerMenu</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_LeftBackground.h">
       <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_LeftBackground</Filter>
@@ -429,8 +429,8 @@
     <ClInclude Include="..\Public\UI_TitleBackgroundBar.h">
       <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_TitleBackgroundBar</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\UI_Scene_PlayerMenu.h">
-      <Filter>03.UIObject\UI_Scene\PlayerMenu</Filter>
+    <ClInclude Include="..\Public\UIGroup_PlayerTalent.h">
+      <Filter>03.UIObject\UI_Scene\4.PlayerTalent</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_Feather_Icon.h">
       <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_Feather_Icon</Filter>
@@ -465,14 +465,14 @@
     <ClInclude Include="..\Public\UI_GameLogoImage.h">
       <Filter>03.UIObject\UI_ObjectPart\4.Intro\UI_GameLogoImage</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\IntroScene.h">
-      <Filter>03.UIObject\UI_Scene\IntroScene</Filter>
+    <ClInclude Include="..\Public\UIGroup_GameIntro.h">
+      <Filter>03.UIObject\UI_Scene\1.GameIntro</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_TextBox.h">
       <Filter>03.UIObject\UI_ObjectPart\0.AllObj\0.UI_TextBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\TestScene_TextTest.h">
-      <Filter>03.UIObject\UI_Scene\TestScene</Filter>
+    <ClInclude Include="..\Public\UIGroup_PlayerScreen.h">
+      <Filter>03.UIObject\UI_Scene\5.PlayerScreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -530,11 +530,11 @@
     <ClCompile Include="..\Private\Boss_Varg.cpp">
       <Filter>02.GameObject\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\UI_PlayerLevelUP.cpp">
-      <Filter>03.UIObject\UI_Scene\PlayerLevelUp</Filter>
+    <ClCompile Include="..\Private\UIGroup_PlayerLevelUP.cpp">
+      <Filter>03.UIObject\UI_Scene\3.PlayerLevelUP</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\UI_PlayerAttribute.cpp">
-      <Filter>03.UIObject\UI_Scene\PlayerAttribute</Filter>
+    <ClCompile Include="..\Private\UIGroup_PlayerMenu.cpp">
+      <Filter>03.UIObject\UI_Scene\2.PlayerMenu</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_LeftBackground.cpp">
       <Filter>03.UIObject\UI_ObjectPart\1.PlayerMenuObj\UI_LeftBackground</Filter>
@@ -638,8 +638,8 @@
     <ClCompile Include="..\Private\UI_TitleBackgroundBar.cpp">
       <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_TitleBackgroundBar</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\UI_Scene_PlayerMenu.cpp">
-      <Filter>03.UIObject\UI_Scene\PlayerMenu</Filter>
+    <ClCompile Include="..\Private\UIGroup_PlayerTalent.cpp">
+      <Filter>03.UIObject\UI_Scene\4.PlayerTalent</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_Feather_Icon.cpp">
       <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_Feather_Icon</Filter>
@@ -674,14 +674,14 @@
     <ClCompile Include="..\Private\UI_GameLogoImage.cpp">
       <Filter>03.UIObject\UI_ObjectPart\4.Intro\UI_GameLogoImage</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\IntroScene.cpp">
-      <Filter>03.UIObject\UI_Scene\IntroScene</Filter>
+    <ClCompile Include="..\Private\UIGroup_GameIntro.cpp">
+      <Filter>03.UIObject\UI_Scene\1.GameIntro</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_TextBox.cpp">
       <Filter>03.UIObject\UI_ObjectPart\0.AllObj\0.UI_TextBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\TestScene_TextTest.cpp">
-      <Filter>03.UIObject\UI_Scene\TestScene</Filter>
+    <ClCompile Include="..\Private\UIGroup_PlayerScreen.cpp">
+      <Filter>03.UIObject\UI_Scene\5.PlayerScreen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

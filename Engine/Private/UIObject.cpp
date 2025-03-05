@@ -39,8 +39,11 @@ HRESULT CUIObject::Initialize(void * pArg)
 	m_fPos.z = pDesc->fZ;
 	m_fSize.x = pDesc->fSizeX;
 	m_fSize.y = pDesc->fSizeY;
-	m_szProtoName = pDesc->szProtoName;
 
+	m_strFontName = pDesc->strFontName;
+	m_strContentText = pDesc->strContent;
+
+	m_strProtoName = pDesc->strProtoName;
   	m_iShaderPassNum = pDesc->iShaderPassNum;
 	m_iTexNumber = pDesc->iTexNumber;
 	m_iGroupID = pDesc->iGroupID;
@@ -77,10 +80,6 @@ HRESULT CUIObject::Render()
 	return S_OK;
 }
 
-_bool CUIObject::Mouse_Select(HWND hWnd, _float fX, _float fY)
-{
-	return S_OK;
-}
 //
 //void CUIObject::Check_Render_Text()
 //{

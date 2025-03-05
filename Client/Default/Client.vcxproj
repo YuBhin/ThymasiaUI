@@ -174,8 +174,8 @@
     <ClInclude Include="..\ImGui\imstb_rectpack.h" />
     <ClInclude Include="..\ImGui\imstb_textedit.h" />
     <ClInclude Include="..\ImGui\imstb_truetype.h" />
-    <ClInclude Include="..\Public\IntroScene.h" />
-    <ClInclude Include="..\Public\TestScene_TextTest.h" />
+    <ClInclude Include="..\Public\UIGroup_GameIntro.h" />
+    <ClInclude Include="..\Public\UIGroup_PlayerScreen.h" />
     <ClInclude Include="..\Public\UI_Arrow.h" />
     <ClInclude Include="..\Public\UI_Arrow_Long.h" />
     <ClInclude Include="..\Public\BackGround.h" />
@@ -210,7 +210,7 @@
     <ClInclude Include="..\Public\UI_MPBar2_BG.h" />
     <ClInclude Include="..\Public\UI_MPBar3_MainBar.h" />
     <ClInclude Include="..\Public\UI_NewHint.h" />
-    <ClInclude Include="..\Public\UI_PlayerAttribute.h" />
+    <ClInclude Include="..\Public\UIGroup_PlayerMenu.h" />
     <ClInclude Include="..\Public\Ladder.h" />
     <ClInclude Include="..\Public\Level_GamePlay.h" />
     <ClInclude Include="..\Public\Level_Loading.h" />
@@ -222,7 +222,7 @@
     <ClInclude Include="..\public\Sky.h" />
     <ClInclude Include="..\public\Terrain.h" />
     <ClInclude Include="..\Public\UI_LeftBackground.h" />
-    <ClInclude Include="..\Public\UI_PlayerLevelUP.h" />
+    <ClInclude Include="..\Public\UIGroup_PlayerLevelUP.h" />
     <ClInclude Include="..\Public\UI_PlunderSlotFrame.h" />
     <ClInclude Include="..\Public\UI_Potion_DefaultType.h" />
     <ClInclude Include="..\Public\UI_RightBackground.h" />
@@ -230,7 +230,7 @@
     <ClInclude Include="..\Public\UI_SceneBackground.h" />
     <ClInclude Include="..\Public\UI_SceneUnderBackground.h" />
     <ClInclude Include="..\Public\UI_ButtonBackground.h" />
-    <ClInclude Include="..\Public\UI_Scene_PlayerMenu.h" />
+    <ClInclude Include="..\Public\UIGroup_PlayerTalent.h" />
     <ClInclude Include="..\Public\UI_TextBox.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -264,8 +264,8 @@
     <ClCompile Include="..\ImGui\imgui_widgets.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\Private\IntroScene.cpp" />
-    <ClCompile Include="..\Private\TestScene_TextTest.cpp" />
+    <ClCompile Include="..\Private\UIGroup_GameIntro.cpp" />
+    <ClCompile Include="..\Private\UIGroup_PlayerScreen.cpp" />
     <ClCompile Include="..\Private\UI_Arrow.cpp" />
     <ClCompile Include="..\Private\UI_Arrow_Long.cpp" />
     <ClCompile Include="..\Private\BackGround.cpp" />
@@ -307,11 +307,11 @@
     <ClCompile Include="..\Private\UI_MPBar1_Border.cpp" />
     <ClCompile Include="..\Private\UI_MPBar2_BG.cpp" />
     <ClCompile Include="..\Private\UI_MPBar3_MainBar.cpp" />
-    <ClCompile Include="..\Private\UI_PlayerLevelUP.cpp" />
+    <ClCompile Include="..\Private\UIGroup_PlayerLevelUP.cpp" />
     <ClCompile Include="..\Private\UI_LockedIcon.cpp" />
     <ClCompile Include="..\Private\UI_MouseCursor.cpp" />
     <ClCompile Include="..\Private\UI_NewHint.cpp" />
-    <ClCompile Include="..\Private\UI_PlayerAttribute.cpp" />
+    <ClCompile Include="..\Private\UIGroup_PlayerMenu.cpp" />
     <ClCompile Include="..\Private\UI_PlunderSlotFrame.cpp" />
     <ClCompile Include="..\Private\UI_Potion_DefaultType.cpp" />
     <ClCompile Include="..\Private\UI_RightBackground.cpp" />
@@ -319,7 +319,7 @@
     <ClCompile Include="..\Private\UI_SceneBackground.cpp" />
     <ClCompile Include="..\Private\UI_SceneUnderBackground.cpp" />
     <ClCompile Include="..\Private\UI_ButtonBackground.cpp" />
-    <ClCompile Include="..\Private\UI_Scene_PlayerMenu.cpp" />
+    <ClCompile Include="..\Private\UIGroup_PlayerTalent.cpp" />
     <ClCompile Include="..\Private\UI_TextBox.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>

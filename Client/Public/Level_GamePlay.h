@@ -38,9 +38,12 @@ private:
 	HRESULT Ready_Layer_Camera(const _tchar* pLayerTag);
 	HRESULT Ready_Layer_Effect(const _tchar* pLayerTag);
 	// UI 씬
-	HRESULT Ready_Layer_UI_Menu_Scene(const _tchar* pLayerTag);
-	HRESULT Ready_Layer_UI_LevelUp_Scene(const _tchar* pLayerTag);
-	HRESULT Ready_Layer_UI_Attribute_Scene(const _tchar* pLayerTag);
+	HRESULT Ready_Layer_UIGroup_GameIntro(const _tchar* pLayerTag);
+	HRESULT Ready_Layer_UIGroup_PlayerMenu(const _tchar* pLayerTag);
+	HRESULT Ready_Layer_UIGroup_PlayerLevelUP(const _tchar* pLayerTag);
+	HRESULT Ready_Layer_UIGroup_PlayerTalent(const _tchar* pLayerTag);
+	HRESULT Ready_Layer_UIGroup_PlayerScreen(const _tchar* pLayerTag);
+
 	HRESULT Ready_Layer_Ladder(const _tchar* pLayerTag);
 	//임시 UI 클릭 함수 - 유빈
 	HRESULT Select_UI();
@@ -82,7 +85,7 @@ private:
 	HRESULT Delete_TextContainer_Choice();
 private:
 	// Imgui 껐다 켰다
-	_bool m_bIMGUI = { true };// 테스트 용
+	_bool m_bIMGUI = { false };// 테스트 용
 
 
 private:
@@ -97,8 +100,8 @@ private: // UI 정보 저장용
 	_float2				m_fSize = {};			// UI 크기 값// 최초 생성 시 저장용 값
 	_float3				m_fRotation = {};			// UI 크기 값// 최초 생성 시 저장용 값
 	
-	const _tchar*		m_szUIName = {};		// UI Prototype 값
-	const _tchar*		m_szUISceneName = {L"PlayerMenu"};	// UI 씬 종류 (메뉴, 특성, 레벨 업..등등)
+	const _tchar*		m_pUIName = {};		// UI Prototype 값
+	const _tchar*		m_pUISceneName = {L"PlayerMenu"};	// UI 씬 종류 (메뉴, 특성, 레벨 업..등등)
 	_uint				m_iSceneIndex = {};		// 씬 번호
 	
 	_uint				m_iUIType = {0};			// UI 오브젝트 타입
@@ -107,7 +110,7 @@ private: // UI 정보 저장용
 	_uint				m_iTexNumber = {0};		// 텍스처 넘버
 private: //IMGUI
 
-	_char*				m_szTypeName = {};		// IMGUI 기능 설명 용
+	_char*				m_pTypeName = {};		// IMGUI 기능 설명 용
 	_int				m_iUIScenIndex = {0};	// IMGUI 기능 용
 
 	_bool				m_bGetUIObjCheck = { true }; // true  , false 객체 선택 완료 
@@ -115,7 +118,7 @@ private: //IMGUI
 
 	CUIObject*			m_pCurrentUIObj = {}; // 임구이 조건에 의해 저장하기 위해서 멤버변수 추가
 
-	_tchar*				m_szSaveName = {}; // Imgui 텍스트 저장하는 부분에서 릭 뜨는 부분 설정하기 위해 멤버 변수로 만듬
+	_tchar*				m_pSaveName = {}; // Imgui 텍스트 저장하는 부분에서 릭 뜨는 부분 설정하기 위해 멤버 변수로 만듬
 
 	map<_wstring, ID3D11ShaderResourceView*>				m_ShareSRVs; // IMGUI 텍스처
 	map<_wstring, ID3D11ShaderResourceView*>				m_MenuSRVs; // IMGUI 텍스처
@@ -126,8 +129,8 @@ private: //IMGUI
 	_uint													m_iCountSRVs = { 0 }; // 혹시 몰라 저장하느 이미지 개수 카운트
 
 private: //Text Imgui
-	const _tchar*		m_szFontName = L"Font_Gulim_Default";// 사용하는 폰트 이름  
-	const _tchar*		m_szTextContent = L"안녕하세요";    // 출력되는 텍스트 내용
+	const _tchar*		m_pFontName = L"Font_Gulim_Default";// 사용하는 폰트 이름  
+	const _tchar*		m_pTextContent = L"안녕하세요";    // 출력되는 텍스트 내용
 
 	_float2				TextTest = {100.f,100.f};
 
@@ -139,6 +142,12 @@ private: //Text Imgui
 	UI_TextInfo			m_CurrentText = {};
 	vector<UI_TextInfo> m_TextInfo = {};
 	//multimap<const _tchar*, _float2> m_TextInfo; //텍스트 내용과 텍스트 사이즈를 저장 SaveLoad 용도
+
+private:
+
+	const _tchar*		m_pTextBoxFont = {L"Font_NotoSansKR16"};  // ui 오브젝트 텍스트용
+	_tchar*				m_pTextBoxContent = { L"UI 기본 출력 값" };
+
 
 public:
 	static CLevel_GamePlay* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

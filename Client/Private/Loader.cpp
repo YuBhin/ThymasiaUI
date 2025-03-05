@@ -24,11 +24,13 @@
 
 #pragma region  UIs
 #include "UI_TextBox.h"
-#include "TestScene_TextTest.h"
 
-#include "UI_Scene_PlayerMenu.h"
-#include "UI_PlayerLevelUP.h"
-#include "UI_PlayerAttribute.h"
+#include "UIGroup_GameIntro.h"
+#include "UIGroup_PlayerMenu.h"
+#include "UIGroup_PlayerLevelUP.h"
+#include "UIGroup_PlayerTalent.h"
+#include "UIGroup_PlayerScreen.h"
+
 #include "UI_MouseCursor.h"
 
 #include "UI_NewHint.h"
@@ -760,23 +762,26 @@ HRESULT CLoader::Loading_For_Level_GamePlay()
 		return E_FAIL;
 
 
-	/* For.Prototype_GameObject_UI_LevelUP */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_LevelUP"),
-		CUI_PlayerLevelUP::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
-	
-	/* For.Prototype_GameObject_TestScene_TextTest */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_TestScene_TextTest"),
-		CTestScene_TextTest::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
 
 	/* For.Prototype_GameObject_UI_LevelUP */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Menu"),
-		CUI_Scene_PlayerMenu::Create(m_pDevice, m_pContext))))
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UIGroup_GameIntro"),
+		CUIGroup_GameIntro::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_TestScene_TextTest */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UIGroup_PlayerMenu"),
+		CUIGroup_PlayerMenu::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 	/* For.Prototype_GameObject_UI_LevelUP */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Attribute"),
-		CUI_PlayerAttribute::Create(m_pDevice, m_pContext))))
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UIGroup_PlayerLevelUP"),
+		CUIGroup_PlayerLevelUP::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_LevelUP */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UIGroup_PlayerTalent"),
+		CUIGroup_PlayerTalent::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_LevelUP */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UIGroup_PlayerScreen"),
+		CUIGroup_PlayerScreen::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 	///* For.Prototype_GameObject_UI_Component */
 	//if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Component"),

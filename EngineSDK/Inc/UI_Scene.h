@@ -42,6 +42,9 @@ private:
 
 	vector<class CUI_Text*>				m_TextBox;
 
+private:
+	_bool								m_SceneRender = { false };
+
 public:
 	static CUI_Scene* Create();
 	virtual void Free() override;

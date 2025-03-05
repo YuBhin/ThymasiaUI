@@ -179,6 +179,7 @@ HRESULT CMainApp::LoadFont_Thymasia()
 {
 	D3D_FEATURE_LEVEL featureLevel = m_pDevice->GetFeatureLevel();
 	
+	/* 폰트테스트*/
 	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Gulim_Default"), TEXT("../Bin/Resources/Fonts/148ex.spritefont"))))
 		return E_FAIL;
 
