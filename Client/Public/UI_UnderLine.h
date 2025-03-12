@@ -1,6 +1,6 @@
 #pragma once
 #include "Client_Defines.h"
-#include "UI_Image.h"
+#include "UI_Button.h"
 
 BEGIN(Engine)
 class CShader;
@@ -9,7 +9,7 @@ class CVIBuffer_Rect;
 END
 
 BEGIN(Client)
-class CUI_UnderLine final : public CUI_Image
+class CUI_UnderLine final : public CUI_Button
 {
 private:
 	CUI_UnderLine(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
@@ -29,6 +29,7 @@ private:
 	CTexture*				m_pTextureCom = { nullptr };
 	CVIBuffer_Rect*			m_pVIBufferCom = { nullptr };
 
+	_float3 m_fTextPosition = {};
 
 
 public:

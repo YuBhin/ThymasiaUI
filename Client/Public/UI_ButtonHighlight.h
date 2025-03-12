@@ -24,6 +24,9 @@ public:
 	virtual void Late_Update(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
+
+	_bool Get_Mouse_Select_OnOff() { return m_bMouseSelectOn; }
+
 private:
 	CShader*				m_pShaderCom = { nullptr };
 	CTexture*				m_pTextureCom = { nullptr };
@@ -31,7 +34,8 @@ private:
 
 private:
 	_bool m_bImageOn = { false };
-	_bool m_bMouseSelected = { false };
+	_bool m_bMouseSelectOn = { false };
+	_float3 m_fTextPosition = {};
 
 
 public:

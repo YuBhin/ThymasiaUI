@@ -50,7 +50,7 @@ HRESULT CTexture::Initialize_Prototype(const _tchar * pTextureFilePath, _uint iN
 			hr = CreateWICTextureFromFile(m_pDevice, szTextureFilePath, nullptr, &pSRV);
 		}
 
-		if (FAILED(hr))
+ 		if (FAILED(hr))
 			return E_FAIL;
 
 		m_SRVs.push_back(pSRV);

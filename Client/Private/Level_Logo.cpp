@@ -25,6 +25,10 @@ void CLevel_Logo::Update(_float fTimeDelta)
 	{
 		m_pGameInstance->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_GAMEPLAY));
 	}
+	if (GetKeyState(VK_F1) < 0)
+	{
+		m_pGameInstance->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_UITEST));
+	}
 }
 
 HRESULT CLevel_Logo::Render()

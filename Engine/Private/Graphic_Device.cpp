@@ -259,7 +259,7 @@ void CGraphic_Device::Free()
 	Safe_Release(m_pBackBufferRTV);
 	Safe_Release(m_pDeviceContext);
 
-/*
+
 
 #if defined(DEBUG) || defined(_DEBUG)
 	ID3D11Debug* d3dDebug;
@@ -277,7 +277,7 @@ void CGraphic_Device::Free()
 		OutputDebugStringW(L"----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \r ");
 	}
 	if (d3dDebug != nullptr)            d3dDebug->Release();
-#endif*/
+#endif
 
 
 	Safe_Release(m_pDevice);

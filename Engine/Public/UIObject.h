@@ -61,10 +61,14 @@ public:
 public:
 	virtual void Set_Render_OnOff(_bool bOpen) { m_bRenderOpen = bOpen; }
 	virtual _bool Get_Render_State() {return  m_bRenderOpen; }
+	void Set_OnOff(_bool bOpen) { m_bOpen = bOpen; }
+protected:
+	_bool m_bOpen = { true }; // 켜져라는 호출 없으면 안 보인다. // 기본이 키는 것 => 코드를 통해 끄자
+
 protected:
 	HRESULT Add_UI_Object(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, CGameObject** ppOut, void* pArg);
 protected:
-	_float4x4			m_ViewMatrix{}, m_ProjMatrix{};
+	_float4x4			m_ViewMatrix{}, m_ProjMatrix{};	
 
 	_float3				m_fPos = {}; // 저장용
 	_float2				m_fSize = {}; // 저장용

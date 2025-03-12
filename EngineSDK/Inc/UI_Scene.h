@@ -20,6 +20,10 @@ public:
 public:
 	HRESULT Add_UIObject_Type(_int iUIType, CGameObject* pUIObj);
 	HRESULT UIScene_UIObject_Render_OnOff(_bool bOpen);
+	_bool Get_Scene_Render_State() { return m_SceneRender; }
+
+	HRESULT Set_All_UIObject_Condition_Open(_bool bOpen);
+
 
 	void Clear_Last(_uint iUIType);; // 마지막에 추가한 객체 삭제
 	void Clear_Choice(_uint iUIType, CUIObject* pUIObj); // 마지막에 추가한 객체 삭제
@@ -39,7 +43,6 @@ private:
 	vector<class CUI_Button_Player*>	m_ButtonPlayer;
 	vector<class CUI_Image*>			m_Image;
 	vector<class CUI_Text_PlayerInfo*>	m_TextPlayerInfo;
-
 	vector<class CUI_Text*>				m_TextBox;
 
 private:

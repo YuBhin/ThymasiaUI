@@ -5,6 +5,7 @@
 #include "Loader.h"
 #include "Level_Logo.h"
 #include "Level_GamePlay.h"
+#include "Level_UITest.h"
 
 
 CLevel_Loading::CLevel_Loading(ID3D11Device * pDevice, ID3D11DeviceContext * pContext)
@@ -28,7 +29,8 @@ void CLevel_Loading::Update(_float fTimeDelta)
 {
 	if (GetKeyState(VK_SPACE) < 0)
 	{
-		if (true == m_pLoader->isFinished())
+
+ 		if (true == m_pLoader->isFinished())
 		{
 			switch (m_eNextLevelID)
 			{
@@ -37,6 +39,9 @@ void CLevel_Loading::Update(_float fTimeDelta)
 				break;
 			case LEVEL_GAMEPLAY:
 				m_pGameInstance->Open_Level(m_eNextLevelID, CLevel_GamePlay::Create(m_pDevice, m_pContext));
+				break;
+			case LEVEL_UITEST:
+				m_pGameInstance->Open_Level(m_eNextLevelID, CLevel_UITest::Create(m_pDevice, m_pContext));
 				break;
 			}
 

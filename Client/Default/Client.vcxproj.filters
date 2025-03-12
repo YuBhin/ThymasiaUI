@@ -253,6 +253,45 @@
     <Filter Include="03.UIObject\UI_Scene\5.PlayerScreen">
       <UniqueIdentifier>{12517b14-dabc-46dc-897a-743ac60d5ea7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_Effect_SlotFrame">
+      <UniqueIdentifier>{65b50566-8772-4de0-b542-d4101caef4f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_Effect_Frame">
+      <UniqueIdentifier>{c6d7b5b8-099f-4fac-92d7-4a2da117744c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_SkillIcon">
+      <UniqueIdentifier>{bdb6240e-a3d1-4839-8fdd-665549e47dfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\5.Inventory\UI_EmptyItemBox">
+      <UniqueIdentifier>{64fd73b4-72ac-4a0c-8b88-fc14d3936844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\5.Inventory\UI_SquareFrame_Hover">
+      <UniqueIdentifier>{ebb61982-8aaf-4b96-8d07-b1c2f4d3c69a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\5.Inventory\UI_ForgottenFeatherIcon">
+      <UniqueIdentifier>{c74998df-4ad4-497c-94e7-93b3cdd0514a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\5.Inventory\UI_SquareFrame">
+      <UniqueIdentifier>{a347bfa6-038b-4552-98ff-8d20179e8174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\5.Inventory\UI_ItemBackground">
+      <UniqueIdentifier>{31926f87-070a-4261-861e-b5d6f5e676ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_Scene\6.Inventory">
+      <UniqueIdentifier>{31f96ab7-63d8-4546-a374-bce845843fd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Level\03.UITest">
+      <UniqueIdentifier>{440513c4-e966-40a4-93bf-572c6039682a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\5.Inventory\UI_Item_Icon">
+      <UniqueIdentifier>{745fbe2e-b679-42c5-ba86-b7b2f6cd2bf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\5.Inventory\UI_DialogBackground">
+      <UniqueIdentifier>{ec184eb3-a708-4c55-8784-2cf6b318b12c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\5.Inventory\UI_MemoryCollectionIcon">
+      <UniqueIdentifier>{3014591f-d11e-4ea9-a554-35633b7aa883}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -474,6 +513,45 @@
     <ClInclude Include="..\Public\UIGroup_PlayerScreen.h">
       <Filter>03.UIObject\UI_Scene\5.PlayerScreen</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\UI_Effect_Frame.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_Effect_Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Effect_SlotFrame.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_Effect_SlotFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_SkillIcon.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_SkillIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_EmptyItemBox.h">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_EmptyItemBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_SquareFrame_Hover.h">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_SquareFrame_Hover</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_SquareFrame.h">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_SquareFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_MemoryCollectionIcon.h">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_MemoryCollectionIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_ForgottenFeatherIcon.h">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_ForgottenFeatherIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_ItemBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_ItemBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Item_Icon.h">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_Item_Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UIGroup_Iventory.h">
+      <Filter>03.UIObject\UI_Scene\6.Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_UITest.h">
+      <Filter>01.Level\03.UITest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_DialogBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_DialogBackground</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -682,6 +760,45 @@
     </ClCompile>
     <ClCompile Include="..\Private\UIGroup_PlayerScreen.cpp">
       <Filter>03.UIObject\UI_Scene\5.PlayerScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Effect_Frame.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_Effect_Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Effect_SlotFrame.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_Effect_SlotFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\UI_SkillIcon.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_SkillIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_EmptyItemBox.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_EmptyItemBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_SquareFrame_Hover.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_SquareFrame_Hover</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_SquareFrame.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_SquareFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_MemoryCollectionIcon.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_MemoryCollectionIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_ItemBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_ItemBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_ForgottenFeatherIcon.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_ForgottenFeatherIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Item_Icon.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_Item_Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UIGroup_Iventory.cpp">
+      <Filter>03.UIObject\UI_Scene\6.Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_UITest.cpp">
+      <Filter>01.Level\03.UITest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_DialogBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_DialogBackground</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

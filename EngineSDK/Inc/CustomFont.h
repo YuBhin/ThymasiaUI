@@ -24,6 +24,8 @@ private:
 	ID3D11DeviceContext* m_pContext = { nullptr };
 	SpriteBatch* m_pBatch = { nullptr };
 	SpriteFont* m_pFont = { nullptr };
+	ID3D11DepthStencilState* m_pDepthStencil = {};
+	D3D11_DEPTH_STENCIL_DESC m_Desc = {};
 
 
 

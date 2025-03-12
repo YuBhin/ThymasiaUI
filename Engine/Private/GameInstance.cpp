@@ -256,14 +256,14 @@ _uint CGameInstance::Get_NumLevel()
 	return m_pObject_Manager->Get_NumLevel();	
 }
 
-HRESULT CGameInstance::UIScene_Render_OnOff(_uint iLevelIndex, const _wstring& strLayerTag, _bool bCheck)
+HRESULT CGameInstance::UIGroup_Render_OnOff(_uint iLevelIndex, const _wstring& strLayerTag, _bool bCheck)
 {
-	return m_pObject_Manager->UIScene_Render_OnOff(iLevelIndex, strLayerTag, bCheck);
+	return m_pObject_Manager->UIGroup_Render_OnOff(iLevelIndex, strLayerTag, bCheck);
 }
 
-_bool CGameInstance::UIScene_Render_State(_uint iLevelIndex, const _wstring& strLayerTag)
+_bool CGameInstance::UIGroup_Render_State(_uint iLevelIndex, const _wstring& strLayerTag)
 {
-	return m_pObject_Manager->UIScene_Render_State(iLevelIndex, strLayerTag);
+	return m_pObject_Manager->UIGroup_Render_State(iLevelIndex, strLayerTag);
 }
 
 #pragma endregion
@@ -576,6 +576,11 @@ HRESULT CGameInstance::UIScene_UIObject_Render_OnOff(CUI_Scene* pScene, _bool bO
 	return m_pUI_Manager->UIScene_UIObject_Render_OnOff(pScene, bOpen);
 }
 
+_bool CGameInstance::Get_Scene_Render_State(CUI_Scene* pScene)
+{
+	return m_pUI_Manager->Get_Scene_Render_State(pScene);
+}
+
 void CGameInstance::Clear_Choice(_uint iUIType, _uint iScenelIndex, const _wstring& strSceneTag, CUIObject* pUIObj)
 {
 	return m_pUI_Manager->Clear_Choice(iUIType, iScenelIndex, strSceneTag, pUIObj);
@@ -589,6 +594,11 @@ void CGameInstance::Clear_Last(_uint iUIType, _uint iScenelIndex, const _wstring
 void CGameInstance::Clear_ALL()
 {
 	return m_pUI_Manager->Clear_ALL();
+}
+
+HRESULT CGameInstance::Set_All_UIObject_Condition_Open(CUI_Scene* pScene, _bool bOpen)
+{
+	return m_pUI_Manager->Set_All_UIObject_Condition_Open(pScene, bOpen);
 }
 
 HRESULT CGameInstance::LoadDataFile_UIObj_Info(HWND hWnd, _uint iLevelIndex, _uint iSceneIndex, const _tchar* szSceneName)

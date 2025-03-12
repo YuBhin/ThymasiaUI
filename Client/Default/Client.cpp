@@ -1,11 +1,15 @@
 // Client.cpp : 응용 프로그램에 대한 진입점을 정의합니다.
 //
-
 #include "pch.h" 
 #include "Client.h"
 
 #include "../Public/MainApp.h"
 #include "GameInstance.h"
+#include <stdio.h> // freopen, printf 등을 사용
+#include <locale.h> // locale 적용
+#include <tchar.h> // _tfreopen, _tprintf를 사용
+//#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+
 
 #define MAX_LOADSTRING 100
 
@@ -311,6 +315,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             ::SetWindowPos(hWnd, NULL, suggested_rect->left, suggested_rect->top
                 , suggested_rect->right - suggested_rect->left, suggested_rect->bottom - suggested_rect->top, SWP_NOZORDER | SWP_NOACTIVATE);
         }
+        break;
+    case WM_CREATE:
+        AllocConsole();
+        SetConsoleTitle(TEXT("테스트용 콘솔"));
+        /*AllocConsole 함수를 호출하여 콘솔창을 띄웠다면 freopen 함수로 기본 입출력 위치를 지정해야 합니다.*/
+        FILE* fp;  // 파일 포인터 선언
+        _wfreopen_s(&fp, L"CONOUT$", L"w", stdout);  // stdout 연결
+        _wfreopen_s(&fp, L"CONERR$", L"w", stderr);  // stderr 연결
+        _wfreopen_s(&fp, L"CONIN$", L"r", stdin);    // stdin 연결
+
+        /* setlocale 함수로 기본 입출력에 대한 로케일을 설정합니다. */
+        _tsetlocale(LC_ALL, _T(""));
+
         break;
 
     case WM_DESTROY:

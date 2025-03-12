@@ -32,6 +32,7 @@ HRESULT CUIGroup_GameIntro::Initialize(void* pArg)
 
 	m_pMyScene = m_pGameInstance->Find_UIScene(UISCENE_INTRO, L"UIScene_Intro");
 
+
 	for (auto& TextBox : m_pMyScene->Find_UI_TextBox())
 	{
 		dynamic_cast<CUI_TextBox*>(TextBox)->Set_Change_TextColor({ 105.f,105.f,105.f,255.f});

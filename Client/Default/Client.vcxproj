@@ -105,6 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../../EngineSDK/Inc/;../Public/;$(ProjectDir);../ImGui</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -174,7 +175,9 @@
     <ClInclude Include="..\ImGui\imstb_rectpack.h" />
     <ClInclude Include="..\ImGui\imstb_textedit.h" />
     <ClInclude Include="..\ImGui\imstb_truetype.h" />
+    <ClInclude Include="..\Public\Level_UITest.h" />
     <ClInclude Include="..\Public\UIGroup_GameIntro.h" />
+    <ClInclude Include="..\Public\UIGroup_Iventory.h" />
     <ClInclude Include="..\Public\UIGroup_PlayerScreen.h" />
     <ClInclude Include="..\Public\UI_Arrow.h" />
     <ClInclude Include="..\Public\UI_Arrow_Long.h" />
@@ -192,8 +195,13 @@
     <ClInclude Include="..\Public\UI_DecorationFrame.h" />
     <ClInclude Include="..\Public\UI_DecorationLine.h" />
     <ClInclude Include="..\Public\UI_DescBackground.h" />
+    <ClInclude Include="..\Public\UI_DialogBackground.h" />
     <ClInclude Include="..\Public\UI_DiamondIcon.h" />
+    <ClInclude Include="..\Public\UI_Effect_Frame.h" />
+    <ClInclude Include="..\Public\UI_Effect_SlotFrame.h" />
+    <ClInclude Include="..\Public\UI_EmptyItemBox.h" />
     <ClInclude Include="..\Public\UI_Feather_Icon.h" />
+    <ClInclude Include="..\Public\UI_ForgottenFeatherIcon.h" />
     <ClInclude Include="..\Public\UI_Frame.h" />
     <ClInclude Include="..\Public\UI_GameLogoImage.h" />
     <ClInclude Include="..\Public\UI_HightlightBar.h" />
@@ -201,9 +209,11 @@
     <ClInclude Include="..\Public\UI_HPBar2_BG.h" />
     <ClInclude Include="..\Public\UI_HPBar3_MainBar.h" />
     <ClInclude Include="..\Public\UI_Indicator_Selected.h" />
+    <ClInclude Include="..\Public\UI_ItemBackground.h" />
     <ClInclude Include="..\Public\UI_KeyBox_Long.h" />
     <ClInclude Include="..\Public\UI_LevelImage.h" />
     <ClInclude Include="..\Public\UI_LockedIcon.h" />
+    <ClInclude Include="..\Public\UI_MemoryCollectionIcon.h" />
     <ClInclude Include="..\Public\UI_MemoryShardsIcon.h" />
     <ClInclude Include="..\Public\UI_MouseCursor.h" />
     <ClInclude Include="..\Public\UI_MPBar1_Border.h" />
@@ -225,12 +235,16 @@
     <ClInclude Include="..\Public\UIGroup_PlayerLevelUP.h" />
     <ClInclude Include="..\Public\UI_PlunderSlotFrame.h" />
     <ClInclude Include="..\Public\UI_Potion_DefaultType.h" />
+    <ClInclude Include="..\Public\UI_Item_Icon.h" />
     <ClInclude Include="..\Public\UI_RightBackground.h" />
     <ClInclude Include="..\Public\UI_SceneAboveBackground.h" />
     <ClInclude Include="..\Public\UI_SceneBackground.h" />
     <ClInclude Include="..\Public\UI_SceneUnderBackground.h" />
     <ClInclude Include="..\Public\UI_ButtonBackground.h" />
     <ClInclude Include="..\Public\UIGroup_PlayerTalent.h" />
+    <ClInclude Include="..\Public\UI_SkillIcon.h" />
+    <ClInclude Include="..\Public\UI_SquareFrame.h" />
+    <ClInclude Include="..\Public\UI_SquareFrame_Hover.h" />
     <ClInclude Include="..\Public\UI_TextBox.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -264,7 +278,9 @@
     <ClCompile Include="..\ImGui\imgui_widgets.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Private\Level_UITest.cpp" />
     <ClCompile Include="..\Private\UIGroup_GameIntro.cpp" />
+    <ClCompile Include="..\Private\UIGroup_Iventory.cpp" />
     <ClCompile Include="..\Private\UIGroup_PlayerScreen.cpp" />
     <ClCompile Include="..\Private\UI_Arrow.cpp" />
     <ClCompile Include="..\Private\UI_Arrow_Long.cpp" />
@@ -291,8 +307,13 @@
     <ClCompile Include="..\Private\UI_DecorationFrame.cpp" />
     <ClCompile Include="..\Private\UI_DecorationLine.cpp" />
     <ClCompile Include="..\Private\UI_DescBackground.cpp" />
+    <ClCompile Include="..\Private\UI_DialogBackground.cpp" />
     <ClCompile Include="..\Private\UI_DiamondIcon.cpp" />
+    <ClCompile Include="..\Private\UI_Effect_Frame.cpp" />
+    <ClCompile Include="..\Private\UI_Effect_SlotFrame.cpp" />
+    <ClCompile Include="..\Private\UI_EmptyItemBox.cpp" />
     <ClCompile Include="..\Private\UI_Feather_Icon.cpp" />
+    <ClCompile Include="..\Private\UI_ForgottenFeatherIcon.cpp" />
     <ClCompile Include="..\Private\UI_Frame.cpp" />
     <ClCompile Include="..\Private\UI_GameLogoImage.cpp" />
     <ClCompile Include="..\Private\UI_HightlightBar.cpp" />
@@ -300,9 +321,11 @@
     <ClCompile Include="..\Private\UI_HPBar2_BG.cpp" />
     <ClCompile Include="..\Private\UI_HPBar3_MainBar.cpp" />
     <ClCompile Include="..\Private\UI_Indicator_Selected.cpp" />
+    <ClCompile Include="..\Private\UI_ItemBackground.cpp" />
     <ClCompile Include="..\Private\UI_KeyBox_Long.cpp" />
     <ClCompile Include="..\Private\UI_LeftBackground.cpp" />
     <ClCompile Include="..\Private\UI_LevelImage.cpp" />
+    <ClCompile Include="..\Private\UI_MemoryCollectionIcon.cpp" />
     <ClCompile Include="..\Private\UI_MemoryShardsIcon.cpp" />
     <ClCompile Include="..\Private\UI_MPBar1_Border.cpp" />
     <ClCompile Include="..\Private\UI_MPBar2_BG.cpp" />
@@ -314,12 +337,16 @@
     <ClCompile Include="..\Private\UIGroup_PlayerMenu.cpp" />
     <ClCompile Include="..\Private\UI_PlunderSlotFrame.cpp" />
     <ClCompile Include="..\Private\UI_Potion_DefaultType.cpp" />
+    <ClCompile Include="..\Private\UI_Item_Icon.cpp" />
     <ClCompile Include="..\Private\UI_RightBackground.cpp" />
     <ClCompile Include="..\Private\UI_SceneAboveBackground.cpp" />
     <ClCompile Include="..\Private\UI_SceneBackground.cpp" />
     <ClCompile Include="..\Private\UI_SceneUnderBackground.cpp" />
     <ClCompile Include="..\Private\UI_ButtonBackground.cpp" />
     <ClCompile Include="..\Private\UIGroup_PlayerTalent.cpp" />
+    <ClCompile Include="..\private\UI_SkillIcon.cpp" />
+    <ClCompile Include="..\Private\UI_SquareFrame.cpp" />
+    <ClCompile Include="..\Private\UI_SquareFrame_Hover.cpp" />
     <ClCompile Include="..\Private\UI_TextBox.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>

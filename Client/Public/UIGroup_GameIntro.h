@@ -28,6 +28,7 @@ public:
 public:
 	HRESULT Ready_UIObject();
 
+
 private:
 	vector<UI_TextInfo> m_TextInfo = {};
 
