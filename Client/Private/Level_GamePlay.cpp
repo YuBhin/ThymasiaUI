@@ -1247,7 +1247,7 @@ void CLevel_GamePlay::SetUIFont()
 
 
 	ImGui::Text(u8"Font Text 입력");
-	static _char szInputText[MAX_PATH] = "";
+	static _char szInputText[MAX_UIPATH] = "";
 	 
 	if (ImGui::InputTextMultiline(u8"텍스트 내용 작성", szInputText, IM_ARRAYSIZE(szInputText),ImVec2(300.f,100.f)))
 	{
@@ -1431,7 +1431,7 @@ HRESULT CLevel_GamePlay::Save_UI_IMGUI_Textrue()
 	
 	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_Effect_Frame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/General/UI_Effect_Frame_0.dds"), 1);
 	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_Effect_SlotFrame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/General/UI_Effect_SlotFrame_0.dds"), 1);
-	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_SkillIcon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/General/UI_SkillIcon_0.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_SkillIcon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/General/UI_SkillIcon_1.dds"), 1);
 
 	//====================================================================================================================================== 넛지 텍스처
 	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_DiamondIcon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_DiamondIcon_01.dds"), 1);
@@ -1443,7 +1443,7 @@ HRESULT CLevel_GamePlay::Save_UI_IMGUI_Textrue()
 	Save_UI_Textrue_Menu(TEXT("Prototype_GameObject_UI_LeftBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LeftBackground.dds"), 1);
 	Save_UI_Textrue_Menu(TEXT("Prototype_GameObject_UI_RightBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_RightBackground.dds"), 1);
 	Save_UI_Textrue_Menu(TEXT("Prototype_GameObject_UI_HighlightBar"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_HighlightBar_00.dds"), 1);
-	Save_UI_Textrue_Menu(TEXT("Prototype_GameObject_UI_LevelImage"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LevelImage_Circus.dds"), 1);
+	Save_UI_Textrue_Menu(TEXT("Prototype_GameObject_UI_LevelImage"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_LevelImage_0.dds"), 1);
 	Save_UI_Textrue_Menu(TEXT("Prototype_GameObject_UI_ButtonHighlight"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_ButtonHighlight_00.dds"), 1);
 	//==================================================================================================================================== 플레이어 특성 창
 
@@ -1457,12 +1457,13 @@ HRESULT CLevel_GamePlay::Save_UI_IMGUI_Textrue()
 	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_SceneBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_SceneBackground_0.dds"), 1);
 	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_SceneUnderBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_SceneUnderBackground.dds"), 1);
 	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_UnderLine"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_UnderLine.dds"), 1);
+	Save_UI_Textrue_Attribute(TEXT("Prototype_GameObject_UI_Talent_Icon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/TalentIcon/UI_Talent_Icon_0.dds"), 1);
 	//==================================================================================================================================== 플레이어 레벨 업 창
 
 	Save_UI_Textrue_LevelUp(TEXT("Prototype_GameObject_UI_Arrow_Long"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerLevelUP/UI_Arrow_Long.dds"), 1);
 	Save_UI_Textrue_LevelUp(TEXT("Prototype_GameObject_UI_BlackBar"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerLevelUP/UI_BlackBar.dds"), 1);
 	Save_UI_Textrue_LevelUp(TEXT("Prototype_GameObject_UI_DecorationFrame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerLevelUP/UI_DecorationFrame_01.dds"), 1);
-	Save_UI_Textrue_LevelUp(TEXT("Prototype_GameObject_UI_ButtonBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerLevelUP/UI_ButtonBackground.dds"), 1);
+	Save_UI_Textrue_LevelUp(TEXT("Prototype_GameObject_UI_ButtonBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerLevelUP/UI_ButtonBackground_0.dds"), 1);
 	Save_UI_Textrue_LevelUp(TEXT("Prototype_GameObject_UI_TitleBackgroundBar"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerLevelUP/UI_TitleBackgroundBar_00.dds"), 1);
 
 	//====================================================================================================================================== 플레이어 기본화면 
@@ -1477,6 +1478,7 @@ HRESULT CLevel_GamePlay::Save_UI_IMGUI_Textrue()
 	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_MPBar3_MainBar"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_MPBar3_MainBar.dds"), 1);
 	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_PlunderSlotFrame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_PlunderSlotFrame_0.dds"), 1);
 	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_Potion_DefaultType"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_Potion_DefaultType.dds"), 1);
+	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_HPBar5_Track"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_HPBar5_Track.dds"), 1);
 	//====================================================================================================================================== 인벤토리
 	
 	Save_UI_Textrue_Inventory(TEXT("Prototype_GameObject_UI_EmptyItemBox"), TEXT("../Bin/Resources/Textures/ThymesiaUI/Inventory/UI_EmptyItemBox.dds"), 1);
@@ -1491,6 +1493,20 @@ HRESULT CLevel_GamePlay::Save_UI_IMGUI_Textrue()
 	//====================================================================================================================================== 공용 꾸밈 텍스처
 	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_DecorationLine"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMeun/UI_DecorationLine_0.dds"), 1);
 	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_GameLogoImage"), TEXT("../Bin/Resources/Textures/ThymesiaUI/GameIntro/UI_GameLogoImage.dds"), 1);
+
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_LoadingScreen"), TEXT("../Bin/Resources/Textures/ThymesiaUI/LoadingScreen/LoadingScreen_1.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_LoadingIcon"), TEXT("../Bin/Resources/Textures/ThymesiaUI/LoadingScreen/UI_LoadingIcon.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_LootNotifyBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/General/UI_LootNotifyBackground_00.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_LandingScreen"), TEXT("../Bin/Resources/Textures/ThymesiaUI/Message/UI_LandingScreen_2.dds"), 1);
+
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_MapEntryFrame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/MapChange/UI_MapEntryFrame_0.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_Map_Save_Image"), TEXT("../Bin/Resources/Textures/ThymesiaUI/MapChange/UI_MapTabImage_0.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_MediaFrame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/MapChange/UI_MediaFrame.dds"), 1);
+
+
+	
+
+
 
 	return S_OK; 
 }
@@ -1983,7 +1999,7 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex/*, const _tchar* sz
 
 HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex/*, const _tchar* szSceneName*/)
 {
-	m_pGameInstance->Clear_ALL();
+	//m_pGameInstance->Clear_ALL();
 
 	char   szDir[MAX_PATH] = "../Bin/DataFiles/UISave/";
 	//_char   szFileName[MAX_PATH] = "";
@@ -2074,6 +2090,11 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex/*, const _tchar* sz
 
 		Desc.fX = fPos.x;
 		Desc.fY = fPos.y;
+
+		if (0 == fPos.z)
+		{
+			fPos.z = 0.9f;
+		}
 		Desc.fZ = fPos.z;
 		Desc.fSizeX = fSize.x;
 		Desc.fSizeY = fSize.y;
@@ -2086,9 +2107,9 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex/*, const _tchar* sz
 		Desc.iTexNumber = iTextureNum;
 		Desc.iGroupID = iGroupID;
 		Desc.fRotation = fRotation;
-		if (!lstrcmp(szSaveName.c_str(), TEXT("Prototype_GameObject_UI_UnderLine")))
+		if (!lstrcmp(szSaveName.c_str(), TEXT("Prototype_GameObject_UI_Attribute_Slot_Active")))
 		{
-			iUIType = 0;
+			iUIType = 2;
 		}
 		if (FAILED(m_pGameInstance->Add_UIObject_To_UIScene(LEVEL_GAMEPLAY, szSaveName, iSceneIndex, szLastScene, iUIType, &Desc)))
 			return E_FAIL;

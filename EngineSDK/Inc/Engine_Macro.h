@@ -14,6 +14,7 @@ namespace Engine
 
 #define			VK_MAX		 0xff
 
+#define MAX_UIPATH          1000
 
 
 #ifdef	ENGINE_EXPORTS

@@ -208,11 +208,19 @@
     <ClInclude Include="..\Public\UI_HPBar1_Border.h" />
     <ClInclude Include="..\Public\UI_HPBar2_BG.h" />
     <ClInclude Include="..\Public\UI_HPBar3_MainBar.h" />
+    <ClInclude Include="..\Public\UI_HPBar5_Track.h" />
     <ClInclude Include="..\Public\UI_Indicator_Selected.h" />
     <ClInclude Include="..\Public\UI_ItemBackground.h" />
     <ClInclude Include="..\Public\UI_KeyBox_Long.h" />
+    <ClInclude Include="..\Public\UI_LandingScreen.h" />
     <ClInclude Include="..\Public\UI_LevelImage.h" />
+    <ClInclude Include="..\Public\UI_LoadingIcon.h" />
+    <ClInclude Include="..\Public\UI_LoadingScreen.h" />
     <ClInclude Include="..\Public\UI_LockedIcon.h" />
+    <ClInclude Include="..\Public\UI_LootNotifyBackground.h" />
+    <ClInclude Include="..\Public\UI_MapEntryFrame.h" />
+    <ClInclude Include="..\Public\UI_Map_Save_Image.h" />
+    <ClInclude Include="..\Public\UI_MediaFrame.h" />
     <ClInclude Include="..\Public\UI_MemoryCollectionIcon.h" />
     <ClInclude Include="..\Public\UI_MemoryShardsIcon.h" />
     <ClInclude Include="..\Public\UI_MouseCursor.h" />
@@ -245,6 +253,7 @@
     <ClInclude Include="..\Public\UI_SkillIcon.h" />
     <ClInclude Include="..\Public\UI_SquareFrame.h" />
     <ClInclude Include="..\Public\UI_SquareFrame_Hover.h" />
+    <ClInclude Include="..\Public\UI_Talent_Icon.h" />
     <ClInclude Include="..\Public\UI_TextBox.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -320,11 +329,19 @@
     <ClCompile Include="..\Private\UI_HPBar1_Border.cpp" />
     <ClCompile Include="..\Private\UI_HPBar2_BG.cpp" />
     <ClCompile Include="..\Private\UI_HPBar3_MainBar.cpp" />
+    <ClCompile Include="..\Private\UI_HPBar5_Track.cpp" />
     <ClCompile Include="..\Private\UI_Indicator_Selected.cpp" />
     <ClCompile Include="..\Private\UI_ItemBackground.cpp" />
     <ClCompile Include="..\Private\UI_KeyBox_Long.cpp" />
+    <ClCompile Include="..\Private\UI_LandingScreen.cpp" />
     <ClCompile Include="..\Private\UI_LeftBackground.cpp" />
     <ClCompile Include="..\Private\UI_LevelImage.cpp" />
+    <ClCompile Include="..\Private\UI_LoadingIcon.cpp" />
+    <ClCompile Include="..\Private\UI_LoadingScreen.cpp" />
+    <ClCompile Include="..\Private\UI_LootNotifyBackground.cpp" />
+    <ClCompile Include="..\Private\UI_MapEntryFrame.cpp" />
+    <ClCompile Include="..\Private\UI_Map_Save_Image.cpp" />
+    <ClCompile Include="..\Private\UI_MediaFrame.cpp" />
     <ClCompile Include="..\Private\UI_MemoryCollectionIcon.cpp" />
     <ClCompile Include="..\Private\UI_MemoryShardsIcon.cpp" />
     <ClCompile Include="..\Private\UI_MPBar1_Border.cpp" />
@@ -347,6 +364,7 @@
     <ClCompile Include="..\private\UI_SkillIcon.cpp" />
     <ClCompile Include="..\Private\UI_SquareFrame.cpp" />
     <ClCompile Include="..\Private\UI_SquareFrame_Hover.cpp" />
+    <ClCompile Include="..\Private\UI_Talent_Icon.cpp" />
     <ClCompile Include="..\Private\UI_TextBox.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>

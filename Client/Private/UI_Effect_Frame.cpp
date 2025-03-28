@@ -62,7 +62,7 @@ void CUI_Effect_Frame::Late_Update(_float fTimeDelta)
 {
 	if (m_bRenderOpen)
 	{
-		m_pGameInstance->Add_RenderGroup(CRenderer::RG_UI, this);
+		m_pGameInstance->Add_RenderGroup(CRenderer::RG_FONT, this);
 	}
 }
 

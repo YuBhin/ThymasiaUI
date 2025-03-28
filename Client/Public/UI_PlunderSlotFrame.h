@@ -28,7 +28,10 @@ private:
 	CShader*				m_pShaderCom = { nullptr };
 	CTexture*				m_pTextureCom = { nullptr };
 	CVIBuffer_Rect*			m_pVIBufferCom = { nullptr };
+	CTexture*				m_pTexIconCom = { nullptr };
 
+	_uint m_iTexicon = { 1 };
+	_bool m_bItemIconOn = { true };
 
 
 public:

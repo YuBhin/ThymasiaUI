@@ -60,6 +60,12 @@ DepthStencilState DSS_Thymasia_UI
 
 };
 
+DepthStencilState DSS_Thymasia_Test
+{
+  
+
+};
+
 BlendState BS_Default
 {
     BlendEnable[0] = FALSE; /* 여기서 0은 렌더타겟의 넘버 */

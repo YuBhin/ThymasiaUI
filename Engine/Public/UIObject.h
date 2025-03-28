@@ -82,7 +82,7 @@ protected:
 	_uint				m_iGroupID = { 0 };		// 그룹아이디
 	_uint				m_iUIType = { 0 };		// UI 생성 타입
 protected:
-	_bool				m_bRenderOpen = { false }; // 기본은 false 이고 특정 이벤트를 통해 on되는 형식
+	_bool				m_bRenderOpen = { true }; // 기본은 false 이고 특정 이벤트를 통해 on되는 형식
 	_uint				m_iTexNumber = {0}; // 텍스처 넘버
 
 	_vector             m_vTextClolor = {1.0f,1.0f,1.0f,1.0f};

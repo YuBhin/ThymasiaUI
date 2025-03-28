@@ -46,7 +46,7 @@ private:
 	vector<class CUI_Text*>				m_TextBox;
 
 private:
-	_bool								m_SceneRender = { false };
+	_bool								m_SceneRender = { true };
 
 public:
 	static CUI_Scene* Create();

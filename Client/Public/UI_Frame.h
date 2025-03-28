@@ -11,6 +11,8 @@ END
 BEGIN(Client)
 class CUI_Frame final : public CUI_Button
 {
+public:
+	enum TexKind{TEX_SLOT,TEX_ICON,TEX_EDGE,TEX_EFFECT,TEX_END};
 private:
 	CUI_Frame(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CUI_Frame(const CUI_Frame& Prototype);
@@ -26,10 +28,15 @@ public:
 
 private:
 	CShader* m_pShaderCom = { nullptr };
-	CTexture* m_pTextureCom = { nullptr };
 	CVIBuffer_Rect* m_pVIBufferCom = { nullptr };
 
+private:
 
+	CTexture* m_pTextureCom[TEX_END] = {nullptr};
+
+	_uint m_iTexIcon = { 1 };
+	_uint m_iTexEdge = { 1 };
+	_uint m_iTexEffect = {1 };
 
 public:
 	HRESULT Ready_Components();

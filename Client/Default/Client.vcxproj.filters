@@ -292,6 +292,33 @@
     <Filter Include="03.UIObject\UI_ObjectPart\5.Inventory\UI_MemoryCollectionIcon">
       <UniqueIdentifier>{3014591f-d11e-4ea9-a554-35633b7aa883}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\4.Intro\UI_LoadingScreen">
+      <UniqueIdentifier>{954d5ee4-9ab3-4327-b215-a9e5eb4a27b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\4.Intro\UI_LoadingIcon">
+      <UniqueIdentifier>{f6ad9f85-68e2-4679-88d1-dd0590f6076f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_LootNotifyBackground">
+      <UniqueIdentifier>{5d761971-f989-40c0-a1da-ba629663924f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_Talent_Icon">
+      <UniqueIdentifier>{98b7d37c-dd14-4cd9-b1ad-37e90545aafc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar5_Track">
+      <UniqueIdentifier>{7a7df3cf-a9f2-4073-adbe-f422ed6c542a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_LandingScreen">
+      <UniqueIdentifier>{42fba6f6-7dd4-4123-aba1-111e25f64c9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_MapEntryFrame">
+      <UniqueIdentifier>{44adb41d-5a6c-4de4-b0b7-e3f2276a0413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_Map_Save_Image">
+      <UniqueIdentifier>{d010ce30-accc-4198-956c-d59ece0a7002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_MediaFrame">
+      <UniqueIdentifier>{f3dfcc49-b42b-4216-9e60-05e893ba5727}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -552,6 +579,33 @@
     <ClInclude Include="..\Public\UI_DialogBackground.h">
       <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_DialogBackground</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\UI_LoadingScreen.h">
+      <Filter>03.UIObject\UI_ObjectPart\4.Intro\UI_LoadingScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_LoadingIcon.h">
+      <Filter>03.UIObject\UI_ObjectPart\4.Intro\UI_LoadingIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_LootNotifyBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_LootNotifyBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Talent_Icon.h">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_Talent_Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_HPBar5_Track.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar5_Track</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_LandingScreen.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_LandingScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_MapEntryFrame.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_MapEntryFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Map_Save_Image.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_Map_Save_Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_MediaFrame.h">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_MediaFrame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -799,6 +853,33 @@
     </ClCompile>
     <ClCompile Include="..\Private\UI_DialogBackground.cpp">
       <Filter>03.UIObject\UI_ObjectPart\5.Inventory\UI_DialogBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_LoadingScreen.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\4.Intro\UI_LoadingScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_LoadingIcon.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\4.Intro\UI_LoadingIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_LootNotifyBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_LootNotifyBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Talent_Icon.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\3.PlayerAttributeObj\UI_Talent_Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_HPBar5_Track.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar5_Track</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_LandingScreen.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_LandingScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_MapEntryFrame.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_MapEntryFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Map_Save_Image.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_Map_Save_Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_MediaFrame.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_MediaFrame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
