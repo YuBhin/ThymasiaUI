@@ -2,6 +2,7 @@
 
 #include "Client_Defines.h"
 #include "Level.h"
+#include "UI_TextBox.h"
 
 BEGIN(Engine)
 class CUIObject;
@@ -68,7 +69,8 @@ private:
 	HRESULT Save_UI_Textrue_Attribute(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
 	HRESULT Save_UI_Textrue_PlayerMainScreen(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
 	HRESULT Save_UI_Textrue_Inventory(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
-
+	HRESULT Save_UI_Textrue_Skill(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures);
+	
 	//임구이 마우스 클릭 제어
 	//객체 찾는 함수
 	//ui 오브젝트 생성
@@ -128,6 +130,7 @@ private: //IMGUI
 	map<_wstring, ID3D11ShaderResourceView*>				m_AttributeSRVs; // IMGUI 텍스처
 	map<_wstring, ID3D11ShaderResourceView*>				m_PlayerSRVs; // IMGUI 텍스처
 	map<_wstring, ID3D11ShaderResourceView*>				m_InvenSRVs; // IMGUI 텍스처
+	map<_wstring, ID3D11ShaderResourceView*>				m_SkillSRVs; // IMGUI 텍스처
 
 	_uint													m_iCountSRVs = { 0 }; // 혹시 몰라 저장하느 이미지 개수 카운트
 
@@ -141,6 +144,7 @@ private: //Text Imgui
 	_bool				m_bTexMouseOn = { false };
 	_bool				m_bCurrentText = { false }; //현재 선택한 텍스트 변경할 것인지 
 	_uint				m_iTextID = {0};
+	CUI_TextBox::TEXTSORT				m_iTextSort = {CUI_TextBox::TEXT_LEFT};
 
 	UI_TextInfo			m_CurrentText = {};
 	vector<UI_TextInfo> m_TextInfo = {};
@@ -148,8 +152,8 @@ private: //Text Imgui
 
 private:
 
-	const _tchar*		m_pTextBoxFont = {L"Font_NotoSansKR16"};  // ui 오브젝트 텍스트용
-	_tchar*				m_pTextBoxContent = { L"UI 기본 출력 값" };
+	const _tchar*		m_pTextBoxFont		= {L"Font_NotoSansKR16"};  // ui 오브젝트 텍스트용
+	_tchar*				m_pTextBoxContent	= { L"UI 기본 출력 값" };
 
 
 public:

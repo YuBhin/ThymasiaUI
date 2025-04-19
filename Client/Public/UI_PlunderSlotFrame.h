@@ -26,12 +26,19 @@ public:
 
 private:
 	CShader*				m_pShaderCom = { nullptr };
-	CTexture*				m_pTextureCom = { nullptr };
 	CVIBuffer_Rect*			m_pVIBufferCom = { nullptr };
+	
+	CTexture*				m_pTextureCom = { nullptr };
 	CTexture*				m_pTexIconCom = { nullptr };
+	CTexture*				m_pTexEffectCom = { nullptr };
 
+
+private:
 	_uint m_iTexicon = { 1 };
-	_bool m_bItemIconOn = { true };
+	_uint m_iTexEffect = { 1 };
+	
+	_bool m_bEffectOn = { false };
+	_bool m_bSkillIconOn = { true };
 
 
 public:

@@ -852,6 +852,35 @@ void CLevel_GamePlay::SetUISetting()
 		}
 	}
 
+	
+	static int iradioSelect1 = 0;
+
+	if (ImGui::RadioButton("TEXT_CENTER", iradioSelect1 == 0)) {
+		iradioSelect1 = 0;
+		m_iTextSort = CUI_TextBox::TEXT_CENTER;
+	}
+	ImGui::SameLine();
+	if (ImGui::RadioButton("TEXT_LEFT", iradioSelect1 == 1)) {
+		iradioSelect1 = 1;
+		m_iTextSort = CUI_TextBox::TEXT_LEFT;
+	}
+	ImGui::SameLine();
+	if (ImGui::RadioButton("TEXT_RIGHT", iradioSelect1 == 2)) {
+		iradioSelect1 = 2;
+		m_iTextSort = CUI_TextBox::TEXT_RIGHT;
+	}
+	if (m_iUIType == UI_TEXT && !m_bGetUIObjCheck) // 텍스트 타입이고 // 객체 선택하기가 켜져있는 경우
+	{
+		if (nullptr != m_pCurrentUIObj) // 객체가 선택되어 있고
+		{
+			if (m_pCurrentUIObj->Get_UI_Type() == UI_TEXT)
+			{
+				dynamic_cast<CUI_TextBox*>(m_pCurrentUIObj)->Set_TextSort(m_iTextSort);
+			}
+
+		}
+	}
+
 	ImGui::Text(u8"설치 좌표");
 	ImGui::SameLine(100.f, 0.f);
 	if (ImGui::InputFloat3("UIPos", &fPos.x, "%.2f"))
@@ -1170,7 +1199,7 @@ void CLevel_GamePlay::SetUIImage()
 
 	ImGui::NewLine();
 
-	ImGui::Text(u8"플레이어 기본화면");
+	ImGui::Text(u8"인벤토리");
 	for (it = m_InvenSRVs.begin(); it != m_InvenSRVs.end(); ++it)
 	{
 		ImGui::PushID(iTemp);
@@ -1210,6 +1239,45 @@ void CLevel_GamePlay::SetUIImage()
 	}
 
 	ImGui::NewLine();
+	ImGui::Text(u8"스킬창");
+	for (it = m_SkillSRVs.begin(); it != m_SkillSRVs.end(); ++it)
+	{
+		ImGui::PushID(iTemp);
+		ImVec4 ColorRGBA = (iSelectButton == iTemp) ? ImVec4(255.f, 0.1f, 0.0f, 0.5f) : ImVec4(0.0f, 0.f, 0.0f, 0.0f);
+
+
+		_int iStrSize = WideCharToMultiByte(CP_ACP, 0, (*it).first.c_str(), -1, NULL, 0, NULL, NULL);
+		_char* pStr = new _char[iStrSize];
+		WideCharToMultiByte(CP_ACP, 0, (*it).first.c_str(), -1, pStr, iStrSize, NULL, NULL);
+		// 배경 그리기
+		ImGui::GetWindowDrawList()->AddRectFilled(
+			ImGui::GetCursorScreenPos(),
+			ImVec2(ImGui::GetCursorScreenPos().x + 64, ImGui::GetCursorScreenPos().y + 64),
+			ImGui::ColorConvertFloat4ToU32(ColorRGBA));
+		if (ImGui::ImageButton(pStr, (ImTextureID)(*it).second, ImVec2(64.f, 64.f)))
+		{
+			m_pUIName = (*it).first.c_str();
+			iSelectButton = iTemp;
+			//m_iNumber = iTemp;
+		}
+
+		iCount++;
+		if (iCount < 5)
+		{
+			ImGui::SameLine();
+		}
+		else
+		{
+			iCount = 0;
+		}
+
+		delete[] pStr;
+		pStr = nullptr;
+
+		ImGui::PopID();
+		iTemp++;
+	}
+
 
 }
 
@@ -1477,6 +1545,7 @@ HRESULT CLevel_GamePlay::Save_UI_IMGUI_Textrue()
 	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_MPBar2_BG"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_MPBar2_BG.dds"), 1);
 	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_MPBar3_MainBar"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_MPBar3_MainBar.dds"), 1);
 	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_PlunderSlotFrame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_PlunderSlotFrame_0.dds"), 1);
+	
 	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_Potion_DefaultType"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_Potion_DefaultType.dds"), 1);
 	Save_UI_Textrue_PlayerMainScreen(TEXT("Prototype_GameObject_UI_HPBar5_Track"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_HPBar5_Track.dds"), 1);
 	//====================================================================================================================================== 인벤토리
@@ -1503,9 +1572,17 @@ HRESULT CLevel_GamePlay::Save_UI_IMGUI_Textrue()
 	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_Map_Save_Image"), TEXT("../Bin/Resources/Textures/ThymesiaUI/MapChange/UI_MapTabImage_0.dds"), 1);
 	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_MediaFrame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/MapChange/UI_MediaFrame.dds"), 1);
 
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_DialogueTalkBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/Dialogue/UI_DialogueTalkBackground.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_DialogueWindowBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/Dialogue/UI_DialogueWindowBackground.dds"), 1);
+	Save_UI_Textrue_Share(TEXT("Prototype_GameObject_UI_NextLineHint"), TEXT("../Bin/Resources/Textures/ThymesiaUI/Dialogue/UI_NextLineHint_0.dds"), 1);
 
-	
+	//====================================================================================================================================== 스킬 창 텍스처
+	Save_UI_Textrue_Skill(TEXT("Prototype_GameObject_UI_Skill_Slot"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerAttribute/UI_Frame_0.dds"), 1);
+	Save_UI_Textrue_Skill(TEXT("Prototype_GameObject_UI_FixSlotFrame"), TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_PlunderSlotFrame_0.dds"), 1);
 
+	Save_UI_Textrue_Skill(TEXT("Prototype_GameObject_UI_QuestBackground"), TEXT("../Bin/Resources/Textures/ThymesiaUI/Poison/UI_QuestBackground.dds"), 1);
+	Save_UI_Textrue_Skill(TEXT("Prototype_GameObject_UI_Bar_Poison"), TEXT("../Bin/Resources/Textures/ThymesiaUI/Poison/UI_Bar_Poison.dds"), 1);
+	Save_UI_Textrue_Skill(TEXT("Prototype_GameObject_UI_Frame_Poison"), TEXT("../Bin/Resources/Textures/ThymesiaUI/Poison/UI_Frame_Poison.dds"), 1);
 
 
 	return S_OK; 
@@ -1781,6 +1858,51 @@ HRESULT CLevel_GamePlay::Save_UI_Textrue_Inventory(const _tchar* _pObjTag, const
 	return S_OK;
 }
 
+HRESULT CLevel_GamePlay::Save_UI_Textrue_Skill(const _tchar* _pObjTag, const _tchar* pTextureFilePath, _uint iNumTextures)
+{
+	m_iCountSRVs += iNumTextures;
+
+	_tchar		szName[MAX_PATH] = {};
+	_tchar		szEXT[MAX_PATH] = {};
+
+	_wsplitpath_s(pTextureFilePath, nullptr, 0, nullptr, 0, szName, MAX_PATH, szEXT, MAX_PATH);
+
+	for (size_t i = 0; i < iNumTextures; i++)
+	{
+		ID3D11Texture2D* pTexture2D = { nullptr };
+		ID3D11ShaderResourceView* pSRV = { nullptr };
+
+		_tchar			szTextureFilePath[MAX_PATH] = TEXT("");
+
+		wsprintf(szTextureFilePath, pTextureFilePath, i);
+		wsprintf(szName, szName, i);
+
+		HRESULT			hr = {};
+
+
+		if (false == lstrcmp(szEXT, TEXT(".dds")))
+		{
+			/* .dds */
+			hr = CreateDDSTextureFromFile(m_pDevice, szTextureFilePath, nullptr, &pSRV);
+		}
+		else if (false == lstrcmp(szEXT, TEXT(".tga")))
+		{
+			hr = E_FAIL;
+		}
+		else
+		{	/* .jpg etc */
+			hr = CreateWICTextureFromFile(m_pDevice, szTextureFilePath, nullptr, &pSRV);
+		}
+
+		if (FAILED(hr))
+			return E_FAIL;
+
+		m_SkillSRVs.emplace(_pObjTag, pSRV);
+	}
+
+	return S_OK;
+}
+
 HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex/*, const _tchar* szSceneName*/) // 파라미터 => Load 시 각 씬 클래스 에서 집어 넣도록 = 여기서는 imgui를 통해서
 {
 	_char   szDir[MAX_PATH] = "../Bin/DataFiles/UISave/";
@@ -1826,6 +1948,8 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex/*, const _tchar* sz
 	_float3 fPos = {};
 	_float2 fScale = {};
 	_float3 fRotation = {};
+	_uint iTextSort = {};
+
 
 	for (auto& Button : m_pGameInstance->Find_UIScene(iSceneIndex, szLastScene)->Find_UI_Button())
 	{
@@ -1914,6 +2038,14 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex/*, const _tchar* sz
 
 		WriteFile(hFile, &iUIType, sizeof(_uint), &dwByte, nullptr);
 
+		iLen = (_uint)Image->Get_Font_Name().size();
+		WriteFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
+		WriteFile(hFile, Image->Get_Font_Name().c_str(), sizeof(_tchar)* iLen, &dwByte, nullptr);
+
+		iLen = (_uint)Image->Get_Content().size();
+		WriteFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
+		WriteFile(hFile, Image->Get_Content().c_str(), sizeof(_tchar)* iLen, &dwByte, nullptr);
+
 		iShaderNum = Image->Get_UI_ShaderPassNum();
 		WriteFile(hFile, &iShaderNum, sizeof(_uint), &dwByte, nullptr);
 
@@ -1959,6 +2091,9 @@ HRESULT CLevel_GamePlay::SaveData_UI_Scene(_uint iSceneIndex/*, const _tchar* sz
 
 		iGroupID = TextBox->Get_UI_GroupID();
 		WriteFile(hFile, &iGroupID, sizeof(_uint), &dwByte, nullptr);
+
+		iTextSort = static_cast<_uint>(dynamic_cast<CUI_TextBox*>(TextBox)->Get_TextSort());
+		WriteFile(hFile, &iTextSort, sizeof(_uint), &dwByte, nullptr);
 	}
 
 	for (auto& Text_PlayerInfo : m_pGameInstance->Find_UIScene(iSceneIndex, szLastScene)->Find_UI_Text_PlayerInfo())
@@ -2044,6 +2179,10 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex/*, const _tchar* sz
 
 	while (true)
 	{
+		_wstring szContentText = {};
+		_uint iTextSort = {static_cast<CUIObject::TEXTSORT>(CUIObject::TEXTSORT::TEXT_LEFT)};
+
+
 		ReadFile(hFile, &fPos, sizeof(_float3), &dwByte, nullptr);
 		ReadFile(hFile, &fSize, sizeof(_float2), &dwByte, nullptr);
 		ReadFile(hFile, &fRotation, sizeof(_float3), &dwByte, nullptr);
@@ -2053,32 +2192,25 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex/*, const _tchar* sz
 		ReadFile(hFile, const_cast<wchar_t*>(szSaveName.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
 
 		ReadFile(hFile, &iUIType, sizeof(_uint), &dwByte, nullptr);
-		if (iUIType == UI_BUTTON)
-		{
-			ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
-			szFontName.resize(iLen);
-			ReadFile(hFile, const_cast<wchar_t*>(szFontName.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
+		ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
+		szFontName.resize(iLen);
+		ReadFile(hFile, const_cast<wchar_t*>(szFontName.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
 
-			ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
-			szContentText.resize(iLen);
-			ReadFile(hFile, const_cast<wchar_t*>(szContentText.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
-
-		}
-		if (iUIType == UI_TEXT)
-		{
-			ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
-			szFontName.resize(iLen);
-			ReadFile(hFile, const_cast<wchar_t*>(szFontName.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
-
-			ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
-			szContentText.resize(iLen);
-			ReadFile(hFile, const_cast<wchar_t*>(szContentText.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
-
-		}
+		ReadFile(hFile, &iLen, sizeof(_uint), &dwByte, nullptr);
+		szContentText.resize(iLen);
+		ReadFile(hFile, const_cast<wchar_t*>(szContentText.data()), sizeof(_tchar) * iLen, &dwByte, nullptr);
 
 		ReadFile(hFile, &iShaderNum, sizeof(_uint), &dwByte, nullptr);
 		ReadFile(hFile, &iTextureNum, sizeof(_uint), &dwByte, nullptr);
 		ReadFile(hFile, &iGroupID, sizeof(_uint), &dwByte, nullptr);
+
+		if (iUIType == UI_TEXT)
+		{
+			ReadFile(hFile, &iTextSort, sizeof(_uint), &dwByte, nullptr);
+
+		}
+		
+
 
  		if (0 == dwByte)
 		{
@@ -2107,12 +2239,17 @@ HRESULT CLevel_GamePlay::LoadData_UI_Scene(_uint iSceneIndex/*, const _tchar* sz
 		Desc.iTexNumber = iTextureNum;
 		Desc.iGroupID = iGroupID;
 		Desc.fRotation = fRotation;
-		if (!lstrcmp(szSaveName.c_str(), TEXT("Prototype_GameObject_UI_Attribute_Slot_Active")))
+
+		if (iUIType == UI_TEXT)
 		{
-			iUIType = 2;
+			Desc.eTextSort = static_cast<CUIObject::TEXTSORT>(iTextSort);
 		}
-		if (FAILED(m_pGameInstance->Add_UIObject_To_UIScene(LEVEL_GAMEPLAY, szSaveName, iSceneIndex, szLastScene, iUIType, &Desc)))
+
+		
+			if (FAILED(m_pGameInstance->Add_UIObject_To_UIScene(LEVEL_GAMEPLAY, szSaveName, iSceneIndex, szLastScene, iUIType, &Desc)))
 			return E_FAIL;
+
+
 
 	}
 
@@ -2343,11 +2480,16 @@ void CLevel_GamePlay::Free()
 	{
 		Safe_Release((*it).second);
 	}
+	for (it = m_SkillSRVs.begin(); it != m_SkillSRVs.end(); ++it)
+	{
+		Safe_Release((*it).second);
+	}
 	m_ShareSRVs.clear();
 	m_MenuSRVs.clear();
 	m_LevelUpSRVs.clear();
 	m_AttributeSRVs.clear();
 	m_PlayerSRVs.clear();
 	m_InvenSRVs.clear();
+	m_SkillSRVs.clear();
 	
 }

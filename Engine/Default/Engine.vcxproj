@@ -241,6 +241,7 @@ call UpdateLib.bat</Command>
     <ClInclude Include="..\public\VIBuffer_Point_Instancing.h" />
     <ClInclude Include="..\public\VIBuffer_Rect.h" />
     <ClInclude Include="..\public\VIBuffer_Rect_Instancing.h" />
+    <ClInclude Include="..\Public\VIBuffer_SliceNine.h" />
     <ClInclude Include="..\Public\VIBuffer_Terrain.h" />
   </ItemGroup>
   <ItemGroup>
@@ -312,6 +313,7 @@ call UpdateLib.bat</Command>
     <ClCompile Include="..\private\VIBuffer_Point_Instancing.cpp" />
     <ClCompile Include="..\private\VIBuffer_Rect.cpp" />
     <ClCompile Include="..\private\VIBuffer_Rect_Instancing.cpp" />
+    <ClCompile Include="..\Private\VIBuffer_SliceNine.cpp" />
     <ClCompile Include="..\Private\VIBuffer_Terrain.cpp" />
     <ClCompile Include="..\Public\Engine_Struct.cpp" />
   </ItemGroup>

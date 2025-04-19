@@ -235,6 +235,9 @@
     <Filter Include="01.Utility\98.ShaderFile">
       <UniqueIdentifier>{236ab57e-4e09-47e4-baf7-4eb725e23877}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\04.Components\VIBuffer\SliceNine">
+      <UniqueIdentifier>{76592f61-19d0-42c9-b489-6892db899a67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -462,6 +465,9 @@
     <ClInclude Include="..\Public\UI_Text.h">
       <Filter>01.Utility\03.GameObject\UIObject\ThymesiaUI\Text</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\VIBuffer_SliceNine.h">
+      <Filter>01.Utility\04.Components\VIBuffer\SliceNine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\private\Base.cpp">
@@ -673,6 +679,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\UI_Text.cpp">
       <Filter>01.Utility\03.GameObject\UIObject\ThymesiaUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_SliceNine.cpp">
+      <Filter>01.Utility\04.Components\VIBuffer\SliceNine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

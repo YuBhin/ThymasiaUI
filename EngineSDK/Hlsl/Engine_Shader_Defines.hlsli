@@ -13,6 +13,19 @@ sampler LinearSampler_Clamp = sampler_state
     AddressU = clamp;
     AddressV = clamp;
 };
+SamplerState PointSampler = sampler_state
+{
+    Filter = MIN_MAG_MIP_POINT; // 포인트 필터링 (보간 없음)
+    AddressU = CLAMP; // 텍스처 경계에서 반복 안함
+    AddressV = CLAMP;
+};
+SamplerState BorderSampler = sampler_state
+{
+    Filter = MIN_MAG_MIP_LINEAR;
+    AddressU = BORDER;
+    AddressV = BORDER;
+    BorderColor = float4(0, 0, 0, 0);
+};
 
 RasterizerState RS_Default
 {
@@ -52,11 +65,14 @@ DepthStencilState DSS_SKip_Z
 
 DepthStencilState DSS_Thymasia_UI
 {
-    DepthEnable = TRUE;
-    DepthWriteMask = ALL;
-    DepthFunc = LESS_EQUAL;
-    StencilEnable = FALSE;
+    DepthEnable = FALSE;
+    DepthWriteMask = ZERO;
 
+};
+
+DepthStencilState DSS_Thymasia_Test
+{
+  
 
 };
 

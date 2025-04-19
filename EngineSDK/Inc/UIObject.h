@@ -6,6 +6,9 @@ BEGIN(Engine)
 
 class ENGINE_DLL CUIObject abstract : public CGameObject
 {
+
+public:
+	enum TEXTSORT { TEXT_CENTER, TEXT_LEFT, TEXT_RIGHT, TEXT_END };
 public:
 	struct UIOBJECT_DESC : public CGameObject::GAMEOBJECT_DESC	
 	{
@@ -20,6 +23,7 @@ public:
 		//////////////////////////////////
 		_wstring		strFontName;
 		_wstring		strContent;
+		TEXTSORT        eTextSort;
 
 	};
 
@@ -62,6 +66,15 @@ public:
 	virtual void Set_Render_OnOff(_bool bOpen) { m_bRenderOpen = bOpen; }
 	virtual _bool Get_Render_State() {return  m_bRenderOpen; }
 	void Set_OnOff(_bool bOpen) { m_bOpen = bOpen; }
+
+
+public:
+	void Set_TextSort(TEXTSORT eSort) { m_eTextSort = eSort; }
+	TEXTSORT Get_TextSort() { return m_eTextSort; }
+
+protected:
+	TEXTSORT m_eTextSort = { TEXT_LEFT }; // 텍스트 정렬 기준
+
 protected:
 	_bool m_bOpen = { true }; // 켜져라는 호출 없으면 안 보인다. // 기본이 키는 것 => 코드를 통해 끄자
 
@@ -73,8 +86,8 @@ protected:
 	_float3				m_fPos = {}; // 저장용
 	_float2				m_fSize = {}; // 저장용
 
-	_wstring			m_strFontName;
-	_wstring			m_strContentText;
+	_wstring			m_strFontName    = {L"Font_NotoSansKR16"};
+	_wstring			m_strContentText = { L"UI 기본 출력 값" };
 
 
 	_wstring			m_strProtoName = {};

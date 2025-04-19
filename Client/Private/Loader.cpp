@@ -86,6 +86,7 @@
 #include "UI_MPBar2_BG.h"
 #include "UI_MPBar3_MainBar.h"
 #include "UI_PlunderSlotFrame.h"
+#include "UI_FixSlotFrame.h"
 #include "UI_Potion_DefaultType.h"
 #include "UI_DialogBackground.h"
 
@@ -100,6 +101,15 @@
 #include "UI_Map_Save_Image.h"
 #include "UI_MediaFrame.h"
 
+#include "UI_Skill_Slot.h"
+
+#include "UI_DialogueTalkBackground.h"
+#include "UI_DialogueWindowBackground.h"
+#include "UI_NextLineHint.h"
+
+#include "UI_QuestBackground.h"
+#include "UI_Bar_Poison.h"
+#include "UI_Frame_Poison.h"
 #pragma endregion
 
 
@@ -204,6 +214,7 @@ HRESULT CLoader::Loading_For_Level_Logo()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_LOGO, TEXT("Prototype_Component_VIBuffer_Rect"),
 		CVIBuffer_Rect::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+
 
 	lstrcpyW(m_szLoadingText, TEXT("객체 원형을 생성한다."));
 
@@ -827,6 +838,11 @@ HRESULT CLoader::Loading_For_Level_GamePlay()
 		CUI_PlunderSlotFrame::Create(m_pDevice, m_pContext))))
 		return E_FAIL;	
 	
+	/* For.Prototype_GameObject_UI_FixSlotFrame */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_FixSlotFrame"),
+		CUI_FixSlotFrame::Create(m_pDevice, m_pContext))))
+		return E_FAIL;	
+	
 	/* For.Prototype_Component_Texture_UI_Potion_DefaultType*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_Potion_DefaultType"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/PlayerMainScreen/UI_Potion_DefaultType.dds"), 1))))
@@ -948,9 +964,97 @@ HRESULT CLoader::Loading_For_Level_GamePlay()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_MediaFrame"),
 		CUI_MediaFrame::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+	//==================================================================================================================================== 스킬
+
+
+	/* For.Prototype_GameObject_UI_Skill_Slot */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Skill_Slot"),
+		CUI_Skill_Slot::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	//====================================================================================================================================== 아이세미 대화
+
+
+	/* For.Prototype_Component_Texture_UI_DialogueTalkBackground*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_DialogueTalkBackground"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/Dialogue/UI_DialogueTalkBackground.dds"), 1))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_DialogueTalkBackground */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_DialogueTalkBackground"),
+		CUI_DialogueTalkBackground::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+
+	/* For.Prototype_Component_Texture_UI_DialogueWindowBackground*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_DialogueWindowBackground"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/Dialogue/UI_DialogueWindowBackground.dds"), 1))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_DialogueWindowBackground */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_DialogueWindowBackground"),
+		CUI_DialogueWindowBackground::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+
+	/* For.Prototype_Component_Texture_UI_NextLineHint*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_NextLineHint"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/Dialogue/UI_NextLineHint_%d.dds"), 2))))
+		return E_FAIL;
+	/* For.Prototype_GameObject_UI_NextLineHint */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_NextLineHint"),
+		CUI_NextLineHint::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	//==================================================================================================================================== Poison 독 게이지
+
+
+	/* For.Prototype_Component_Texture_UI_QuestBackground*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_QuestBackground"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/Poison/UI_QuestBackground.dds"), 1))))
+		return E_FAIL;
+
+	/* For.Prototype_Component_Texture_UI_Bar_Poison*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_Bar_Poison"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/Poison/UI_Bar_Poison.dds"), 1))))
+		return E_FAIL;
+
+	/* For.Prototype_Component_Texture_UI_Frame_Poison*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_Frame_Poison"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/Poison/UI_Frame_Poison.dds"), 1))))
+		return E_FAIL;
+
+	/* For.Prototype_Component_Texture_UI_Icon_Poison*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_Icon_Poison"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/Poison/UI_Icon_Poison.dds"), 1))))
+		return E_FAIL;
+
+	/* For.Prototype_Component_Texture_UI_Bar_Noise*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_Bar_Noise"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/Poison/UI_Bar_Noise.dds"), 1))))
+		return E_FAIL;
+
+	/* For.Prototype_Component_Texture_UI_BarGlow_Poison*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_BarGlow_Poison"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/ThymesiaUI/Poison/UI_BarGlow_Poison.dds"), 1))))
+		return E_FAIL;
+	
+
+	/* For.Prototype_GameObject_UI_QuestBackground */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_QuestBackground"),
+		CUI_QuestBackground::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	
+	/* For.Prototype_GameObject_UI_Bar_Poison */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Bar_Poison"),
+		CUI_Bar_Poison::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	
+	/* For.Prototype_GameObject_UI_Frame_Poison */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UI_Frame_Poison"),
+		CUI_Frame_Poison::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 
 
 
+	
 	//====================================================================================================================================
 
 
@@ -965,6 +1069,10 @@ HRESULT CLoader::Loading_For_Level_GamePlay()
 		return E_FAIL;
 
 
+	/* For.Prototype_Component_VIBuffer_SliceNine */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_VIBuffer_SliceNine"),
+		CVIBuffer_SliceNine::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 
 	/* For.Prototype_GameObject_UI_LevelUP */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_UIGroup_GameIntro"),

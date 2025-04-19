@@ -154,9 +154,6 @@
     <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_DecorationFrame">
       <UniqueIdentifier>{d493c554-36ee-415d-81a6-7ea34ea44cb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_SkillLeftBackground">
-      <UniqueIdentifier>{ba34ff2f-53b4-4016-a48a-5c96ee199181}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_TitleBackgroundBar">
       <UniqueIdentifier>{dcbcaae5-4eae-44d2-a8db-134e2692e177}</UniqueIdentifier>
     </Filter>
@@ -318,6 +315,54 @@
     </Filter>
     <Filter Include="03.UIObject\UI_ObjectPart\0.AllObj\UI_MediaFrame">
       <UniqueIdentifier>{f3dfcc49-b42b-4216-9e60-05e893ba5727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\7.Skill">
+      <UniqueIdentifier>{752817de-a8cf-4173-bc99-25904f320f07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\7.Skill\UI_Skill_Slot">
+      <UniqueIdentifier>{691355e8-143d-48ae-a4c5-aac24b18e1aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\Dialogue">
+      <UniqueIdentifier>{477f51be-4f88-4357-b582-104e2e2f2868}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\Dialogue\UI_DialogueTalkBackground">
+      <UniqueIdentifier>{126f1536-461e-4814-a49b-10dd312a8123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\Dialogue\UI_DialogueWindowBackground">
+      <UniqueIdentifier>{3ba35208-a133-4da3-a4b1-fafc3e2f93c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\Dialogue\UI_NextLineHint">
+      <UniqueIdentifier>{f284aa2f-5d91-4d8f-a575-41d9eb2b398e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_ButtonBackground">
+      <UniqueIdentifier>{ba34ff2f-53b4-4016-a48a-5c96ee199181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_PlunderSlotFrame\FixSlot">
+      <UniqueIdentifier>{6bfe1dfc-8796-4400-8fdd-26d3014b5f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_HPBar4_MainBar">
+      <UniqueIdentifier>{de2c5ed5-3def-4bd6-9f87-2311f34d63ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\Poison">
+      <UniqueIdentifier>{9a18decb-1afa-4cb9-a6b9-b37454413e40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\Poison\UI_Bar_Poison">
+      <UniqueIdentifier>{b2182fbf-3bd8-42d7-8a5d-34d410c72f8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\Poison\UI_Frame_Poison">
+      <UniqueIdentifier>{589f8671-bb05-4892-8764-da6f6898f6ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\Poison\UI_Icon_Poison">
+      <UniqueIdentifier>{165aa8ee-4914-48a6-aadb-15e879ec622a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\Poison\UI_QuestBackground">
+      <UniqueIdentifier>{5d128122-f2b3-497b-b9f7-c2bc2bae42cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\Poison\UI_Icon_Poison\UI_Bar_Noise">
+      <UniqueIdentifier>{aa3cbee5-6de6-4af7-97f0-bcaae60ec33f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.UIObject\UI_ObjectPart\Poison\UI_Icon_Poison\UI_BarGlow_Poison">
+      <UniqueIdentifier>{faeddeed-256f-4cc7-bbc0-9820dedd5b24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -490,7 +535,7 @@
       <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_DecorationFrame</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_ButtonBackground.h">
-      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_SkillLeftBackground</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_ButtonBackground</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_TitleBackgroundBar.h">
       <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_TitleBackgroundBar</Filter>
@@ -605,6 +650,30 @@
     </ClInclude>
     <ClInclude Include="..\Public\UI_MediaFrame.h">
       <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_MediaFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Skill_Slot.h">
+      <Filter>03.UIObject\UI_ObjectPart\7.Skill\UI_Skill_Slot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_DialogueTalkBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\Dialogue\UI_DialogueTalkBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_DialogueWindowBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\Dialogue\UI_DialogueWindowBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_NextLineHint.h">
+      <Filter>03.UIObject\UI_ObjectPart\Dialogue\UI_NextLineHint</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_FixSlotFrame.h">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_PlunderSlotFrame\FixSlot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Bar_Poison.h">
+      <Filter>03.UIObject\UI_ObjectPart\Poison\UI_Bar_Poison</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_Frame_Poison.h">
+      <Filter>03.UIObject\UI_ObjectPart\Poison\UI_Frame_Poison</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_QuestBackground.h">
+      <Filter>03.UIObject\UI_ObjectPart\Poison\UI_QuestBackground</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -765,7 +834,7 @@
       <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_DecorationFrame</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_ButtonBackground.cpp">
-      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_SkillLeftBackground</Filter>
+      <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_ButtonBackground</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_TitleBackgroundBar.cpp">
       <Filter>03.UIObject\UI_ObjectPart\2.PlayerLevelUP\UI_TitleBackgroundBar</Filter>
@@ -880,6 +949,30 @@
     </ClCompile>
     <ClCompile Include="..\Private\UI_MediaFrame.cpp">
       <Filter>03.UIObject\UI_ObjectPart\0.AllObj\UI_MediaFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Skill_Slot.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\7.Skill\UI_Skill_Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_DialogueTalkBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\Dialogue\UI_DialogueTalkBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_DialogueWindowBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\Dialogue\UI_DialogueWindowBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_NextLineHint.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\Dialogue\UI_NextLineHint</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_FixSlotFrame.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\6.PlayerMainScreen\UI_PlunderSlotFrame\FixSlot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Bar_Poison.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\Poison\UI_Bar_Poison</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Frame_Poison.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\Poison\UI_Frame_Poison</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_QuestBackground.cpp">
+      <Filter>03.UIObject\UI_ObjectPart\Poison\UI_QuestBackground</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

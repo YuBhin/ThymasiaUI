@@ -61,7 +61,7 @@ HRESULT CUI_Effect_SlotFrame::Render()
 	if (FAILED(m_pTextureCom->Bind_ShaderResource(m_pShaderCom, "g_Texture", m_iTexNumber)))
 		return E_FAIL;
 
-	m_iShaderPassNum = 8;
+	//m_iShaderPassNum = 8;
 	m_pShaderCom->Begin(m_iShaderPassNum);
 
 	m_pVIBufferCom->Bind_InputAssembler();

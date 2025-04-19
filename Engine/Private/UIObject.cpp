@@ -48,6 +48,8 @@ HRESULT CUIObject::Initialize(void * pArg)
 	m_iTexNumber = pDesc->iTexNumber;
 	m_iGroupID = pDesc->iGroupID;
 
+	m_eTextSort = pDesc->eTextSort;
+
 	_uint2			vViewportSize = m_pGameInstance->Get_ViewportSize();
 	
 	m_pTransformCom->Scaling(_float3(pDesc->fSizeX, pDesc->fSizeY, 1.f));

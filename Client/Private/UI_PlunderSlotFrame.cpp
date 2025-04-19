@@ -55,7 +55,9 @@ HRESULT CUI_PlunderSlotFrame::Render()
 		return E_FAIL;
 	if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_ProjMatrix)))
 		return E_FAIL;
-	if (FAILED(m_pShaderCom->Bind_RawValue("g_bIconOn", &m_bItemIconOn, sizeof(_bool))))
+	if (FAILED(m_pShaderCom->Bind_RawValue("g_bIconOn", &m_bSkillIconOn, sizeof(_bool))))
+		return E_FAIL;
+	if (FAILED(m_pShaderCom->Bind_RawValue("g_bTexEffectOff", &m_bEffectOn, sizeof(_bool))))
 		return E_FAIL;
 	if (FAILED(m_pShaderCom->Bind_RawValue("g_SlotNum", &m_iTexNumber, sizeof(_uint))))
 		return E_FAIL;
@@ -64,6 +66,8 @@ HRESULT CUI_PlunderSlotFrame::Render()
 	if (FAILED(m_pTextureCom->Bind_ShaderResource(m_pShaderCom, "g_Texture", m_iTexNumber)))
 		return E_FAIL;
 	if (FAILED(m_pTexIconCom->Bind_ShaderResource(m_pShaderCom, "g_TexIcon", m_iTexicon)))
+		return E_FAIL;
+	if (FAILED(m_pTexEffectCom->Bind_ShaderResource(m_pShaderCom, "g_TexEffect", m_iTexEffect)))
 		return E_FAIL;
 
 
@@ -81,6 +85,11 @@ HRESULT CUI_PlunderSlotFrame::Ready_Components()
 	/* Com_Texture */
 	if (FAILED(__super::Add_Component(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_PlunderSlotFrame"),
 		TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
+		return E_FAIL;
+	
+	/*Com_Texture */
+	if (FAILED(__super::Add_Component(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_UI_Effect_SlotFrame"),
+		TEXT("Com_TexEffect"), reinterpret_cast<CComponent**>(&m_pTexEffectCom))))
 		return E_FAIL;
 
 	/* Com_Texture */
@@ -136,4 +145,5 @@ void CUI_PlunderSlotFrame::Free()
 	Safe_Release(m_pVIBufferCom);
 	Safe_Release(m_pTextureCom);
 	Safe_Release(m_pTexIconCom);
+	Safe_Release(m_pTexEffectCom);
 }

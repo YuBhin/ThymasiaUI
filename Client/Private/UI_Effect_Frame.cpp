@@ -79,7 +79,7 @@ HRESULT CUI_Effect_Frame::Render()
 	if (FAILED(m_pShaderCom->Bind_RawValue("g_fTImeAlpha", &m_fCurrentTime, sizeof(_float))))
 		return E_FAIL;
 
-	m_iShaderPassNum = 3;
+	//m_iShaderPassNum = 3;
 
 	if (FAILED(m_pTextureCom->Bind_ShaderResource(m_pShaderCom, "g_Texture", m_iTexNumber)))
 		return E_FAIL;

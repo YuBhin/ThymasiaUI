@@ -29,6 +29,8 @@ private:
 	CTexture*				m_pTextureCom = { nullptr };
 	CVIBuffer_Rect*			m_pVIBufferCom = { nullptr };
 
+private:
+	_float3 m_fTextPosition = {};
 
 
 public:
